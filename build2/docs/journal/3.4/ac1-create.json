@@ -1,0 +1,10 @@
+{
+	"created": true,
+	"workflowId": "ojxu9lcwdmb6bxl0mh5qm",
+	"enabled": true,
+	"idempotencyKey": "moat:plan:ea95dcb2-2725-4e4d-a38d-b703c5df25fb",
+	"guardId": "cmu1oekbm0003y38gc9b9nlm3",
+	"planId": "cmu1oekbj0001y38g2mmpn8ue",
+	"policyId": "cmu1oc5en0004y3f5btf6dttt",
+	"note": "first live createWorkflow; later script reruns are idempotent (created=false, same id)"
+}

@@ -1,0 +1,37 @@
+{
+	"ok": false,
+	"note": "Live POST /api/workflows/create 422. Morpho plugin networks are 1|8453|11155111 — not Base Sepolia 84532. assets must be uint256. Default plan uses web3/write-contract supplyCollateral instead.",
+	"error": {
+		"name": "KhApiError",
+		"message": "KeeperHub createWorkflow HTTP 422",
+		"status": 422,
+		"body": {
+			"error": "INVALID_ACTION_CONFIG",
+			"message": "Workflow contains invalid action configuration. Invalid node(s): \"Supply Collateral\" (2 issues). Fix the listed fields and save again.",
+			"invalidFields": [
+				{
+					"code": "INVALID_FIELD_TYPE",
+					"path": "nodes[3].data.config.network",
+					"actionType": "morpho/supply-collateral",
+					"field": "network",
+					"nodeId": "top-up",
+					"nodeLabel": "Supply Collateral",
+					"expected": "1 | 8453 | 11155111",
+					"received": "84532",
+					"message": "Invalid value for field \"network\" on action \"morpho/supply-collateral\"."
+				},
+				{
+					"code": "INVALID_FIELD_TYPE",
+					"path": "nodes[3].data.config.assets",
+					"actionType": "morpho/supply-collateral",
+					"field": "assets",
+					"nodeId": "top-up",
+					"nodeLabel": "Supply Collateral",
+					"expected": "uint256",
+					"received": "0.001",
+					"message": "Invalid value for field \"assets\" on action \"morpho/supply-collateral\"."
+				}
+			]
+		}
+	}
+}

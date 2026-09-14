@@ -15,9 +15,13 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ### B-007 | KeeperHub 0.02 ETH daily native cap
 
-- Wrap consumed 0.019 ETH. Remaining ~0.001 ETH native as of seed. Re-check `GET /api/analytics/spend-cap` before any payable KH write. Drill (3.5) should be Morpho `withdrawCollateral`, not wrap. Task 3.2 was reads-only (viem). Task 3.3 was mocked KH (no spend). 3.4 creates a workflow (no native wrap).
+- Wrap consumed 0.019 ETH. Remaining ~0.001 ETH native as of seed. Re-check `GET /api/analytics/spend-cap` before any payable KH write. Drill (3.5) should be Morpho `withdrawCollateral` via `web3/write-contract` (Morpho plugin does not list 84532), not wrap. Task 3.2 was reads-only (viem). Task 3.3 was mocked KH (no spend). Task 3.4 created workflow `ojxu9lcwdmb6bxl0mh5qm` (no native wrap).
 
 ## CLOSED
+
+### B-011 | Morpho plugin no Base Sepolia | CLOSED 2026-09-14T20:20Z
+
+Live `createWorkflow` 422: `morpho/supply-collateral` networks `1|8453|11155111`, not `"84532"`; `assets` must be uint256. Workaround: `web3/write-contract` `supplyCollateral`. Evidence `journal/3.4/kh-422-morpho-plugin.json`. 3.5 must not use `morpho/withdraw-collateral`.
 
 ### B-010 | CI migrate P1012 DATABASE_URL | CLOSED 2026-09-14T18:20Z
 

@@ -1,0 +1,22 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/arm-default-plan.test.ts > armDefaultPlan > AC1/AC2: creates enabled KH workflow and one armed Guard linked to policy+plan 807ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/arm-default-plan.test.ts > armDefaultPlan > AC3: rerun does not create a second Guard or a second createWorkflow 518ms
+ ✓ apps/worker/src/arm-default-plan.test.ts > armDefaultPlan > re-enables an existing KH workflow instead of inserting another Guard 493ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  01:39:53
+   Duration  2.27s (transform 110ms, setup 0ms, collect 179ms, tests 1.82s, environment 0ms, prepare 65ms)
+
+--- vitest exit 0 ---

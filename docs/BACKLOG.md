@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T19:55Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.3 PASS**. Next is **3.4**. Latest CI green before 3.3 push: 34889107110 (`9d844f2`). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
+**Live implementation status (2026-09-14T20:20Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.4 PASS**. Next is **3.5**. Latest CI green before 3.4 push: 34889107110 (`9d844f2`). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id. Morpho plugin does not list `"84532"`.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -404,7 +404,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 ## Phase 3 — Guard Loop Without AI (proves the thesis before any LLM exists)
 
-> **Pickup note (2026-09-14T19:55Z):** Gates **3.1–3.3 PASS**. Next is **3.4**. Watcher: `apps/worker/src/guard-loop.ts` (mocked KH). Position sync: `pnpm --filter @moat/worker sync:positions`. Evidence: `journal/3.2/`, `journal/3.3/`. `index.ts` idle — no live tick loop. `breachDetected` is `ratio <= trigger`.
+> **Pickup note (2026-09-14T20:20Z):** Gates **3.1–3.4 PASS**. Next is **3.5**. Default plan KH `ojxu9lcwdmb6bxl0mh5qm` enabled, Guard armed. Morpho plugin 422 on 84532 — writes use `web3/write-contract`. Watcher: `apps/worker/src/guard-loop.ts` (mocked KH). `index.ts` idle. `breachDetected` is `ratio <= trigger`; live ~70.5 already fires at trigger 110. Do not wipe gitignored `dev.db`. Evidence: `journal/3.2/`, `journal/3.3/`, `journal/3.4/`.
 
 ### Task 3.1: DB schema
 
@@ -460,6 +460,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 **Requirements:** `apps/worker/src/arm-default-plan.ts`: builds top-up graph via Task 2.1 builder from `verified.json` market + guardian wallet + a `Policy` row (trigger 110, `maxSpendUsd` = buffer balance) → KH validate → create (`moat:plan:<uuid>`) → enable → `Guard` row `armed`. Fully idempotent (rerun → detects existing enabled guard, updates instead of duplicating).
 
 **Gate 3.4:** AC1 script exit 0; KH workflow `enabled=true` (list-output evidence); AC2 `Guard` row status `armed` linked to policy + plan + workflow id; AC3 rerun → still exactly 1 guard row.
+
+**Status:** PASS 2026-09-14T20:20Z. Evidence: `build2/docs/journal/3.4/`. Workflow `ojxu9lcwdmb6bxl0mh5qm`. Morpho plugin rejected `"84532"` (422) so the graph is `web3/write-contract` `supplyCollateral` for `1000000000000000` wei. Manual trigger. Command: `pnpm --filter @moat/worker arm:plan`. Idempotency `moat:plan:ea95dcb2-2725-4e4d-a38d-b703c5df25fb`. Policy `maxSpendUsd=31` from USDC wallet buffer. Do not delete the workflow.
 
 ---
 

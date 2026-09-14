@@ -1,0 +1,8 @@
+{
+	"ok": true,
+	"workflowId": "ojxu9lcwdmb6bxl0mh5qm",
+	"listEnabled": true,
+	"guardStatus": "armed",
+	"guardCount": 1,
+	"databaseUrlKind": "sqlite-file"
+}

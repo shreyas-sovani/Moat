@@ -42,3 +42,27 @@ export const MORPHO_VIEW_ABI = [
 		],
 	},
 ] as const;
+
+const MARKET_PARAMS_COMPONENTS = [
+	{ name: "loanToken", type: "address" },
+	{ name: "collateralToken", type: "address" },
+	{ name: "oracle", type: "address" },
+	{ name: "irm", type: "address" },
+	{ name: "lltv", type: "uint256" },
+] as const;
+
+/** Morpho Blue `supplyCollateral` — used by the default plan. Morpho plugin does not list 84532. */
+export const MORPHO_SUPPLY_COLLATERAL_ABI = [
+	{
+		type: "function",
+		name: "supplyCollateral",
+		stateMutability: "nonpayable",
+		inputs: [
+			{ name: "marketParams", type: "tuple", components: [...MARKET_PARAMS_COMPONENTS] },
+			{ name: "assets", type: "uint256" },
+			{ name: "onBehalf", type: "address" },
+			{ name: "data", type: "bytes" },
+		],
+		outputs: [],
+	},
+] as const;

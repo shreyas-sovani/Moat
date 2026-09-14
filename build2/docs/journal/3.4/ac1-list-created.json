@@ -1,0 +1,190 @@
+{
+	"id": "ojxu9lcwdmb6bxl0mh5qm",
+	"name": "moat-default-top-up",
+	"description": "hand-coded Morpho collateral top-up guard",
+	"userId": "s5gQCfbsWWzak4AERgFGlvG8V7jQUXT8",
+	"organizationId": "c0d9f89c-f698-4377-9443-e04fd8ab7dca",
+	"isAnonymous": false,
+	"featured": false,
+	"featuredOrder": 0,
+	"featuredProtocol": null,
+	"featuredProtocolOrder": 0,
+	"projectId": null,
+	"tagId": null,
+	"nodes": [
+		{
+			"id": "trigger-1",
+			"data": {
+				"type": "trigger",
+				"label": "Manual",
+				"config": {
+					"triggerType": "Manual"
+				},
+				"status": "idle"
+			},
+			"type": "trigger",
+			"position": {
+				"x": 0,
+				"y": 116
+			}
+		},
+		{
+			"id": "read-weth",
+			"data": {
+				"type": "action",
+				"label": "Check WETH",
+				"config": {
+					"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+					"network": "84532",
+					"actionType": "web3/check-token-balance",
+					"tokenConfig": "{\"mode\":\"custom\",\"customToken\":{\"address\":\"0x4200000000000000000000000000000000000006\",\"symbol\":\"WETH\"}}"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 252,
+				"y": 116
+			}
+		},
+		{
+			"id": "cond-1",
+			"data": {
+				"type": "action",
+				"label": "Condition",
+				"config": {
+					"group": {
+						"id": "cond-1-group",
+						"logic": "AND",
+						"rules": [
+							{
+								"id": "cond-1-rule",
+								"operator": ">=",
+								"leftOperand": "{{@read-weth:Check WETH.balance}}",
+								"rightOperand": "1000000000000000"
+							}
+						]
+					},
+					"condition": "{{@read-weth:Check WETH.balance}} >= 1000000000000000",
+					"actionType": "Condition"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 504,
+				"y": 116
+			}
+		},
+		{
+			"id": "top-up",
+			"data": {
+				"type": "action",
+				"label": "Supply Collateral",
+				"config": {
+					"abi": "[{\"type\":\"function\",\"name\":\"supplyCollateral\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"marketParams\",\"type\":\"tuple\",\"components\":[{\"name\":\"loanToken\",\"type\":\"address\"},{\"name\":\"collateralToken\",\"type\":\"address\"},{\"name\":\"oracle\",\"type\":\"address\"},{\"name\":\"irm\",\"type\":\"address\"},{\"name\":\"lltv\",\"type\":\"uint256\"}]},{\"name\":\"assets\",\"type\":\"uint256\"},{\"name\":\"onBehalf\",\"type\":\"address\"},{\"name\":\"data\",\"type\":\"bytes\"}],\"outputs\":[]}]",
+					"network": "84532",
+					"actionType": "web3/write-contract",
+					"abiFunction": "supplyCollateral",
+					"functionArgs": "[{\"loanToken\":\"0x036CbD53842c5426634e7929541eC2318f3dCF7e\",\"collateralToken\":\"0x4200000000000000000000000000000000000006\",\"oracle\":\"0x274CC0f59661d3F49aE09231C9B821bc874d0490\",\"irm\":\"0x46415998764C29aB2a25CbeA6254146D50D22687\",\"lltv\":\"915000000000000000\"},\"1000000000000000\",\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\",\"0x\"]",
+					"contractAddress": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 756,
+				"y": 0
+			}
+		},
+		{
+			"id": "skip",
+			"data": {
+				"type": "action",
+				"label": "Insufficient Buffer",
+				"config": {
+					"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+					"network": "84532",
+					"actionType": "web3/check-balance"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 756,
+				"y": 232
+			}
+		},
+		{
+			"id": "notify-1",
+			"data": {
+				"type": "action",
+				"label": "Notify",
+				"config": {
+					"chatId": "[redacted]",
+					"message": "Moat default top-up guard ran on Base Sepolia",
+					"actionType": "telegram/send-message"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 1008,
+				"y": 0
+			}
+		}
+	],
+	"edges": [
+		{
+			"id": "e-trigger-1-read-weth",
+			"source": "trigger-1",
+			"target": "read-weth"
+		},
+		{
+			"id": "e-read-weth-cond-1",
+			"source": "read-weth",
+			"target": "cond-1"
+		},
+		{
+			"id": "e-cond-1-top-up-true",
+			"source": "cond-1",
+			"target": "top-up",
+			"sourceHandle": "true"
+		},
+		{
+			"id": "e-cond-1-skip-false",
+			"source": "cond-1",
+			"target": "skip",
+			"sourceHandle": "false"
+		},
+		{
+			"id": "e-top-up-notify-1",
+			"source": "top-up",
+			"target": "notify-1"
+		},
+		{
+			"id": "e-skip-notify-1",
+			"source": "skip",
+			"target": "notify-1"
+		}
+	],
+	"visibility": "private",
+	"enabled": true,
+	"sourceWorkflowId": null,
+	"createdAt": "2026-09-14T20:08:55.255Z",
+	"updatedAt": "2026-09-14T20:08:55.255Z",
+	"seededAt": null,
+	"isListed": false,
+	"listedSlug": null,
+	"listedAt": null,
+	"shareExecutionStatus": false,
+	"inputSchema": null,
+	"outputMapping": null,
+	"priceUsdcPerCall": null,
+	"workflowType": "read",
+	"category": null,
+	"chain": null,
+	"listingVersion": 1,
+	"deletedAt": null,
+	"deactivatedAt": null
+}
