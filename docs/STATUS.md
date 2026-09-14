@@ -1,43 +1,38 @@
-# Moat build status — 2026-09-14 (post T1 seed)
+# Moat build status — 2026-09-14T17:50Z
 
-**Product:** Moat (agent-guarded Morpho liquidation protection, Base Sepolia only).
-**Code root:** `build2/`. **Bounty root (not started):** `bounty/`.
-**Deadline:** submissions close 2026-09-18. **Network of record:** Base Sepolia `"84532"`.
-**Handoff file:** `docs/HANDOFF.md`.
+**Canonical pickup:** [`docs/CONTEXT.md`](CONTEXT.md) (read first). **Handoff:** [`HANDOFF.md`](HANDOFF.md).
 
-## What is done
+**Product:** Moat — agent-guarded Morpho liquidation protection. **Testnet only.**  
+**Code root:** `build2/`. **Bounty:** `bounty/` (not started).  
+**Deadline:** 2026-09-18. **Network:** Base Sepolia `"84532"`.  
+**Git:** `main` @ https://github.com/shreyas-sovani/Moat
 
-- Phase 0 live verification in `build2/config/verified.json`.
-- Task **0.1 PASS**. Task **0.2 PASS** (GitHub Actions `ci` green on `main`). Task **0.3 PASS** (488 actions). Task **0.4 PASS**.
-- Task **0.5 PASS (T1):** permissionless WETH/USDC Morpho market + seeded position via KeeperHub.
-- Task **0.6 PASS:** Telegram screenshot + same-wallet adversary.
-- Phase 1: **1.1, 1.2, 1.3, 1.4, 1.5 PASS**.
-- Env: Gemini Flash / Flash-Lite in gitignored `.env` (root + `build2/`).
-- Landing `/` serves S1 copy.
+## Done (gated PASS)
 
-## Live position (do not invent a new market id)
+Phase **0.1–0.6** and Phase **1.1–1.5**. Live Morpho position + Telegram screenshot + CI green.
 
-- Market `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d`
-- Oracle `0x274CC0f59661d3F49aE09231C9B821bc874d0490`
-- LLTV `915000000000000000` (91% disabled on this Blue)
-- Supply tx `0x5d5c3589…21e6` · Borrow tx `0xa3fd3b92…9c55`
-- Ratio ~**70.5%** of LLTV
-- Guardian `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758` (also the drill adversary)
+## Coded but NOT gated (do not skip evidence)
 
-## What is not done
+| Area | Code | Gate |
+|---|---|---|
+| KH graph builder I1–I6 | `packages/kh/src/graph.ts` + 3 tests | **2.1** journal missing |
+| KH REST client | `packages/kh/src/rest.ts` + 5 tests (need ≥8) | **2.2** journal missing |
+| KH smoke script | `packages/kh/scripts/smoke.ts` **never run** | **2.3** |
+| Prisma 10 models | `packages/db` **no migrations** | **3.1** |
+| Next landing | S1 copy only | 5.x rest not started |
 
-- Phase 2–7 (KH smoke/workflow evidence, worker, composer, UI S2–S8, marketplace, video, README).
+## Not started
 
-## What will bite you
+Worker loops, default plan, drill, Gemini composer/critic, UI S2–S8, marketplace/x402, demo video, bounty BUIDL.
 
-| Item | Impact |
-|---|---|
-| KH default daily native cap **0.02 ETH** | Wrap already used 0.019. Further payable KH writes wait for cap reset (~24h) or a higher org cap |
-| `validate_workflow` MCP-only | Local graph validate then create |
-| Next 15 `.next/types` contains `any` | Sweep source after `rm -rf apps/web/.next` |
-| Python urllib → Cloudflare 1010 | Use Node `fetch` for KeeperHub |
-| Composer still a placeholder | Gemini keys in env only |
+## Live position (do not recreate)
 
-## Next logical division
+See CONTEXT.md §5. Market `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d`. Guardian = adversary `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758`. Ratio ~70.5% of 91.5% LLTV.
 
-Phase 2: graph evidence + `pnpm --filter @moat/kh smoke`, then worker default plan / drill, then composer, then UI S2–S8.
+## Next
+
+**Phase 2.1 journal close-out → 2.2 tests≥8 → 2.3 live smoke.** Then 3.1 migrations. Always update CONTEXT.md.
+
+## Bite list (short)
+
+KH native cap ~0.001 ETH left today · REST validate 405 · Python urllib 1010 · `.next/types` `any` · Gemini not Opus · skill samples use `"8453"` / `cron`.

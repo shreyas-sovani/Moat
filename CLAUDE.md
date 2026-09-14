@@ -2,6 +2,8 @@
 
 This file is read by Claude Code automatically. It provides project-specific context and rules.
 
+**Moat live state (read first):** `docs/CONTEXT.md`. Dashboard: `docs/STATUS.md`. Pickup: `docs/HANDOFF.md`. Network of record is Base Sepolia `"84532"` — **not** `"8453"`. Composer env is Gemini Flash, not Anthropic. Do not invent Morpho market ids.
+
 ## Project Context
 
 This is a KeeperHub hackathon integration project. KeeperHub is the deterministic onchain execution and reliability layer for AI agents. All onchain value movement in this project MUST go through KeeperHub.
@@ -26,11 +28,11 @@ claude mcp add --transport http --scope user keeperhub https://app.keeperhub.com
 ## Hard Rules for Code Generation
 
 1. **ALL onchain writes go through KeeperHub** — never use ethers.js `sendTransaction`, `writeContract`, or similar directly for value movement.
-2. **Always call `validate_workflow` before `create_workflow`**
+2. **Always call `validate_workflow` before `create_workflow` when MCP validate is available.** Live REST `POST /api/workflows/validate` is **405** (MCP-only, needs stored workflowId). Workaround: local `validateGraphJson` then `create_workflow`. Do not invent a REST validate path.
 3. **Always call `get_wallet_integration` before any write action**
 4. **Always use `simulate: true` (boolean) before broadcasting direct executions**
 5. **Always use `idempotency_key` on create/execute calls for safe retries**
-6. **Chain IDs are strings**: `"8453"` not `8453`
+6. **Chain IDs are strings**: `"84532"` for this project (skill samples often show `"8453"` — that is Base **mainnet** and is **forbidden** here)
 7. **`simulate` is boolean**: `true` not `"true"`
 8. **Always call `tools_documentation` at the start of an agent session**
 9. **Condition node edges MUST include `sourceHandle: "true"` or `"false"`**

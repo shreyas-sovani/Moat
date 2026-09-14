@@ -9,6 +9,8 @@ description: >
 
 # KeeperHub Integration Skill
 
+> **Moat override:** read `docs/CONTEXT.md` first. This skill's samples use mainnet `"8453"`, `cron`, and an old Condition shape. Moat live: chain `"84532"`, `scheduleCron`, Condition `config.group.rules` with `leftOperand`/`rightOperand`. REST `validate` is 405. Composer is Gemini Flash.
+
 ## What KeeperHub Is
 
 KeeperHub is the **execution and reliability layer for AI agents operating onchain**. It provides:

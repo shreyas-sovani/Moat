@@ -15,7 +15,15 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ### B-007 | KeeperHub 0.02 ETH daily native cap
 
-- Wrap consumed 0.019 ETH. Further payable KH writes need cap reset or a higher org cap. ERC-20 Morpho calls are not native-capped.
+- Wrap consumed 0.019 ETH. Remaining ~0.001 ETH native as of seed. Re-check `GET /api/analytics/spend-cap` before any payable KH write.
+
+### B-008 | Task 2.3 smoke not run
+
+- Script exists. REST validate 405 so smoke must use local `validateGraphJson`. Notify chatId `"0"` is wrong (`m2ovhyo51qj0ixr3pl3dq` / env chat id).
+
+### B-009 | Task 3.1 no Prisma migrations
+
+- 10 models + unit test exist. `packages/db/prisma/migrations` missing — Gate 3.1 AC1 would fail on a fresh clone.
 
 ## CLOSED
 

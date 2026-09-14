@@ -17,3 +17,8 @@ TASK 1.2 | PASS 2026-09-14 | assetsFromShares table + property; bigint-only
 TASK 1.3 | PASS 2026-09-14T17:34:53Z | live AC4 numbers in position-risk.test.ts (70.526009% of 91.5% LLTV)
 TASK 1.4 | PASS 2026-09-14 | breach/fire-point/stress; formula wins over 105→0 clause
 TASK 1.5 | PASS 2026-09-14 | policy schema + 27 risk/policy tests
+TASK 2.1 | NOT-GATED | graph.ts + 3 tests exist; journal/2.1 missing — next agent
+TASK 2.2 | NOT-GATED | rest.ts + 5 tests (need ≥8); journal/2.2 missing
+TASK 2.3 | NOT-GATED | packages/kh/scripts/smoke.ts never run live
+TASK 3.1 | NOT-GATED | 10 Prisma models + test; no migrations committed
+

@@ -1,5 +1,7 @@
 # KeeperHub Hackathon — Deep Analysis
 
+> **Live build state is `docs/CONTEXT.md`, not this file.** This analysis is research background. Skill/sample chain `"8453"` and workflow snippets here must not be copied into Moat (network of record `"84532"`).
+
 > **Purpose:** Full research dump for builders and coding agents. Everything sourced directly from docs, the info brief, and ecosystem study. Zero hallucination policy — where data is confirmed, it is stated; where it is inferred, it is marked as such.
 
 ---

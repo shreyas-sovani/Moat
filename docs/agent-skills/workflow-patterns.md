@@ -1,5 +1,7 @@
 # KeeperHub Workflow Patterns — Hallucination-Free Reference
 
+> **Moat:** copy-paste patterns below often use `"8453"` and `cron`. Use `"84532"` and `scheduleCron`. Full live overrides: `docs/CONTEXT.md`.
+
 Concrete, copy-paste patterns sourced directly from KeeperHub docs.
 
 ---

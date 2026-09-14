@@ -1,8 +1,8 @@
 # Moat — Agent-Guarded Liquidation Protection for Morpho
 
 **Hackathon:** KeeperHub — The Agent Economy Hackathon (DoraHacks), Sep 6–18, 2026
-**Status:** Building in `build2/` (testnet-only). See `docs/STATUS.md`.
-**Verdict:** Build this. Network of record is Base Sepolia, not mainnet.
+**Status:** Building in `build2/` (testnet-only). **Live pickup: `docs/CONTEXT.md`.** Dashboard: `docs/STATUS.md`.
+**Verdict:** Build this. Network of record is Base Sepolia `"84532"`, not mainnet `"8453"`.
 
 ---
 

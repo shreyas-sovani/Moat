@@ -1,6 +1,10 @@
 # Moat — PRD (Product Requirements Document)
 
-**Source of truth hierarchy:** this PRD > `docs/product.md` (rationale) > `docs/analysis.md` (ecosystem reference) > `CLAUDE.md` (hard rules). If any doc conflicts with live verification output (§3), live output wins and the doc gets updated.
+**Source of truth hierarchy:** live `docs/CONTEXT.md` + `build2/config/verified.json` + journal evidence > this PRD > `docs/product.md` > `docs/analysis.md` > `CLAUDE.md`. If any doc conflicts with live verification, live output wins and the doc gets updated.
+
+**Composer/critic (operator override vs §0.4):** env is `gemini-2.5-flash` / `gemini-2.5-flash-lite`, not Opus/Sonnet.
+
+**LLTV (live vs §3):** Morpho Blue on 84532 does not enable 91%. Seeded market uses **91.5%**. Market id is in `verified.json` — do not create another.
 
 **Project root:** `/Users/shreyas/Desktop/keeperhub/build2` (main BUIDL)
 **Bounty BUIDL:** `/Users/shreyas/Desktop/keeperhub/bounty` (separate — §13)
@@ -12,7 +16,7 @@
 1. **Testnet only. No mainnet. No real funds.** All value movement is testnet tokens with zero real-world value.
 2. **Bounty BUIDL pursued separately** (separate directory, separate DoraHacks BUIDL entry).
 3. **Build everything under `/build2`** (main) and `/bounty` (bounty).
-4. **LLM choice: composer = Claude Opus 4.7 (`claude-opus-4-7`), critic = Claude Sonnet 4.6 (`claude-sonnet-4-6`)** — different model families' weights avoided by using different models for decorrelation; critic must not share the composer's prompt. Rationale: Opus for composition quality, Sonnet for adversarial review at 5x lower cost; a same-model pair with same prompt correlates errors.
+4. **LLM choice (PRD original):** composer Opus / critic Sonnet. **Live override:** `COMPOSER_MODEL=gemini-2.5-flash`, `CRITIC_MODEL=gemini-2.5-flash-lite` (see CONTEXT.md). Do not wire Anthropic unless the operator changes env.
 5. **4-day window, full scope.** The executing agent builds end-to-end following §14 step by step.
 
 ---

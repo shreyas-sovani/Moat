@@ -1,5 +1,7 @@
 # KeeperHub MCP Tools — Authoritative Reference
 
+> **Moat:** Cursor often has no KeeperHub MCP connected. Use REST + `KEEPERHUB_API_KEY`. Live REST map and 405-on-validate: `docs/CONTEXT.md`.
+
 Source: https://docs.keeperhub.com/ai-tools/mcp-server  
 (Also available at runtime via `tools_documentation` MCP tool)
 

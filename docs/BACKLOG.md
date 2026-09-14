@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Phase 0 gates **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Composer/critic env is Gemini Flash (not Anthropic).
+**Live implementation status (2026-09-14T17:50Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **code exists, gates NOT closed** (start at 2.1 journal). Composer/critic env is Gemini Flash (not Anthropic). Do not invent market ids.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -345,6 +345,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 ---
 
 ## Phase 2 — KeeperHub Client
+
+> **Pickup note (2026-09-14):** implementation for 2.1 (graph.ts + 3 tests) and 2.2 (rest.ts + 5 tests) and a smoke script for 2.3 **already exist**. Gates are **not PASS** until journal evidence exists. 2.2 needs ≥8 tests. 2.3 has never been run live. Smoke currently calls no local validate workaround, uses notify chatId `"0"`, and assumes `listWorkflows` is a bare array. Details: `docs/CONTEXT.md` §9. Do not rewrite the builder from skill samples (`cron`, `"8453"`, Condition `conditions[]`) — live shapes are already in `graph.ts`.
 
 ### Task 2.1: Workflow graph builder + invariants
 
