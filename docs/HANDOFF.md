@@ -7,7 +7,7 @@
 ## Closed last session
 
 - **3.4 PASS**. Default top-up plan armed on KeeperHub. Workflow `ojxu9lcwdmb6bxl0mh5qm` `enabled=true`. Guard `armed` linked to policy (trigger 110, `maxSpendUsd=31`) + plan. Idempotent: rerun → 1 guard. Evidence `build2/docs/journal/3.4/`. Command: `pnpm --filter @moat/worker arm:plan`. Morpho plugin 422 on 84532 — graph uses `web3/write-contract` `supplyCollateral` (0.001 WETH wei). Manual trigger. Do not delete this workflow.
-- Prior: 0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.3. Latest CI green before this push: [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110).
+- Prior: 0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.3. Latest CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131`).
 
 ## Do not do
 

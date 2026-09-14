@@ -13,7 +13,7 @@ Agent-guarded Morpho liquidation protection on **Base Sepolia** (testnet only). 
 
 Base Sepolia `chainId` `"84532"`. No mainnet. No real funds. All runtime onchain writes go through KeeperHub.
 
-Seeded Morpho WETH/USDC market and guardian position exist — **do not invent a market id**. Phase **0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.4** are gated PASS. Latest CI green: [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110). See `build2/config/verified.json` and `docs/CONTEXT.md`.
+Seeded Morpho WETH/USDC market and guardian position exist — **do not invent a market id**. Phase **0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.4** are gated PASS. Latest CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112). See `build2/config/verified.json` and `docs/CONTEXT.md`.
 
 ## Monorepo
 
@@ -27,4 +27,4 @@ pnpm install
 pnpm lint && pnpm test && pnpm build
 ```
 
-CI on `main`: GitHub Actions `.github/workflows/ci.yml` (`working-directory: build2`): install, migrate (`DATABASE_URL=file:./dev.db`), lint, build, test. Prisma CLI must be invoked via `pnpm --filter @moat/db prisma:migrate:*` so `build2/.env` is loaded. Latest green run: [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110).
+CI on `main`: GitHub Actions `.github/workflows/ci.yml` (`working-directory: build2`): install, migrate (`DATABASE_URL=file:./dev.db`), lint, build, test. Prisma CLI must be invoked via `pnpm --filter @moat/db prisma:migrate:*` so `build2/.env` is loaded. Latest green run: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112).

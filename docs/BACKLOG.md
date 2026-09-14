@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T20:20Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.4 PASS**. Next is **3.5**. Latest CI green before 3.4 push: 34889107110 (`9d844f2`). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id. Morpho plugin does not list `"84532"`.
+**Live implementation status (2026-09-14T20:20Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.4 PASS**. Next is **3.5**. Latest CI green: 34891501112 (`5e0a131` 3.4). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id. Morpho plugin does not list `"84532"`.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 

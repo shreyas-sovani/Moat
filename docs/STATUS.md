@@ -9,7 +9,7 @@
 
 ## Done (gated PASS)
 
-Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1**, **3.2**, **3.3**, **3.4**. Live Morpho position, Telegram screenshot, KH smoke, Prisma migrations, viem position sync, mocked watcher/supervisor, default top-up plan armed on KH (`ojxu9lcwdmb6bxl0mh5qm`). **Latest CI green (pre-3.4 push):** [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110). P1012-fix: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). Failed P1012 [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) is closed.
+Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1**, **3.2**, **3.3**, **3.4**. Live Morpho position, Telegram screenshot, KH smoke, Prisma migrations, viem position sync, mocked watcher/supervisor, default top-up plan armed on KH (`ojxu9lcwdmb6bxl0mh5qm`). **Latest CI green:** [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4). Prior: [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2). P1012-fix: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). Failed P1012 [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) is closed.
 
 ## Not started
 

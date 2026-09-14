@@ -49,7 +49,7 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | Task | Status | Notes |
 |---|---|---|
 | 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **67** |
-| 0.2 CI | **PASS** | Latest green: [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (`9d844f2` 3.2). Prior green [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (P1012 fix). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 — fixed. |
+| 0.2 CI | **PASS** | Latest green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4). Prior: [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2), [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (P1012 fix). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 — fixed. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |
