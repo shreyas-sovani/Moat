@@ -1,0 +1,17 @@
+collateral_weth_wei 19000000000000000
+borrow_usdc_raw 31000000
+lltv 915000000000000000 (91.5%; 91.0% isLltvEnabled=false on this Morpho Blue)
+
+at_seed_oracle_price 2528352900680000000000000000
+at_seed_collateral_loan_raw 48038705 (48.038705 USDC)
+at_seed_max_borrow_raw 43955415 (43.955415 USDC)
+at_seed_ratio_of_lltv_pct 70.526009
+at_seed_in_band_60_80 True
+
+live_oracle_price 2522400000000000000000000000
+live_collateral_loan_raw 47925600 (47.925600 USDC)
+live_max_borrow_raw 43851924 (43.851924 USDC)
+live_ratio_of_lltv_pct 70.692451
+live_in_band_60_80 True
+
+formula borrow * 1e18 * 100 / ((collateral * oracle.price / 1e36) * lltv)

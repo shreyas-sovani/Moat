@@ -79,13 +79,22 @@ describe("computePositionRisk", () => {
 		expect(risk.collateralAssets).toBe(6n);
 	});
 
-	it("documents Phase-0 live wallet: unfunded guardian has zero borrow so ratio 0", () => {
-		// Hand computation (Task 0.5 AC4 template):
-		// borrowAssets = 0, collateralAssets = 0, lltv = 0.91e18
-		// ratioOfLltvPct = 0 because borrowShares = 0 (PRD semantics).
-		// Live RPC: guardian 0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758 ETH=0 USDC=0 WETH=0.
-		// No Morpho market seeded yet (T1-pending). Empty position is the live-read.
-		const risk = computePositionRisk(oneToOne(0n, 0n), market());
-		expect(risk.ratioOfLltvPct).toBe(0);
+	it("reproduces Task 0.5 AC4 live WETH/USDC position (~70.5% of 91.5% LLTV)", () => {
+		// Live Base Sepolia Morpho position (journal/vm1/ac4-ratio.txt), oracle-adjusted
+		// into loan-token raw units so computePositionRisk's same-asset formula applies:
+		//   oracle.price at seed = 2528352900680000000000000000
+		//   collateral = 0.019 WETH = 19000000000000000 wei
+		//   collateral_loan = collateral * price / 1e36 = 48038705 (48.038705 USDC)
+		//   borrow = 31000000 (31 USDC)
+		//   lltv = 915000000000000000 (91.0% disabled on this Blue; 91.5% enabled)
+		//   ratio = borrow * 1e18 * 100 / (collateral_loan * lltv) = 70.526009%
+		// Market id 0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d
+		const lltv = 915000000000000000n;
+		const borrow = 31000000n;
+		const collateralLoan = 48038705n;
+		const risk = computePositionRisk(oneToOne(borrow, collateralLoan), market(lltv));
+		expect(risk.borrowAssets).toBe(borrow);
+		expect(risk.collateralAssets).toBe(collateralLoan);
+		expect(Math.abs(risk.ratioOfLltvPct - 70.526009)).toBeLessThan(1e-6);
 	});
 });

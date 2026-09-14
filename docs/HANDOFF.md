@@ -1,4 +1,4 @@
-# Handoff — next agent (2026-09-14)
+# Handoff — next agent (2026-09-14, after T1 seed)
 
 Read in order: `CLAUDE.md` → `docs/PRD.md` → `docs/BACKLOG.md` → this file → `docs/STATUS.md` → `build2/docs/journal/PROGRESS.md` → `build2/docs/journal/BLOCKED.md`.
 
@@ -6,35 +6,37 @@ Read in order: `CLAUDE.md` → `docs/PRD.md` → `docs/BACKLOG.md` → this file
 
 ## What this session closed
 
-- Root `.env` and `build2/.env` reformatted to `KEY=value` (gitignored). Models: `COMPOSER_MODEL=gemini-2.5-flash`, `CRITIC_MODEL=gemini-2.5-flash-lite`, `GEMINI_API_KEY` set. Anthropic unused.
-- Guardian funded: **0.08 ETH**, **50 USDC**, **0 WETH**. More faucets expected.
-- Telegram: KH integration `m2ovhyo51qj0ixr3pl3dq`, bot `@moat69bot`, live send `message_id=4`, KH test 200. Chat id only in `.env`.
-- GitHub repo exists: `https://github.com/shreyas-sovani/Moat` (public, empty default branch). **Local `origin` was missing** — add + push only if operator confirms. Local branch is `master`; operator previously wanted `git branch -M main`.
-- OrbStack Docker is up. `act` is **not** installed. 0.2 AC1 still needs `act push` or a real `gh run` after first push.
+- Telegram screenshot in `build2/docs/journal/vt1/screenshot.png`. Gate **0.6 PASS**. Adversary = same guardian.
+- T1 Morpho market + seed via KeeperHub simulate-then-broadcast. Gate **0.5 PASS**. Gate **1.3 AC2 PASS**.
+- Operator: proceed with current testnet tokens; more after 24h; push to `main`.
 
-**Not started this session (do not skip into these until 0.5 seed):** Phase 2 evidence closeout, worker/composer UI, Morpho market create.
+## Live constants (already in `verified.json`)
 
-## Env files (never commit)
+- Guardian / adversary: `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758`
+- Market id: `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d`
+- Oracle: `0x274CC0f59661d3F49aE09231C9B821bc874d0490`
+- LLTV: `915000000000000000` (`isLltvEnabled(91e16)=false` on this Blue)
+- Supply: `https://sepolia.basescan.org/tx/0x5d5c35890a1c6e631bd543a2c24967628741c559671a6d159b675cabacb621e6`
+- Borrow: `https://sepolia.basescan.org/tx/0xa3fd3b92d5821c1658f0f04dbaec4088380c227bf8eb4a2c9b55f2abffe99c55`
 
-Both `/.env` and `/build2/.env` must contain: `KEEPERHUB_API_KEY`, `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, flash model names. `build2/.env.example` has the names without secrets.
+## Env (never commit)
 
-## Verified constants (do not invent new ones)
+Both `/.env` and `/build2/.env`: `KEEPERHUB_API_KEY`, `GEMINI_API_KEY`, `TELEGRAM_*`, Flash model names.
 
-See `build2/config/verified.json`. Guardian `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758`. WETH `0x4200000000000000000000000000000000000006`. USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e`. Morpho Blue `0xBBBB…FFCb`. `markets: []`.
+## KeeperHub constraints learned this block
 
-Python urllib to KeeperHub = Cloudflare 1010. Use Node `fetch`.
+- Default daily native cap is **0.02 ETH**. Wrap used 0.019. Gas is not counted; ERC-20 Morpho calls are not counted.
+- `GET /api/analytics/spend-cap` is live (added to `restEndpointsConfirmed.spendCap`).
+- Direct `contract-call` struct args: pass a **named object** (or flattened fields), not a nested array. Nested `[tuple]` fails ethers encode.
+- Simulate HTTP 400 + `failureKind: "validation"` is an encode/revert dry-run, not a malformed request wrapper bug.
 
-`validate_workflow` REST = 405; MCP-only; local `validateGraphJson` then `create_workflow`.
+## Next block
 
-## Next block (operator must confirm)
-
-1. Wait for extra ETH/USDC **or** proceed with 0.08 / 50?
-2. Wrap ETH→WETH via KH `simulate: true` then broadcast.
-3. Create permissionless WETH/USDC Morpho market (T1); seed supply+borrow ~70% of LLTV; record market id + ≥2 tx hashes.
-4. Drop `build2/docs/journal/vt1/screenshot.png` of Telegram message 4.
-5. `git remote add origin https://github.com/shreyas-sovani/Moat.git` if missing; then `git push` (ask: keep `master` or rename `main`?).
-6. Then Phase 2 gates 2.1–2.3 (graph tests + `pnpm --filter @moat/kh smoke`).
+1. Confirm GitHub CI green on `main` (Gate 0.2 AC1).
+2. Phase 2 gates 2.1–2.3 (`pnpm --filter @moat/kh smoke`).
+3. Worker / default plan / drill (3.x) using the live market id above — do not create another market unless this one is gone.
+4. Composer uses Gemini Flash, not Anthropic.
 
 ## Quality
 
-`pnpm lint && pnpm test && pnpm build` from `build2/` (PATH needs `~/.local/bin` for pnpm). Forbidden-token grep after `rm -rf apps/web/.next`.
+`pnpm lint && pnpm test && pnpm build` from `build2/` (PATH needs `~/.local/bin`). Forbidden-token grep after `rm -rf apps/web/.next`.

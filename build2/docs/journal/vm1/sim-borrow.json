@@ -1,0 +1,16 @@
+{
+	"http": 200,
+	"body": {
+		"success": true,
+		"status": "simulated",
+		"from": "0x08dfdc3d060085d5f61e18f7c3f7e8f7736b3758",
+		"to": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+		"value": "0",
+		"gasEstimate": "153672",
+		"simulatedReturnValue": [
+			"31000000",
+			"31000000000000"
+		],
+		"wouldRevert": false
+	}
+}

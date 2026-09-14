@@ -120,4 +120,6 @@ export function explorerAddressUrl(verified: Verified, address: string): string 
 	return `${verified.network.explorerUrl}${path}`;
 }
 
+export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 export { REPO_ROOT };

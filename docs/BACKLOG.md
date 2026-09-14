@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Task 0.1 scaffold **PASS**. Telegram + guardian funding **integrated this block**. Tasks 0.5 market seed and 0.2 CI run still **BLOCKED** pending operator answers. Do not invent market ids. Composer/critic env is Gemini Flash (not Anthropic).
+**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Task 0.1 scaffold **PASS**. Task 0.5 T1 market **PASS**. Task 0.6 Telegram **PASS**. Task 0.2 AC1 still needs the first `gh run` after push. Composer/critic env is Gemini Flash (not Anthropic).
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -123,7 +123,7 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 - [x] AC2: workflow YAML contains exactly the three commands in order lint→build→test. [evidence: `build2/docs/journal/0.2/ac2-grep.txt`]
 - [x] AC3: commit `chore: add ci` exists.
 
-**Status:** FAIL/BLOCKED on AC1. Workflow is in `.github/workflows/ci.yml` (`working-directory: build2`). Nested copy `build2/.github/workflows/ci.yml` is for if `build2/` is published as its own repo root.
+**Status:** FAIL/BLOCKED on AC1 until the first push/`gh run`. Workflow is in `.github/workflows/ci.yml` (`working-directory: build2`). Nested copy `build2/.github/workflows/ci.yml` is for if `build2/` is published as its own repo root.
 
 ---
 
@@ -188,10 +188,12 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** use mainnet canonical values as testnet truth without the onchain check; leave oracle choice unrecorded; proceed without an onchain-confirmed position.
 
 **Gate 0.5 (MILESTONE-class):**
-- AC1: `verified.json.morpho` complete per Requirement 4; `provenance.V-M1` names the branch taken + evidence file.
-- AC2: `journal/vm1/` contains ≥2 tx hashes (supply + borrow) linking to the seeded position.
-- AC3: `cast call <blue> "position(bytes32,address)(uint256,uint256)" <marketId> <borrower>` → BOTH values > 0. [evidence: raw output]
-- AC4: A manually computed ratio (show the arithmetic in the evidence file: assets, lltv, result) lands in 60–80 %of-LLTV.
+- [x] AC1: `verified.json.morpho` complete; `provenance.V-M1` branch T1. [evidence: `build2/docs/journal/vm1/GATE.md`]
+- [x] AC2: ≥2 tx hashes (supply + borrow). [evidence: `build2/docs/journal/vm1/TXS.md`]
+- [x] AC3: `position` supplyShares and borrowShares both > 0. [evidence: `build2/docs/journal/vm1/ac3-position.txt`]
+- [x] AC4: ratio 70.526% of 91.5% LLTV (60–80 band). [evidence: `build2/docs/journal/vm1/ac4-ratio.txt`]
+
+**Status:** PASS 2026-09-14T17:34:53Z. T1 on existing Morpho Blue; LLTV 91.5% because 91% not enabled.
 
 ---
 
@@ -204,10 +206,10 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 2. `test_notification` on Telegram (preferred) else Discord; record channel + config in `verified.json`.
 
 **Gate 0.6:**
-- [~] AC1: guardian × ETH/USDC/WETH recorded (`vm1/FUNDING.md`, `vt1/GATE.md`). WETH=0. Adversary wallet not separate. More faucets expected.
-- [~] AC2: KH telegram test 200 + bot sendMessage id=4; `verified.json.keeperhub.telegram` filled. **Screenshot file still missing** (`journal/vt1/screenshot.png`).
+- [x] AC1: guardian × ETH/USDC/WETH recorded (`vm1/FUNDING.md`, `vt1/GATE.md`). Position seeded. Adversary = same guardian.
+- [x] AC2: KH telegram test 200 + bot sendMessage id=4; screenshot `journal/vt1/screenshot.png`.
 
-**Status:** PARTIAL 2026-09-14. Do not treat as full PASS.
+**Status:** PASS 2026-09-14T17:34:53Z.
 
 **PHASE 0 EXIT:** all six gates PASS; sweeps clean; ≥6 commits; PROGRESS.md current. BLOCKED items resolved or re-planned before Phase 1 starts.
 
@@ -307,7 +309,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 1.3:** AC1 all five cases pass to 1e-6; AC2 a test comment block shows the hand-computation for the LIVE Phase-0 position (numbers from Task 0.5 AC4) and a live-read test reproduces it; AC3 rounding directions asserted (up for borrow, down for collateral) via boundary shares chosen so floor≠ceil.
 
-**Status:** FAIL/BLOCKED on AC2 (no seeded Morpho position — B-001). AC1 and AC3 SAT. Evidence: `build2/docs/journal/1.3/`.
+**Status:** PASS 2026-09-14T17:34:53Z. AC2 uses Task 0.5 AC4 live numbers.
 
 ---
 

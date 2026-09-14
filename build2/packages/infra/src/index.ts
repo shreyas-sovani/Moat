@@ -18,4 +18,5 @@ export {
 	loadVerified,
 	parseChainAllowlist,
 	verifiedJsonPath,
+	ZERO_ADDRESS,
 } from "./config.js";

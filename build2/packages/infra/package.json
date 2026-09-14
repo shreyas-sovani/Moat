@@ -13,7 +13,8 @@
 		"test": "vitest run --config ../../vitest.config.ts src",
 		"lint": "biome check .",
 		"sync:schemas": "tsx scripts/sync-schemas.ts",
-		"check:config": "tsx scripts/check-config.ts"
+		"check:config": "tsx scripts/check-config.ts",
+		"seed:position": "tsx scripts/seed-position.ts"
 	},
 	"dependencies": {
 		"zod": "3.25.76"

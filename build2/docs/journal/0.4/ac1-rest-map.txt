@@ -16,7 +16,8 @@
     "listChains": "GET /api/chains",
     "listActionSchemas": "GET /api/mcp/schemas",
     "listIntegrations": "GET /api/integrations",
-    "listKeys": "GET /api/keys"
+    "listKeys": "GET /api/keys",
+    "spendCap": "GET /api/analytics/spend-cap"
   },
   "mcpOnly": [
     "validate_workflow"

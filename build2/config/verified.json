@@ -26,7 +26,16 @@
 		"blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
 		"irm": "0x46415998764C29aB2a25CbeA6254146D50D22687",
 		"oracleFactory": "0x2DC205F24BCb6B311E5cdf0745B0741648Aebd3d",
-		"markets": [],
+		"markets": [
+			{
+				"id": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d",
+				"collateralToken": "0x4200000000000000000000000000000000000006",
+				"loanToken": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+				"lltv": "915000000000000000",
+				"oracle": "0x274CC0f59661d3F49aE09231C9B821bc874d0490",
+				"irm": "0x46415998764C29aB2a25CbeA6254146D50D22687"
+			}
+		],
 		"collateralAccounting": "Morpho Blue position.collateral is already asset units, not shares. Callers of computePositionRisk must pass collateral as assets with totalSupplyShares=totalSupplyAssets (1:1) OR pass the raw collateral amount as collateralShares with matching totals."
 	},
 	"oracles": {
@@ -63,7 +72,8 @@
 			"listChains": "GET /api/chains",
 			"listActionSchemas": "GET /api/mcp/schemas",
 			"listIntegrations": "GET /api/integrations",
-			"listKeys": "GET /api/keys"
+			"listKeys": "GET /api/keys",
+			"spendCap": "GET /api/analytics/spend-cap"
 		},
 		"mcpOnly": ["validate_workflow"],
 		"actionTypesConfirmed": [
@@ -87,11 +97,11 @@
 			"type": "web3",
 			"role": "guardian",
 			"balances": {
-				"eth": "0.08",
-				"usdc": "50",
+				"eth": "0.061",
+				"usdc": "31",
 				"weth": "0",
-				"asOf": "2026-09-14T16:50:00Z",
-				"note": "Base Sepolia. User will send more; faucet limit hit. WETH wrap not done (paused — next block)."
+				"asOf": "2026-09-14T17:34:53Z",
+				"note": "Base Sepolia after T1 seed. Wallet USDC=31 is the borrowed amount; 50 USDC is supplied to Morpho; 0.019 WETH is Morpho collateral. Native wrap used 0.019 of KeeperHub's 0.02 ETH daily cap."
 			}
 		},
 		"telegram": {
@@ -119,10 +129,10 @@
 			"timestamp": "2026-09-14T09:15:00Z"
 		},
 		"V-M1": {
-			"command": "cast code MorphoBlue + IRM + oracle factory; Morpho GraphQL markets(where:{chainId_in:[84532]})",
-			"resultDigest": "T0-partial: Morpho Blue HAS_CODE on 84532 at CREATE2 address; GraphQL returns unsupported chainId 84532 so no indexed markets. T1 pending: create permissionless WETH/USDC market after faucet funding. Branch=T1-pending.",
-			"timestamp": "2026-09-14T09:16:00Z",
-			"branch": "T1-pending"
+			"command": "cast isIrmEnabled/isLltvEnabled; KH POST /api/execute/contract-call simulate then broadcast wrap+oracle+createMarket+supply+borrow; cast position/idToMarketParams",
+			"resultDigest": "T1 complete on existing Morpho Blue. isLltvEnabled(91e16)=false so market LLTV=91.5e16. Oracle 0x274CC0f59661d3F49aE09231C9B821bc874d0490 from factory+ETH/USD. Market 0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d. Supply tx 0x5d5c35890a1c6e631bd543a2c24967628741c559671a6d159b675cabacb621e6 borrow tx 0xa3fd3b92d5821c1658f0f04dbaec4088380c227bf8eb4a2c9b55f2abffe99c55. Position supplyShares,borrowShares,collateral all > 0. Ratio ~70.5% of LLTV.",
+			"timestamp": "2026-09-14T17:34:53Z",
+			"branch": "T1"
 		},
 		"V-M2": {
 			"command": "cast call Chainlink AggregatorV3 description/decimals/latestRoundData on Base Sepolia",
@@ -131,13 +141,13 @@
 		},
 		"V-F1": {
 			"command": "cast balance + USDC.balanceOf(6 decimals) + WETH.balanceOf guardian 0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758 --rpc-url https://sepolia.base.org",
-			"resultDigest": "ETH=0.08, USDC=50.000000 (50000000 raw), WETH=0. Testnet only. More faucets expected. Adversary wallet not funded separately.",
-			"timestamp": "2026-09-14T16:50:00Z"
+			"resultDigest": "ETH=0.061, USDC wallet=31.000000 (borrowed), WETH=0 (0.019 in Morpho collateral). Market seeded. Adversary=same guardian wallet.",
+			"timestamp": "2026-09-14T17:34:53Z"
 		},
 		"V-T1": {
 			"command": "GET /api/integrations 200; POST /api/integrations/m2ovhyo51qj0ixr3pl3dq/test 200; Telegram getMe + sendMessage to TELEGRAM_CHAT_ID",
-			"resultDigest": "telegram integration m2ovhyo51qj0ixr3pl3dq present; KH test Connection successful; bot @moat69bot sendMessage ok message_id=4. Screenshot still requested from operator for Gate 0.6 AC2 photo.",
-			"timestamp": "2026-09-14T16:50:00Z"
+			"resultDigest": "telegram integration m2ovhyo51qj0ixr3pl3dq present; KH test Connection successful; bot @moat69bot sendMessage ok message_id=4. Operator screenshot in journal/vt1/screenshot.png.",
+			"timestamp": "2026-09-14T17:27:00Z"
 		}
 	}
 }

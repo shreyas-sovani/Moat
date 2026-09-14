@@ -1,29 +1,29 @@
-# Gate 0.6 — faucet + notification (this block)
+# Gate 0.6 — faucet + notification
 
-Evaluated 2026-09-14T16:50Z. Testnet only. No mainnet. No real funds.
+Evaluated 2026-09-14T17:34:53Z. Testnet only. No mainnet. No real funds.
 
 ## AC1 wallets × assets
 
-Guardian `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758` on Base Sepolia (`cast` vs `https://sepolia.base.org`):
+Guardian `0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758` on Base Sepolia after T1 seed:
 
-| Asset | Raw | Human |
+| Asset | Location | Amount |
 |---|---|---|
-| ETH | 80000000000000000 wei | **0.08 ETH** |
-| USDC `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | 50000000 | **50 USDC** |
-| WETH `0x4200000000000000000000000000000000000006` | 0 | **0 WETH** (wrap not started this block) |
+| ETH | wallet | **0.061 ETH** |
+| USDC | wallet | **31 USDC** (borrowed) |
+| USDC | Morpho supply | **50 USDC** |
+| WETH | Morpho collateral | **0.019 WETH** |
 
-Operator stated more ETH/USDC coming (faucet limit). Adversary wallet not created/funded separately (PRD allows same org wallet as drill attacker).
+Adversary = **same guardian wallet** (operator: use same wallet). PRD allows this for the drill attacker.
 
-**AC1:** SAT for guardian × three assets (WETH is zero, which is a recorded live fact). Not SAT for a second adversary wallet until one exists.
+**AC1:** SAT.
 
 ## AC2 delivered notification
 
 - Bot `getMe` ok; username `moat69bot`
 - Direct `sendMessage` ok; `message_id` **4**
-- KeeperHub `GET /api/integrations` includes `{ id: m2ovhyo51qj0ixr3pl3dq, type: telegram }`
-- `POST /api/integrations/m2ovhyo51qj0ixr3pl3dq/test` → **200** `{ "status": "success", "message": "Connection successful" }`
-- Chat id lives only in gitignored `.env` as `TELEGRAM_CHAT_ID`
+- KeeperHub telegram integration `m2ovhyo51qj0ixr3pl3dq` test 200
+- Screenshot: `screenshot.png` (and original `PHOTO-2026-09-14-22-52-05.jpg`) showing `@moat69bot` delivered “Moat V-T1: KeeperHub notification path live on Base Sepolia testnet. No mainnet. No real funds.”
 
-**AC2 photo:** operator must drop a screenshot of message 4 into this folder (`screenshot.png`) for a camera-complete PASS. API delivery is proven without it.
+**AC2:** SAT.
 
-**Verdict:** functional V-T1 **SAT**. Formal Gate 0.6 **PASS pending screenshot + adversary wallet** (ask operator).
+**Verdict: PASS.**

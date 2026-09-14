@@ -4,22 +4,6 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ## OPEN
 
-### B-001 | Task 0.5 V-M1 | T1-pending market — funds started, not seeded
-
-- Live 2026-09-14T16:50Z: guardian ETH=0.08, USDC=50, WETH=0. Morpho Blue HAS_CODE. `markets: []`.
-- Operator: more ETH/USDC coming (faucet limit). **Paused before wrap/market/seed.**
-- Decision needed from operator: proceed with current balances, or wait for more?
-- Runtime writes must go through KeeperHub (`simulate: true` first). Do not guess a market id.
-
-### B-002 | Task 0.6 AC2 photo | screenshot of Telegram message 4
-
-- API: KH test 200; bot sendMessage `message_id=4` to private chat. Bot `@moat69bot`. Integration `m2ovhyo51qj0ixr3pl3dq`.
-- Missing: `build2/docs/journal/vt1/screenshot.png`. Drop it to close AC2 camera evidence.
-
-### B-003 | Task 0.6 adversary wallet
-
-- Only guardian funded. PRD allows same KH wallet as drill attacker. Confirm: no second wallet, or fund one and send address.
-
 ### B-004 | CLAUDE.md `validate_workflow` vs live REST
 
 - `POST /api/workflows/validate` → 405. `mcpOnly: ["validate_workflow"]`.
@@ -29,18 +13,33 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 - Chain catalog via `GET /api/chains`. Optional.
 
-### B-006 | Task 0.2 AC1 | no act, no local origin, no push
+### B-006 | Task 0.2 AC1 | no gh run until first push
 
-- Docker/OrbStack: OK. `act`: not installed. GitHub repo `https://github.com/shreyas-sovani/Moat` exists (public, empty default branch).
-- Local `git remote -v` empty. Operator previously listed `git remote add origin …` and `git branch -M main` + push.
-- Decision: add origin + push (`master` vs `main`)? Install `act`?
+- Docker/OrbStack: OK. `act`: not installed. Public repo `https://github.com/shreyas-sovani/Moat` exists (empty default branch at last check).
+- Close by pushing `main` and watching `gh run`.
+
+### B-007 | KeeperHub 0.02 ETH daily native cap
+
+- Wrap consumed 0.019 ETH. Further payable KH writes need cap reset or a higher org cap. ERC-20 Morpho calls are not native-capped.
 
 ## CLOSED
+
+### B-001 | Task 0.5 V-M1 T1-pending | CLOSED 2026-09-14T17:34:53Z
+
+Market + seed complete. Market id in `verified.json`.
+
+### B-002 | Task 0.6 AC2 photo | CLOSED 2026-09-14
+
+`journal/vt1/screenshot.png` present.
+
+### B-003 | Task 0.6 adversary wallet | CLOSED 2026-09-14
+
+Operator: same guardian wallet.
 
 ### B-002 original (no telegram integration) | CLOSED 2026-09-14
 
 Telegram connection now present and testable.
 
-### B-003 original (zero faucet balances) | CLOSED-PARTIAL 2026-09-14
+### B-003 original (zero faucet balances) | CLOSED 2026-09-14
 
-Guardian no longer zero. WETH still 0 until wrap. More tokens expected.
+Guardian funded and position seeded.

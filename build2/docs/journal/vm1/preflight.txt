@@ -1,0 +1,29 @@
+timestamp=2026-09-14T17:27:47Z
+rpc=https://sepolia.base.org
+block=46819290
+guardian_eth_wei=80000000000000000
+guardian_usdc_raw=50000000 [5e7]
+guardian_weth_raw=0
+blue_code_len=15623
+irm_code_len=2323
+factory_code_len=4546
+ethusd_code_len=9571
+isIrmEnabled=true
+owner=0x937Ce2d6c488b361825D2DB5e8A70e26d48afEd5
+isLltvEnabled 910000000000000000 = false
+isLltvEnabled 915000000000000000 = true
+isLltvEnabled 860000000000000000 = true
+isLltvEnabled 770000000000000000 = true
+isLltvEnabled 625000000000000000 = true
+isLltvEnabled 945000000000000000 = true
+isLltvEnabled 965000000000000000 = true
+isLltvEnabled 980000000000000000 = true
+isLltvEnabled 0 = true
+ethusd_decimals=8
+ethusd_description="ETH / USD"
+ethusd_latestRoundData=18446744073709831826 [1.844e19]
+253227209551 [2.532e11]
+1789406062 [1.789e9]
+1789406062 [1.789e9]
+18446744073709831826 [1.844e19]
+factory_isOracle_zero=false

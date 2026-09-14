@@ -3,7 +3,7 @@
 | AC | Result | Evidence |
 |---|---|---|
 | AC1 five ratio cases to 1e-6 | SAT | `ac1-ac3-tests.txt` |
-| AC2 live Phase-0 position hand-computation | **UNSAT / BLOCKED** | No seeded market (Task 0.5 / B-001). Existing test records the live unfunded guardian: borrow 0 → ratio 0. Not a substitute for 0.5 AC4 arithmetic. |
+| AC2 live Phase-0 position hand-computation | SAT | `packages/risk/src/position-risk.test.ts` comment + test uses Task 0.5 AC4 numbers (borrow 31e6, collateral_loan 48038705, lltv 91.5e16 → 70.526009%) |
 | AC3 borrow-up / collateral-down when floor≠ceil | SAT | `rounds borrow up and collateral down when floor != ceil` |
 
-**Verdict: FAIL (AC2 blocked on 0.5).** Unit math is otherwise complete.
+**Verdict: PASS** after Task 0.5 T1 seed (2026-09-14T17:34:53Z).
