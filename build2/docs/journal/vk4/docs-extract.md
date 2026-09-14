@@ -19,6 +19,7 @@ Base URL: `https://app.keeperhub.com` (paths already include `/api`; do not doub
 | list chains | `GET /api/chains` | **200** |
 | list schemas | `GET /api/mcp/schemas` | **200** |
 | plugins catalog | `GET /api/plugins` | **404** — do not use |
+| spend cap | `GET /api/analytics/spend-cap` | **200** (probed 2026-09-14 during T1; default 0.02 ETH)
 
 Idempotency: send header `Idempotency-Key` on create/execute. `simulate` is JSON boolean.
 
