@@ -141,11 +141,13 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** hand-edit `action-schemas.json`; truncate the action list; trust any doc (including PRD/analysis.md) over the live dump.
 
 **Gate 0.3:**
-- AC1: `jq '.actions | length' config/action-schemas.json` → `> 10` (integer ≥ 11).
-- AC2: `jq '[.actions[].type] | map(select(startswith("web3/")))' config/action-schemas.json` → non-empty, includes ≥1 write action and ≥1 read action.
-- AC3: `verified.json.keeperhub.actionTypesConfirmed` non-empty; `provenance.V-K1` present with command + timestamp.
-- AC4: run `pnpm sync:schemas` twice → `git diff --stat` shows no change except `fetchedAt`. [evidence: both outputs]
-- AC5: `journal/vk1/` contains the four MCP raw outputs + `kh chain list`.
+- [x] AC1: `jq '.actions | length' config/action-schemas.json` → `488`. [evidence: `build2/docs/journal/0.3/ac1-actions-length.txt`]
+- [x] AC2: web3 types include `web3/write-contract` and `web3/check-balance`. [evidence: `build2/docs/journal/0.3/ac2-web3-types.txt`]
+- [x] AC3: `actionTypesConfirmed` + `provenance.V-K1`. [evidence: `build2/docs/journal/0.3/ac3-verified.txt`]
+- [x] AC4: `pnpm sync:schemas` twice → only `fetchedAt` changes. Relative `ACTION_SCHEMAS_PATH` is resolved from the monorepo root. [evidence: `build2/docs/journal/0.3/ac4-diff-after-*.txt`]
+- [x] AC5: `journal/vk1/` four MCP dumps; `kh` CLI absent so chain catalog is `GET /api/chains` (`kh-chain-list.md`, B-005).
+
+**Status:** PASS 2026-09-14.
 
 ---
 
@@ -162,9 +164,11 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** copy paths from PRD/analysis.md without probing; probe with destructive calls.
 
 **Gate 0.4:**
-- AC1: Every operation in Requirement 1 has an entry in `restEndpointsConfirmed` OR appears in `mcpOnly`. [evidence: `jq` output]
-- AC2: At least one live HTTP status per probed path recorded in `journal/vk4/` — none ≥ 500.
-- AC3: `provenance.V-K2` filled.
+- [x] AC1: Req-1 operations mapped in `restEndpointsConfirmed` or `mcpOnly`. [evidence: `build2/docs/journal/0.4/ac1-rest-map.txt`]
+- [x] AC2: live probes, none ≥ 500. Use Node `fetch` (Python urllib = Cloudflare 1010). [evidence: `build2/docs/journal/vk4/live-probes.json`]
+- [x] AC3: `provenance.V-K2` filled.
+
+**Status:** PASS 2026-09-14.
 
 ---
 

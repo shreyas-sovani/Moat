@@ -1,0 +1,9 @@
+
+> moat@ sync:schemas /Users/shreyas/Desktop/keeperhub/build2
+> pnpm --filter @moat/infra sync:schemas
+
+
+> @moat/infra@0.0.1 sync:schemas /Users/shreyas/Desktop/keeperhub/build2/packages/infra
+> tsx scripts/sync-schemas.ts
+
+wrote 488 actions fetchedAt=2026-09-14T09:42:52.926Z

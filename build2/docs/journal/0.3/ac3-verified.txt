@@ -1,0 +1,22 @@
+{
+  "actionTypesConfirmed": [
+    "web3/check-balance",
+    "web3/check-token-balance",
+    "web3/read-contract",
+    "web3/write-contract",
+    "web3/transfer-funds",
+    "morpho/get-position",
+    "morpho/supply-collateral",
+    "morpho/withdraw-collateral",
+    "morpho/repay",
+    "morpho/borrow",
+    "morpho/supply",
+    "telegram/send-message",
+    "Condition"
+  ],
+  "provenance.V-K1": {
+    "command": "GET https://app.keeperhub.com/api/mcp/schemas + MCP tools/list + get_wallet_integration + list_workflows + GET /api/chains",
+    "resultDigest": "488 actions; Base Sepolia 84532 enabled; wallet 0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+    "timestamp": "2026-09-14T09:16:00Z"
+  }
+}

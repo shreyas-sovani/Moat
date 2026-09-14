@@ -1,0 +1,74 @@
+[
+	{
+		"method": "GET",
+		"path": "/api/workflows",
+		"status": 200,
+		"bodySnippet": "[{\"id\":\"0xvy2j0hf55mpjotgemq2\",\"name\":\"Aave Health Factor Monitor\",\"description\":\"Check your Aave v3 health factor hourly, and when it drops below the 1.5 safety threshold alert bo"
+	},
+	{
+		"method": "GET",
+		"path": "/api/chains",
+		"status": 200,
+		"bodySnippet": "[{\"id\":\"m7nebe2m24m3o6ii1qpor\",\"chainId\":42431,\"name\":\"Tempo Testnet\",\"symbol\":\"TEMPO\",\"chainType\":\"evm\",\"explorerUrl\":\"https://explore.testnet.tempo.xyz\",\"explorerAddressPath\":\"/a"
+	},
+	{
+		"method": "GET",
+		"path": "/api/integrations",
+		"status": 200,
+		"bodySnippet": "[{\"id\":\"nn8bdw0xa4x1rgrg2aztw\",\"name\":\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\",\"type\":\"web3\",\"isManaged\":false,\"createdAt\":\"2026-09-13T19:49:42.380Z\",\"updatedAt\":\"2026-09-13T19"
+	},
+	{
+		"method": "GET",
+		"path": "/api/mcp/schemas",
+		"status": 200,
+		"bodySnippet": "{\"version\":\"1.0.0\",\"generatedAt\":\"2026-09-14T09:44:19.761Z\",\"actions\":{\"aave-v3/supply\":{\"actionType\":\"aave-v3/supply\",\"label\":\"Aave V3: Supply Asset\",\"description\":\"Supply an asse"
+	},
+	{
+		"method": "GET",
+		"path": "/api/keys",
+		"status": 200,
+		"bodySnippet": "{\"items\":[{\"id\":\"78rgjtymd16iotnl7ofg9\",\"name\":\"new\",\"keyPrefix\":\"kh_2NkSM\",\"createdAt\":\"2026-09-13T19:52:15.876Z\",\"lastUsedAt\":\"2026-09-14T09:44:20.841Z\",\"expiresAt\":null,\"scope\":"
+	},
+	{
+		"method": "HEAD",
+		"path": "/api/execute/transfer",
+		"status": 405,
+		"bodySnippet": ""
+	},
+	{
+		"method": "OPTIONS",
+		"path": "/api/execute/contract-call",
+		"status": 204,
+		"bodySnippet": ""
+	},
+	{
+		"method": "GET",
+		"path": "/api/execute/placeholder/status",
+		"status": 404,
+		"bodySnippet": "{\"error\":\"Execution not found\"}"
+	},
+	{
+		"method": "GET",
+		"path": "/api/workflows/executions/placeholder/status",
+		"status": 404,
+		"bodySnippet": "{\"error\":\"Execution not found\"}"
+	},
+	{
+		"method": "GET",
+		"path": "/api/workflows/executions/placeholder/logs",
+		"status": 404,
+		"bodySnippet": "{\"error\":\"Execution not found\"}"
+	},
+	{
+		"method": "POST",
+		"path": "/api/workflows/validate",
+		"status": 405,
+		"bodySnippet": ""
+	},
+	{
+		"method": "GET",
+		"path": "/api/plugins",
+		"status": 404,
+		"bodySnippet": "{\"error\":\"not_found\",\"detail\":\"Route GET /api/plugins not found\",\"request_id\":\"7302b8e5-3a58-4b6a-8ba0-1d85cdc9dedd\"}"
+	}
+]

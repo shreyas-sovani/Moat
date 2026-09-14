@@ -9,6 +9,8 @@
 - Phase 0 live verification written to `build2/config/verified.json` (RPC, Morpho Blue, IRM, oracle factory, USDC, WETH, Chainlink ETH/USD + BTC/USD, KH wallet + REST map, 488 action schemas).
 - Task **0.1 scaffold PASS**: pnpm+turbo monorepo, 8 workspaces, 40 tests, lint green after `next build`. Landing `/` serves S1 copy.
 - Task 0.2 CI YAML committed (`chore: add ci`); **AC1 blocked** until Docker/`act` or a GitHub remote exists.
+- Task **0.3 PASS**: 488 KeeperHub actions on disk; `pnpm sync:schemas` only bumps `fetchedAt`.
+- Task **0.4 PASS**: REST paths live-probed; `validate_workflow` is MCP-only.
 - Packages already implemented ahead of their phase gates (evidence still being closed): `@moat/infra` config, `@moat/risk` math, `@moat/policy` schema, `@moat/kh` graph+REST client, Prisma schema (10 models), Next landing S1 copy.
 
 ## What is not done
@@ -34,4 +36,4 @@
 
 ## Next logical division
 
-Close Task 0.3 / 0.4 evidence gates from the live dumps already on disk. Tasks 0.5–0.6 stay blocked on faucets + KH Telegram.
+Phase 1 gates 1.1–1.5 (code already present): collect AC evidence, fill remaining gaps (live-position risk comment for 1.3 AC2 is blocked on 0.5). Tasks 0.5–0.6 stay blocked on faucets + KH Telegram.

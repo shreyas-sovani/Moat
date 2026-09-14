@@ -1,0 +1,29 @@
+{
+  "restEndpointsConfirmed": {
+    "listWorkflows": "GET /api/workflows",
+    "getWorkflow": "GET /api/workflows/{workflowId}",
+    "createWorkflow": "POST /api/workflows/create",
+    "updateWorkflow": "PATCH /api/workflows/{workflowId}",
+    "deleteWorkflow": "DELETE /api/workflows/{workflowId}",
+    "executeWorkflow": "POST /api/workflows/{workflowId}/execute",
+    "listExecutions": "GET /api/workflows/{workflowId}/executions",
+    "getExecutionStatus": "GET /api/workflows/executions/{executionId}/status",
+    "getExecutionLogs": "GET /api/workflows/executions/{executionId}/logs",
+    "waitExecution": "GET /api/workflows/executions/{executionId}/wait",
+    "directTransfer": "POST /api/execute/transfer",
+    "directContractCall": "POST /api/execute/contract-call",
+    "directExecutionStatus": "GET /api/execute/{executionId}/status",
+    "listChains": "GET /api/chains",
+    "listActionSchemas": "GET /api/mcp/schemas",
+    "listIntegrations": "GET /api/integrations",
+    "listKeys": "GET /api/keys"
+  },
+  "mcpOnly": [
+    "validate_workflow"
+  ],
+  "provenance.V-K2": {
+    "command": "Fetched https://docs.keeperhub.com/api, /api/workflows, /api/executions, /api/direct-execution; live-probed GET /api/workflows 200, GET /api/chains 200, GET /api/integrations 200, GET /api/mcp/schemas 200, GET /api/keys 200, HEAD /api/execute/transfer 405, POST /api/workflows/validate 405",
+    "resultDigest": "create path is POST /api/workflows/create; validate_workflow is MCP-only and requires a stored workflowId",
+    "timestamp": "2026-09-14T09:16:00Z"
+  }
+}
