@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14):** see `docs/STATUS.md` and `build2/docs/journal/PROGRESS.md`. Task 0.1 scaffold **PASS**. Tasks 0.5 and 0.6 **BLOCKED** (unfunded guardian, no Morpho market id, no KH notification channel). Do not invent market ids or balances.
+**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Task 0.1 scaffold **PASS**. Telegram + guardian funding **integrated this block**. Tasks 0.5 market seed and 0.2 CI run still **BLOCKED** pending operator answers. Do not invent market ids. Composer/critic env is Gemini Flash (not Anthropic).
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -119,7 +119,7 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** cache shortcuts that skip install; matrix builds; deploy steps.
 
 **Gate 0.2:**
-- [ ] AC1: `act push` (or a real `gh run` if remote exists) → job exits 0. **BLOCKED 2026-09-14:** `act` missing, Docker unavailable, no git remote. [evidence: `build2/docs/journal/0.2/ac1-act.txt`]
+- [ ] AC1: `act push` (or a real `gh run` if remote exists) → job exits 0. **BLOCKED 2026-09-14 evening:** OrbStack Docker OK; `act` not installed; GitHub `shreyas-sovani/Moat` exists; local `origin` unset; no push. [evidence: `build2/docs/journal/0.2/ac1-act.txt`]
 - [x] AC2: workflow YAML contains exactly the three commands in order lint→build→test. [evidence: `build2/docs/journal/0.2/ac2-grep.txt`]
 - [x] AC3: commit `chore: add ci` exists.
 
@@ -204,8 +204,10 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 2. `test_notification` on Telegram (preferred) else Discord; record channel + config in `verified.json`.
 
 **Gate 0.6:**
-- AC1: journal contains balance evidence for BOTH wallets × THREE assets.
-- AC2: delivered-notification screenshot in `journal/vt1/`; channel recorded in `verified.json`.
+- [~] AC1: guardian × ETH/USDC/WETH recorded (`vm1/FUNDING.md`, `vt1/GATE.md`). WETH=0. Adversary wallet not separate. More faucets expected.
+- [~] AC2: KH telegram test 200 + bot sendMessage id=4; `verified.json.keeperhub.telegram` filled. **Screenshot file still missing** (`journal/vt1/screenshot.png`).
+
+**Status:** PARTIAL 2026-09-14. Do not treat as full PASS.
 
 **PHASE 0 EXIT:** all six gates PASS; sweeps clean; ≥6 commits; PROGRESS.md current. BLOCKED items resolved or re-planned before Phase 1 starts.
 

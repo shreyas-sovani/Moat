@@ -58,7 +58,25 @@ export const VerifiedSchema = z.object({
 			address: addressSchema,
 			type: z.string().min(1),
 			role: z.string().min(1),
+			balances: z
+				.object({
+					eth: z.string(),
+					usdc: z.string(),
+					weth: z.string(),
+					asOf: z.string(),
+					note: z.string().optional(),
+				})
+				.optional(),
 		}),
+		telegram: z
+			.object({
+				integrationId: z.string().min(1),
+				botUsername: z.string().min(1),
+				testStatus: z.string().min(1),
+				botSendMessageId: z.string().min(1),
+				chatIdSource: z.string().min(1),
+			})
+			.optional(),
 	}),
 	provenance: z.record(
 		z.string(),
@@ -94,6 +112,7 @@ export const EnvSchema = z.object({
 	KEEPERHUB_API_KEY: z.string().optional().default(""),
 	COMPOSER_MODEL: z.string().min(1),
 	CRITIC_MODEL: z.string().min(1),
+	GEMINI_API_KEY: z.string().optional().default(""),
 	ANTHROPIC_API_KEY: z.string().optional().default(""),
 	DATABASE_URL: z.string().min(1),
 	RPC_URL_84532: z.string().url(),

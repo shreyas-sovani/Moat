@@ -1,3 +1,6 @@
-# which act / docker / remotes
+# which act / docker / remotes (re-check 2026-09-14T16:50Z)
 act: not found
-docker: unavailable
+docker: OK (OrbStack)
+git remotes: (none locally)
+GitHub: https://github.com/shreyas-sovani/Moat exists public, empty default branch
+gh auth: shreyas-sovani logged in

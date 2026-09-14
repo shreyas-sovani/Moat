@@ -85,7 +85,21 @@
 			"integrationId": "nn8bdw0xa4x1rgrg2aztw",
 			"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
 			"type": "web3",
-			"role": "guardian"
+			"role": "guardian",
+			"balances": {
+				"eth": "0.08",
+				"usdc": "50",
+				"weth": "0",
+				"asOf": "2026-09-14T16:50:00Z",
+				"note": "Base Sepolia. User will send more; faucet limit hit. WETH wrap not done (paused — next block)."
+			}
+		},
+		"telegram": {
+			"integrationId": "m2ovhyo51qj0ixr3pl3dq",
+			"botUsername": "moat69bot",
+			"testStatus": "POST /api/integrations/m2ovhyo51qj0ixr3pl3dq/test → 200 Connection successful",
+			"botSendMessageId": "4",
+			"chatIdSource": "TELEGRAM_CHAT_ID in gitignored .env (private chat)"
 		}
 	},
 	"provenance": {
@@ -116,14 +130,14 @@
 			"timestamp": "2026-09-14T09:16:00Z"
 		},
 		"V-F1": {
-			"command": "cast balance + USDC.balanceOf + WETH.balanceOf guardian wallet",
-			"resultDigest": "all zero — faucet funding required",
-			"timestamp": "2026-09-14T09:16:00Z"
+			"command": "cast balance + USDC.balanceOf(6 decimals) + WETH.balanceOf guardian 0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758 --rpc-url https://sepolia.base.org",
+			"resultDigest": "ETH=0.08, USDC=50.000000 (50000000 raw), WETH=0. Testnet only. More faucets expected. Adversary wallet not funded separately.",
+			"timestamp": "2026-09-14T16:50:00Z"
 		},
 		"V-T1": {
-			"command": "GET /api/integrations",
-			"resultDigest": "only web3 wallet integration present; no Telegram/Discord connection. test_notification blocked until a notification integration is created in the KH org.",
-			"timestamp": "2026-09-14T09:16:00Z"
+			"command": "GET /api/integrations 200; POST /api/integrations/m2ovhyo51qj0ixr3pl3dq/test 200; Telegram getMe + sendMessage to TELEGRAM_CHAT_ID",
+			"resultDigest": "telegram integration m2ovhyo51qj0ixr3pl3dq present; KH test Connection successful; bot @moat69bot sendMessage ok message_id=4. Screenshot still requested from operator for Gate 0.6 AC2 photo.",
+			"timestamp": "2026-09-14T16:50:00Z"
 		}
 	}
 }

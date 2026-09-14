@@ -75,8 +75,9 @@ export function loadActionSchemas(path = actionSchemasPath()): ActionSchemasFile
 export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
 	const result = EnvSchema.safeParse({
 		KEEPERHUB_API_KEY: source.KEEPERHUB_API_KEY ?? "",
-		COMPOSER_MODEL: source.COMPOSER_MODEL ?? "claude-opus-4-7",
-		CRITIC_MODEL: source.CRITIC_MODEL ?? "claude-sonnet-4-6",
+		COMPOSER_MODEL: source.COMPOSER_MODEL ?? "gemini-2.5-flash",
+		CRITIC_MODEL: source.CRITIC_MODEL ?? "gemini-2.5-flash-lite",
+		GEMINI_API_KEY: source.GEMINI_API_KEY ?? "",
 		ANTHROPIC_API_KEY: source.ANTHROPIC_API_KEY ?? "",
 		DATABASE_URL: source.DATABASE_URL ?? "file:./packages/db/prisma/dev.db",
 		RPC_URL_84532: source.RPC_URL_84532 ?? "https://sepolia.base.org",
