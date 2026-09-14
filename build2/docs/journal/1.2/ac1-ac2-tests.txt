@@ -1,0 +1,18 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 100n / 100n of 100n down = 100n 1ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 150n / 300n of 100n down = 50n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 1n / 3n of 1n up = 1n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 2n / 3n of 1n up = 1n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 4n / 3n of 1n up = 2n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 0n / 100n of 100n up = 0n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 7n / 3n of 10n down = 23n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 7n / 3n of 10n up = 24n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > property: up is always >= down and differs by at most 1 for 50 random triples 2ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  15:19:29
+   Duration  362ms (transform 39ms, setup 0ms, collect 28ms, tests 5ms, environment 0ms, prepare 83ms)
+

@@ -1,0 +1,36 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/risk/src/breach.test.ts > breachDetected > fires on exact equality and not just above 1ms
+ ✓ packages/risk/src/breach.test.ts > breachDetected > Infinity fires and NaN throws 1ms
+ ✓ packages/risk/src/breach.test.ts > guardFirePoint > r0=80 trigger=110 is 27.27 0ms
+ ✓ packages/risk/src/breach.test.ts > guardFirePoint > clamps already-at-or-past trigger to 0 and large drops to 50 0ms
+ ✓ packages/risk/src/breach.test.ts > simulateCollateralDrop > is strictly increasing across [0,10,20,30,40,49] 0ms
+ ✓ packages/risk/src/breach.test.ts > simulateCollateralDrop > throws for d=50 and d=-1 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 100n / 100n of 100n down = 100n 1ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 150n / 300n of 100n down = 50n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 1n / 3n of 1n up = 1n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 2n / 3n of 1n up = 1n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 4n / 3n of 1n up = 2n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 0n / 100n of 100n up = 0n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 7n / 3n of 10n down = 23n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > table 7n / 3n of 10n up = 24n 0ms
+ ✓ packages/risk/src/morpho-math.test.ts > assetsFromShares > property: up is always >= down and differs by at most 1 for 50 random triples 2ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 91 / 100 at 0.91e18 lltv is exactly 100 1ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 45.5 via shares 455/1000 of 100 collateral-equivalent assets is 50 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 10 borrow and 0 collateral is Infinity 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 0 borrow and 100 collateral is 0 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 91 / 200 at 0.91e18 lltv is 50 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > rounds borrow up and collateral down when floor != ceil 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > documents Phase-0 live wallet: unfunded guardian has zero borrow so ratio 0 0ms
+ ✓ packages/policy/src/schema.test.ts > PolicySchema > rejects trigger 99.9 and 140.01, accepts 100 and 140 3ms
+ ✓ packages/policy/src/schema.test.ts > PolicySchema > rejects empty, duplicate, and unknown allowedActions 2ms
+ ✓ packages/policy/src/schema.test.ts > PolicySchema > parses defaults 0ms
+ ✓ packages/policy/src/schema.test.ts > caps > budget boundary == is true and +epsilon is false 0ms
+ ✓ packages/policy/src/schema.test.ts > caps > actionAllowed membership 0ms
+
+ Test Files  4 passed (4)
+      Tests  27 passed (27)
+   Start at  15:19:32
+   Duration  413ms (transform 139ms, setup 0ms, collect 226ms, tests 20ms, environment 1ms, prepare 361ms)
+

@@ -1,0 +1,16 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 91 / 100 at 0.91e18 lltv is exactly 100 1ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 45.5 via shares 455/1000 of 100 collateral-equivalent assets is 50 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 10 borrow and 0 collateral is Infinity 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 0 borrow and 100 collateral is 0 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > 91 / 200 at 0.91e18 lltv is 50 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > rounds borrow up and collateral down when floor != ceil 0ms
+ ✓ packages/risk/src/position-risk.test.ts > computePositionRisk > documents Phase-0 live wallet: unfunded guardian has zero borrow so ratio 0 0ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  15:19:30
+   Duration  330ms (transform 41ms, setup 0ms, collect 34ms, tests 4ms, environment 0ms, prepare 69ms)
+

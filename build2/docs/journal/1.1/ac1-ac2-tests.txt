@@ -1,0 +1,13 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/infra/src/verified-schema.test.ts > VerifiedSchema > parses a full valid fixture 4ms
+ ✓ packages/infra/src/verified-schema.test.ts > VerifiedSchema > rejects chainId 8453 (Base mainnet) 2ms
+ ✓ packages/infra/src/verified-schema.test.ts > VerifiedSchema > rejects chainId 1 (Ethereum mainnet) 1ms
+ ✓ packages/infra/src/verified-schema.test.ts > loadVerified > throws an Error whose message contains the Zod issue path when morpho.blue is missing 2ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  15:18:56
+   Duration  395ms (transform 62ms, setup 0ms, collect 70ms, tests 11ms, environment 0ms, prepare 81ms)
+

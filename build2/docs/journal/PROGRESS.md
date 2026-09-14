@@ -12,3 +12,8 @@ REWORK 1 | AC4 | F1 | ACTION_SCHEMAS_PATH=./config/... resolved against packages
 TASK 0.4 | PASS 2026-09-14T09:44:00Z | REST map live-probed; validate_workflow MCP-only (405); no 5xx
 TASK 0.5 | BLOCKED | V-M1 branch T1-pending: Morpho Blue HAS_CODE on 84532; no seeded market; guardian balances are zero
 TASK 0.6 | BLOCKED | faucet funding + Telegram/Discord integration missing in KH org
+TASK 1.1 | PASS 2026-09-14 | verified.json Zod + check-config; no extra readers
+TASK 1.2 | PASS 2026-09-14 | assetsFromShares table + property; bigint-only
+TASK 1.3 | BLOCKED AC2 | unit ratios SAT; live seeded position missing (B-001)
+TASK 1.4 | PASS 2026-09-14 | breach/fire-point/stress; formula wins over 105→0 clause
+TASK 1.5 | PASS 2026-09-14 | policy schema + 27 risk/policy tests

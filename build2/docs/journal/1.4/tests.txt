@@ -1,0 +1,15 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/risk/src/breach.test.ts > breachDetected > fires on exact equality and not just above 1ms
+ ✓ packages/risk/src/breach.test.ts > breachDetected > Infinity fires and NaN throws 1ms
+ ✓ packages/risk/src/breach.test.ts > guardFirePoint > r0=80 trigger=110 is 27.27 0ms
+ ✓ packages/risk/src/breach.test.ts > guardFirePoint > clamps already-at-or-past trigger to 0 and large drops to 50 0ms
+ ✓ packages/risk/src/breach.test.ts > simulateCollateralDrop > is strictly increasing across [0,10,20,30,40,49] 0ms
+ ✓ packages/risk/src/breach.test.ts > simulateCollateralDrop > throws for d=50 and d=-1 0ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:19:31
+   Duration  337ms (transform 33ms, setup 0ms, collect 29ms, tests 4ms, environment 0ms, prepare 80ms)
+

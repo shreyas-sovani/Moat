@@ -1,0 +1,1 @@
+{"ok":true,"chainId":"84532","blue":"0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb","marketCount":0}

@@ -11,6 +11,7 @@
 - Task 0.2 CI YAML committed (`chore: add ci`); **AC1 blocked** until Docker/`act` or a GitHub remote exists.
 - Task **0.3 PASS**: 488 KeeperHub actions on disk; `pnpm sync:schemas` only bumps `fetchedAt`.
 - Task **0.4 PASS**: REST paths live-probed; `validate_workflow` is MCP-only.
+- Phase 1: **1.1, 1.2, 1.4, 1.5 PASS**. **1.3 blocked** on a live seeded Morpho position (same as 0.5).
 - Packages already implemented ahead of their phase gates (evidence still being closed): `@moat/infra` config, `@moat/risk` math, `@moat/policy` schema, `@moat/kh` graph+REST client, Prisma schema (10 models), Next landing S1 copy.
 
 ## What is not done

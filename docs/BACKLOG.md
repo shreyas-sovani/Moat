@@ -225,10 +225,12 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** read `verified.json` from any other module; default-fill missing constants; coerce types silently.
 
 **Gate 1.1:**
-- AC1: Unit test: full valid fixture parses; clone with `chainId: "8453"` fails; clone with `chainId: "1"` fails. [test names in evidence]
-- AC2: Unit test: missing `morpho.blue` → `loadVerified` throws an Error whose message contains the Zod issue path.
-- AC3: `pnpm tsx packages/infra/scripts/check-config.ts` → exit 0 against the real file.
-- AC4: `grep -rn "verified.json" apps packages --include="*.ts" | grep -v infra` → prints nothing.
+- [x] AC1: fixture parses; `"8453"` and `"1"` fail. [evidence: `build2/docs/journal/1.1/ac1-ac2-tests.txt`]
+- [x] AC2: missing `morpho.blue` → throw contains `morpho.blue`.
+- [x] AC3: `pnpm tsx packages/infra/scripts/check-config.ts` exit 0. [evidence: `build2/docs/journal/1.1/ac3-check-config.txt`]
+- [x] AC4: grep `verified.json` outside infra prints nothing.
+
+**Status:** PASS 2026-09-14.
 
 ---
 
@@ -261,6 +263,8 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 Plus one property test (≥50 random bigint triples): `up ≥ down` always, and `up - down ≤ 1`.
 
 **Gate 1.2:** AC1 table cases green exactly; AC2 property test green; AC3 function source contains no `Number(` (grep evidence).
+
+**Status:** PASS 2026-09-14. Evidence: `build2/docs/journal/1.2/`.
 
 ---
 
@@ -301,6 +305,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 1.3:** AC1 all five cases pass to 1e-6; AC2 a test comment block shows the hand-computation for the LIVE Phase-0 position (numbers from Task 0.5 AC4) and a live-read test reproduces it; AC3 rounding directions asserted (up for borrow, down for collateral) via boundary shares chosen so floor≠ceil.
 
+**Status:** FAIL/BLOCKED on AC2 (no seeded Morpho position — B-001). AC1 and AC3 SAT. Evidence: `build2/docs/journal/1.3/`.
+
 ---
 
 ### Task 1.4: Breach detection + stress model
@@ -313,6 +319,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 3. `simulateCollateralDrop(risk, dropsPct: number[]): Array<{dropPct: number, ratio: number}>` — `ratio(d) = r0 / (1 − d/100)`; input `d` validated to `[0, 50)` (≥50 or negative → throw); output strictly increasing in `d`.
 
 **Gate 1.4:** AC1 boundary test `==` fires and `110.01` does not; AC2 `Infinity` fires, NaN throws; AC3 fire-point case exact to 2dp + clamp cases (`r0=105, trigger=110 → 0`; `r0=10, trigger=110 → 90.91 → clamped 50`); AC4 monotonicity across `[0,10,20,30,40,49]`; AC5 throw-cases for `d=50` and `d=-1`.
+
+**Status:** PASS 2026-09-14 against the formula (80→27.27). The `r0=105→0` clause is the documented contradiction. Evidence: `build2/docs/journal/1.4/`.
 
 ---
 
@@ -327,6 +335,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 4. Defaults object satisfying schema without overrides.
 
 **Gate 1.5:** AC1 rejects trigger 99.9 and 140.01, accepts 100 and 140; AC2 rejects empty/duplicate allowedActions, rejects unknown action; AC3 budget boundary (`==` true, `+ε` false); AC4 defaults parse; AC5 `packages/risk` + `packages/policy` combined test count ≥ 25 (`pnpm vitest run 2>&1 | tail`).
+
+**Status:** PASS 2026-09-14 (27 tests). Evidence: `build2/docs/journal/1.5/`.
 
 ---
 

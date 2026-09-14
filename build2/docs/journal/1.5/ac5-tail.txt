@@ -1,0 +1,8 @@
+ ✓ packages/risk/src/position-risk.test.ts (7 tests) 4ms
+ ✓ packages/policy/src/schema.test.ts (5 tests) 6ms
+
+ Test Files  4 passed (4)
+      Tests  27 passed (27)
+   Start at  15:19:33
+   Duration  556ms (transform 164ms, setup 0ms, collect 252ms, tests 19ms, environment 1ms, prepare 347ms)
+
