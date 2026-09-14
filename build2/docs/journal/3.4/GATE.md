@@ -14,6 +14,6 @@ Live KH 422 on first attempt: `morpho/supply-collateral` networks are `1 | 8453 
 
 Unit tests (mocked KH): `ac-tests.txt` — 3 passed (create/enable/link, idempotent rerun, re-enable via `updateWorkflow`).
 
-Suite after this gate: **67** tests. Lint + build green locally. Sweeps empty on product source.
+Suite after this gate: **67** tests. Lint + build green locally. Sweeps empty on product source. CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112).
 
 **Verdict: PASS**
