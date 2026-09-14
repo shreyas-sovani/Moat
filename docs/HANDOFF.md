@@ -8,7 +8,7 @@ Read in order: `CLAUDE.md` → `docs/PRD.md` → `docs/BACKLOG.md` → this file
 
 - Telegram screenshot in `build2/docs/journal/vt1/screenshot.png`. Gate **0.6 PASS**. Adversary = same guardian.
 - T1 Morpho market + seed via KeeperHub simulate-then-broadcast. Gate **0.5 PASS**. Gate **1.3 AC2 PASS**.
-- Operator: proceed with current testnet tokens; more after 24h; push to `main`.
+- Pushed `main` to `https://github.com/shreyas-sovani/Moat`. Gate **0.2 PASS** (`gh run` 34875987566).
 
 ## Live constants (already in `verified.json`)
 
@@ -32,10 +32,9 @@ Both `/.env` and `/build2/.env`: `KEEPERHUB_API_KEY`, `GEMINI_API_KEY`, `TELEGRA
 
 ## Next block
 
-1. Confirm GitHub CI green on `main` (Gate 0.2 AC1).
-2. Phase 2 gates 2.1–2.3 (`pnpm --filter @moat/kh smoke`).
-3. Worker / default plan / drill (3.x) using the live market id above — do not create another market unless this one is gone.
-4. Composer uses Gemini Flash, not Anthropic.
+1. Phase 2 gates 2.1–2.3 (`pnpm --filter @moat/kh smoke`).
+2. Worker / default plan / drill (3.x) using the live market id above — do not create another market unless this one is gone.
+3. Composer uses Gemini Flash, not Anthropic.
 
 ## Quality
 

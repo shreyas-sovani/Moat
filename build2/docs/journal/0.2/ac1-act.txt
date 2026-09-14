@@ -1,6 +1,14 @@
-# which act / docker / remotes (re-check 2026-09-14T16:50Z)
-act: not found
-docker: OK (OrbStack)
-git remotes: (none locally)
-GitHub: https://github.com/shreyas-sovani/Moat exists public, empty default branch
-gh auth: shreyas-sovani logged in
+
+✓ main ci · 34875987566
+Triggered via push about 1 minute ago
+
+JOBS
+✓ check in 52s (ID 104083176797)
+
+ANNOTATIONS
+! Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, pnpm/action-setup@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+check: .github#2
+
+
+For more information about the job, try: gh run view --job=104083176797
+View this run on GitHub: https://github.com/shreyas-sovani/Moat/actions/runs/34875987566

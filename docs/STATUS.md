@@ -8,7 +8,7 @@
 ## What is done
 
 - Phase 0 live verification in `build2/config/verified.json`.
-- Task **0.1 PASS**. Task **0.3 PASS** (488 actions). Task **0.4 PASS**.
+- Task **0.1 PASS**. Task **0.2 PASS** (GitHub Actions `ci` green on `main`). Task **0.3 PASS** (488 actions). Task **0.4 PASS**.
 - Task **0.5 PASS (T1):** permissionless WETH/USDC Morpho market + seeded position via KeeperHub.
 - Task **0.6 PASS:** Telegram screenshot + same-wallet adversary.
 - Phase 1: **1.1, 1.2, 1.3, 1.4, 1.5 PASS**.
@@ -26,7 +26,6 @@
 
 ## What is not done
 
-- **0.2 AC1:** first GitHub Actions run after push to `main` (`shreyas-sovani/Moat`).
 - Phase 2–7 (KH smoke/workflow evidence, worker, composer, UI S2–S8, marketplace, video, README).
 
 ## What will bite you

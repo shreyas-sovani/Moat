@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Task 0.1 scaffold **PASS**. Task 0.5 T1 market **PASS**. Task 0.6 Telegram **PASS**. Task 0.2 AC1 still needs the first `gh run` after push. Composer/critic env is Gemini Flash (not Anthropic).
+**Live implementation status (2026-09-14 evening):** see `docs/STATUS.md`, `docs/HANDOFF.md`, and `build2/docs/journal/PROGRESS.md`. Phase 0 gates **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Composer/critic env is Gemini Flash (not Anthropic).
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -119,11 +119,11 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** cache shortcuts that skip install; matrix builds; deploy steps.
 
 **Gate 0.2:**
-- [ ] AC1: `act push` (or a real `gh run` if remote exists) → job exits 0. **BLOCKED 2026-09-14 evening:** OrbStack Docker OK; `act` not installed; GitHub `shreyas-sovani/Moat` exists; local `origin` unset; no push. [evidence: `build2/docs/journal/0.2/ac1-act.txt`]
+- [x] AC1: `gh run` 34875987566 lint→build→test green on `main`. [evidence: `build2/docs/journal/0.2/ac1-act.txt`]
 - [x] AC2: workflow YAML contains exactly the three commands in order lint→build→test. [evidence: `build2/docs/journal/0.2/ac2-grep.txt`]
 - [x] AC3: commit `chore: add ci` exists.
 
-**Status:** FAIL/BLOCKED on AC1 until the first push/`gh run`. Workflow is in `.github/workflows/ci.yml` (`working-directory: build2`). Nested copy `build2/.github/workflows/ci.yml` is for if `build2/` is published as its own repo root.
+**Status:** PASS 2026-09-14T17:40Z. Workflow is in `.github/workflows/ci.yml` (`working-directory: build2`). Nested copy `build2/.github/workflows/ci.yml` is for if `build2/` is published as its own repo root.
 
 ---
 

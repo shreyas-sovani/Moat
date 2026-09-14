@@ -13,16 +13,15 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 - Chain catalog via `GET /api/chains`. Optional.
 
-### B-006 | Task 0.2 AC1 | no gh run until first push
-
-- Docker/OrbStack: OK. `act`: not installed. Public repo `https://github.com/shreyas-sovani/Moat` exists (empty default branch at last check).
-- Close by pushing `main` and watching `gh run`.
-
 ### B-007 | KeeperHub 0.02 ETH daily native cap
 
 - Wrap consumed 0.019 ETH. Further payable KH writes need cap reset or a higher org cap. ERC-20 Morpho calls are not native-capped.
 
 ## CLOSED
+
+### B-006 | Task 0.2 AC1 | CLOSED 2026-09-14T17:40Z
+
+`gh run` 34875987566 green on `main`.
 
 ### B-001 | Task 0.5 V-M1 T1-pending | CLOSED 2026-09-14T17:34:53Z
 
