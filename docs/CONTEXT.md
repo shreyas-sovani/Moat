@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T18:15:00Z (2.1–2.3 + 3.1 PASS; CI migrate P1012 fixed).  
+**Last updated:** 2026-09-14T18:20:00Z (2.1–2.3 + 3.1 PASS; CI green again).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -49,7 +49,7 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | Task | Status | Notes |
 |---|---|---|
 | 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **54** |
-| 0.2 CI | **PASS** | First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). Later [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) **failed** (Prisma P1012: `DATABASE_URL` missing). Fix: `run-prisma.ts` loads `build2/.env` + default `file:./dev.db`; CI step sets `DATABASE_URL`. |
+| 0.2 CI | **PASS** | Latest green: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (migrate+lint+build+test). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 (`DATABASE_URL`) — fixed. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |

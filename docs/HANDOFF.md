@@ -2,12 +2,12 @@
 
 **Read first:** [`docs/CONTEXT.md`](CONTEXT.md) (canonical). Then PRD → BACKLOG → STATUS → `build2/docs/journal/PROGRESS.md` + `BLOCKED.md`.
 
-**As of:** 2026-09-14T18:15Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
+**As of:** 2026-09-14T18:20Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
 
 ## Closed last session
 
-- **2.1–2.3 + 3.1 PASS** (see prior handoff). Smoke workflow `4nejcqnx21wsfxquxosk0`.
-- **CI P1012** — `89e7ee3` run 34878616724 failed because Prisma CLI in `packages/db` did not see `DATABASE_URL` from `build2/.env`. `scripts/run-prisma.ts` now loads that file and defaults `file:./dev.db`. CI migrate step also sets `DATABASE_URL`.
+- **2.1–2.3 + 3.1 PASS**. Smoke workflow `4nejcqnx21wsfxquxosk0`.
+- **CI** — P1012 on 34878616724 fixed; latest green [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395).
 
 ## Do not do
 

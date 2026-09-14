@@ -12,4 +12,4 @@ SQLite `DATABASE_URL` is schema-relative (`file:./dev.db` → `packages/db/prism
 
 **Verdict: PASS**
 
-CI rework 2026-09-14T18:15Z: `gh run` 34878616724 failed P1012 (`DATABASE_URL` missing). `pnpm --filter @moat/db prisma:migrate:*` now goes through `scripts/run-prisma.ts`. See `ci-p1012.txt`.
+CI rework 2026-09-14T18:20Z: `gh run` 34878616724 failed P1012; fix confirmed green [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). See `ci-p1012.txt`.

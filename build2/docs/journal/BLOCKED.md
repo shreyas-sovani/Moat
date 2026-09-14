@@ -19,9 +19,9 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ## CLOSED
 
-### B-010 | CI migrate P1012 DATABASE_URL | CLOSED 2026-09-14T18:15Z
+### B-010 | CI migrate P1012 DATABASE_URL | CLOSED 2026-09-14T18:20Z
 
-`gh run` 34878616724 failed: Prisma CLI in `packages/db` did not see `DATABASE_URL` from `build2/.env`. `scripts/run-prisma.ts` loads that env and defaults `file:./dev.db`. CI migrate step sets `DATABASE_URL`.
+`gh run` 34878616724 failed P1012. Fix in `15454bf`. Confirmed green: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395).
 
 ### B-009 | Task 3.1 no Prisma migrations | CLOSED 2026-09-14T18:05Z
 

@@ -1,4 +1,4 @@
-# Moat build status — 2026-09-14T18:15Z
+# Moat build status — 2026-09-14T18:20Z
 
 **Canonical pickup:** [`docs/CONTEXT.md`](CONTEXT.md) (read first). **Handoff:** [`HANDOFF.md`](HANDOFF.md).
 
@@ -9,9 +9,9 @@
 
 ## Done (gated PASS)
 
-Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Task **3.1**. Live Morpho position, Telegram screenshot, KH smoke workflow created+deleted, Prisma migrations committed.
+Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Task **3.1**. Live Morpho position, Telegram screenshot, KH smoke workflow created+deleted, Prisma migrations committed. **CI green:** [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395).
 
-Gate **0.2** still PASS (first green run 34875987566). Push `89e7ee3` CI run [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) **failed** on `prisma migrate deploy` (P1012, `DATABASE_URL` not visible from `packages/db`). That is fixed; do not treat 34878616724 as green.
+Gate **0.2** PASS. Run [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012; that is closed.
 
 ## Not started
 
