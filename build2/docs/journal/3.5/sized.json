@@ -1,0 +1,10 @@
+{
+	"requestedTargetRatioPct": 115,
+	"targetRatioPct": 99,
+	"dropPct": 30.62,
+	"withdrawAssets": "5817609616161617",
+	"remainingCollateralWei": "13182390383838383",
+	"topUpAssets": "5817609616161617",
+	"beforeRatioPct": 99,
+	"projectedAfterRatioPct": 68.687192
+}

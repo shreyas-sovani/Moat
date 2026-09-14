@@ -49,6 +49,7 @@ export function buildDefaultTopUpGraph(input: {
 	verified: Verified;
 	chatId: string;
 	topUpAssets: string;
+	balanceField?: string;
 }): GraphJson {
 	if (input.chatId.trim().length === 0 || input.chatId === "0") {
 		throw new Error('telegram chatId is required (not empty, not "0")');
@@ -66,6 +67,7 @@ export function buildDefaultTopUpGraph(input: {
 		mode: "custom",
 		customToken: { address: weth.address, symbol: weth.symbol },
 	});
+	const balanceField = input.balanceField ?? "balance";
 	return wf(DEFAULT_PLAN_NAME, "hand-coded Morpho collateral top-up guard")
 		.trigger("Manual")
 		.action({
@@ -78,7 +80,7 @@ export function buildDefaultTopUpGraph(input: {
 			},
 		})
 		.condition("cond-1", {
-			left: "{{@read-weth:Check WETH.balance}}",
+			left: `{{@read-weth:Check WETH.${balanceField}}}`,
 			operator: ">=",
 			right: input.topUpAssets,
 		})

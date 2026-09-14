@@ -25,3 +25,4 @@ REWORK 1 | AC1/CI | F1 | gh run 34878616724 P1012 DATABASE_URL — Prisma CLI cw
 TASK 3.2 | PASS 2026-09-14T19:50:00Z | viem sync of existing WETH/USDC market; Position borrowShares=31000000000000 collateral=19000000000000000 match V-M1; 10 cast sigs; 57 tests
 TASK 3.3 | PASS 2026-09-14T19:55:00Z | mocked watcher+supervisor AC1–AC5; firing claim; 15min cap; 64 tests
 TASK 3.4 | PASS 2026-09-14T20:20:00Z | KH workflow ojxu9lcwdmb6bxl0mh5qm enabled; Guard armed; idempotent 1 row; morpho plugin 422 on 84532 so write-contract supplyCollateral; 67 tests
+TASK 3.5 | PASS 2026-09-14T20:35:00Z | live drill+approve+save through KH; run cmu1p9tie0001y3ax9706dnv7 succeeded+reconciledAt; ratios 99.22→68.61; hashes 0x5e57df2e / 0x821dbaef; executeWorkflow header-only idempotency; Telegram notify token missing (B-012); 89 tests

@@ -66,3 +66,30 @@ export const MORPHO_SUPPLY_COLLATERAL_ABI = [
 		outputs: [],
 	},
 ] as const;
+
+/** Morpho Blue `withdrawCollateral` — 3.5 drill. Morpho plugin does not list 84532. */
+export const MORPHO_WITHDRAW_COLLATERAL_ABI = [
+	{
+		type: "function",
+		name: "withdrawCollateral",
+		stateMutability: "nonpayable",
+		inputs: [
+			{ name: "marketParams", type: "tuple", components: [...MARKET_PARAMS_COMPONENTS] },
+			{ name: "assets", type: "uint256" },
+			{ name: "onBehalf", type: "address" },
+			{ name: "receiver", type: "address" },
+		],
+		outputs: [],
+	},
+] as const;
+
+/** Morpho Chainlink oracle V2 `price()` — 36-decimal collateral/loan quote. */
+export const MORPHO_ORACLE_PRICE_ABI = [
+	{
+		type: "function",
+		name: "price",
+		stateMutability: "view",
+		inputs: [],
+		outputs: [{ name: "", type: "uint256" }],
+	},
+] as const;

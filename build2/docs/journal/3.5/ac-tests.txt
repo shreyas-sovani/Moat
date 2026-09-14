@@ -1,0 +1,136 @@
+
+> moat@ test /Users/shreyas/Desktop/keeperhub/build2
+> vitest run
+
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/kh/src/rest.test.ts (14 tests) 97ms
+ ✓ packages/kh/src/graph.test.ts (8 tests) 340ms
+ ✓ packages/db/src/schema.test.ts (1 test) 71ms
+ ✓ packages/infra/src/verified-schema.test.ts (4 tests) 29ms
+ ✓ packages/policy/src/schema.test.ts (5 tests) 23ms
+ ✓ packages/risk/src/morpho-math.test.ts (9 tests) 8ms
+ ✓ packages/risk/src/breach.test.ts (6 tests) 34ms
+ ✓ packages/risk/src/position-risk.test.ts (7 tests) 7ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ packages/risk/src/oracle-adjust.test.ts (2 tests) 4ms
+ ✓ packages/db/src/seed.test.ts (1 test) 7800ms
+   ✓ seed > inserts one row per model and reads them back  7799ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ packages/db/src/client.test.ts (2 tests) 5ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 6.15.0 -> 8.0.0-rc.15                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+ ✓ apps/worker/src/drill.test.ts (16 tests) 11220ms
+   ✓ reconcileRun > sets reconciledAt when after captures ≥80% of the projected delta  6984ms
+   ✓ reconcileRun > leaves reconciledAt null when the save did not improve enough  4068ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 6.15.0 -> 8.0.0-rc.15                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 6.15.0 -> 8.0.0-rc.15                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/sync-positions.test.ts (3 tests) 15170ms
+   ✓ syncPositions > upserts Market + Position as string bigints and returns MorphoPositionRaw  7262ms
+   ✓ syncPositions > second sync updates the same Position row  4676ms
+   ✓ syncPositions > throws when onchain market params disagree with verified.json  3227ms
+ ✓ apps/worker/src/arm-default-plan.test.ts (3 tests) 15174ms
+   ✓ armDefaultPlan > AC1/AC2: creates enabled KH workflow and one armed Guard linked to policy+plan  7805ms
+   ✓ armDefaultPlan > AC3: rerun does not create a second Guard or a second createWorkflow  4070ms
+   ✓ armDefaultPlan > re-enables an existing KH workflow instead of inserting another Guard  3298ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 6.15.0 -> 8.0.0-rc.15                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts (8 tests) 26521ms
+   ✓ guard loop > AC1: two concurrent ticks on one breach create exactly one Run and one executeWorkflow  7290ms
+   ✓ guard loop > AC2: supervisor running→completed persists txHashes, logs, armed policy, alert  4266ms
+   ✓ guard loop > AC2b: notify-only KH error still succeeds when top-up wrote a tx hash object  3205ms
+   ✓ guard loop > AC3: never-terminal status hits the 15-min cap → failed + alert  2875ms
+   ✓ guard loop > AC4: failed execution → policy needs_attention + alert  2843ms
+   ✓ guard loop > AC5: after success the policy is armed and the next breach fires again  1736ms
+   ✓ guard loop > does not fire when policy is not armed  1920ms
+   ✓ guard loop > marks the run failed when executeWorkflow throws  2384ms
+
+ Test Files  15 passed (15)
+      Tests  89 passed (89)
+   Start at  02:10:06
+   Duration  28.99s (transform 2.21s, setup 0ms, collect 7.39s, tests 76.50s, environment 4ms, prepare 8.46s)
+

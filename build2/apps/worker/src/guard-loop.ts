@@ -1,4 +1,5 @@
 import type { PrismaClient } from "@moat/db";
+import { KhApiError } from "@moat/kh";
 import { type PositionRisk, breachDetected, computePositionRisk } from "@moat/risk";
 import type { PositionSyncHit } from "./sync-positions.js";
 
@@ -123,11 +124,16 @@ export async function superviseRun(ctx: GuardLoopContext, runId: string): Promis
 		}
 		const raw = await ctx.kh.getExecutionStatus(run.khExecutionId);
 		const status = parseExecStatus(raw);
-		if (status === "completed") {
+		if (status === "completed" || writeNodeSucceeded(raw)) {
 			await finalizeSucceeded(ctx, run.id, run.guard.policyId);
 			return;
 		}
 		if (status === "failed") {
+			const execution = await ctx.kh.getExecution(run.khExecutionId);
+			if (writeNodeSucceeded(raw) || writeNodeSucceeded(execution)) {
+				await finalizeSucceeded(ctx, run.id, run.guard.policyId);
+				return;
+			}
 			await finalizeFailed(ctx, run.id, run.guard.policyId, asRecord(raw) ?? { status: "failed" });
 			return;
 		}
@@ -286,14 +292,42 @@ function parseExecStatus(body: unknown): "completed" | "failed" | "running" {
 }
 
 function parseTxHashes(body: unknown): string[] {
-	const rec = asRecord(body);
+	const rec = executionRecord(body);
 	if (!rec) return [];
 	const raw = rec.transactionHashes ?? rec.txHashes ?? rec.transactionHash;
-	if (typeof raw === "string") return [raw];
-	if (Array.isArray(raw)) {
-		return raw.filter((item): item is string => typeof item === "string");
+	if (typeof raw === "string" && raw.startsWith("0x")) return [raw];
+	if (!Array.isArray(raw)) return [];
+	const out: string[] = [];
+	for (const item of raw) {
+		if (typeof item === "string" && item.startsWith("0x")) {
+			out.push(item);
+			continue;
+		}
+		const row = asRecord(item);
+		if (row && typeof row.hash === "string" && row.hash.startsWith("0x")) {
+			out.push(row.hash);
+			continue;
+		}
+		if (row && typeof row.transactionHash === "string" && row.transactionHash.startsWith("0x")) {
+			out.push(row.transactionHash);
+		}
 	}
-	return [];
+	return out;
+}
+
+function writeNodeSucceeded(body: unknown, nodeId = "top-up"): boolean {
+	const rec = executionRecord(body);
+	if (!rec || !Array.isArray(rec.nodeStatuses)) return false;
+	return rec.nodeStatuses.some((item) => {
+		const row = asRecord(item);
+		return row?.nodeId === nodeId && row?.status === "success";
+	});
+}
+
+function executionRecord(body: unknown): Record<string, unknown> | undefined {
+	const rec = asRecord(body);
+	if (!rec) return undefined;
+	return asRecord(rec.execution) ?? rec;
 }
 
 function parseCostUsd(body: unknown): number {
@@ -302,7 +336,10 @@ function parseCostUsd(body: unknown): number {
 	return 0;
 }
 
-function errorPayload(err: unknown): { error: string } {
+function errorPayload(err: unknown): Record<string, unknown> {
+	if (err instanceof KhApiError) {
+		return { error: err.message, status: err.status, body: err.body };
+	}
 	if (err instanceof Error) return { error: err.message };
 	return { error: String(err) };
 }

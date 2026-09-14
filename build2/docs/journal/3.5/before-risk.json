@@ -1,0 +1,10 @@
+{
+	"oraclePrice": "2596039130450000000000000000",
+	"risk": {
+		"borrowAssets": "31000000",
+		"collateralAssets": "49324743",
+		"ratioOfLltvPct": 68.687192
+	},
+	"breach": true,
+	"collateralWei": "19000000000000000"
+}

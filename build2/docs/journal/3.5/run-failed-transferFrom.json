@@ -1,0 +1,14 @@
+{
+	"id": "cmu1p7xyw0001y3pnuwkd7zhq",
+	"guardId": "cmu1oekbm0003y38gc9b9nlm3",
+	"khExecutionId": "r24m33cqs4kvpiugzgsiu",
+	"trigger": "breach",
+	"status": "failed",
+	"startedAt": "2026-09-14T20:31:47.384Z",
+	"txHashes": "[]",
+	"costUsd": 0,
+	"logsJson": "{\"status\":\"error\",\"nodeStatuses\":[{\"nodeId\":\"trigger-1\",\"status\":\"success\"},{\"nodeId\":\"top-up\",\"status\":\"error\"},{\"nodeId\":\"read-weth\",\"status\":\"success\"},{\"nodeId\":\"cond-1\",\"status\":\"success\"}],\"progress\":{\"totalSteps\":6,\"completedSteps\":4,\"runningSteps\":0,\"currentNodeId\":null,\"currentNodeName\":null,\"percentage\":67},\"errorContext\":{\"failedNodeId\":null,\"lastSuccessfulNodeId\":\"cond-1\",\"lastSuccessfulNodeName\":\"Condition\",\"executionTrace\":[\"trigger-1\",\"read-weth\",\"cond-1\",\"top-up\"],\"error\":\"Contract call failed: Error(transferFrom reverted)\"},\"transactionHashes\":[]}",
+	"beforeSnapshot": "{\"borrowAssets\":\"31000315\",\"collateralAssets\":\"34229770\",\"ratioOfLltvPct\":98.978537}",
+	"afterSnapshot": "{}",
+	"reconciledAt": null
+}

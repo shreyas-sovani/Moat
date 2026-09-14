@@ -1,0 +1,26 @@
+[
+	{
+		"id": "nn8bdw0xa4x1rgrg2aztw",
+		"name": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+		"type": "web3",
+		"isManaged": false,
+		"createdAt": "2026-09-13T19:49:42.380Z",
+		"updatedAt": "2026-09-13T19:49:42.380Z",
+		"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+		"createdByName": "Sharp Badger",
+		"createdByEmail": "0xfeaf5c921996fc53f4def35e181e766e6d74690a@wallet.keeperhub.com",
+		"createdByRole": "owner"
+	},
+	{
+		"id": "m2ovhyo51qj0ixr3pl3dq",
+		"name": "new",
+		"type": "telegram",
+		"isManaged": false,
+		"createdAt": "2026-09-14T17:02:15.316Z",
+		"updatedAt": "2026-09-14T17:02:15.316Z",
+		"address": null,
+		"createdByName": "Sharp Badger",
+		"createdByEmail": "0xfeaf5c921996fc53f4def35e181e766e6d74690a@wallet.keeperhub.com",
+		"createdByRole": "owner"
+	}
+]

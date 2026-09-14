@@ -1,0 +1,6 @@
+cast receipt --rpc-url https://sepolia.base.org
+all three status=0x1
+
+drill   0x5e57df2ef8ca9d58131e8a1151e987945f739afd86687570a8e1a87e6a77ab9b  block 0x2ca7d19
+approve 0x527f16eefb13d6c0696bd5658f19abd7f6c3e6a10474ac7f43c4162600a6585a  block 0x2ca7d94
+save    0x821dbaef2363b75734c5a3db3a45ebbb8cd3a45dc841d752a48b0521f55d1b8a  block 0x2ca7d98

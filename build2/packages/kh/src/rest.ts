@@ -127,18 +127,12 @@ export class KeeperHubClient {
 			if (options.idempotency) {
 				headers["Idempotency-Key"] = options.idempotency;
 			}
-			const payload = options.body
-				? {
-						...options.body,
-						...(options.idempotency ? { idempotency_key: options.idempotency } : {}),
-					}
-				: undefined;
 			let response: Response;
 			try {
 				response = await this.fetchImpl(url, {
 					method,
 					headers,
-					body: payload ? JSON.stringify(payload) : undefined,
+					body: options.body ? JSON.stringify(options.body) : undefined,
 				});
 			} catch (err) {
 				lastError = err;
@@ -226,6 +220,18 @@ export class KeeperHubClient {
 			idempotency: key,
 			body: { ...body, chainId },
 		});
+	}
+
+	getDirectExecutionStatus(executionId: string): Promise<unknown> {
+		return this.request("directExecutionStatus", { params: { executionId } });
+	}
+
+	getSpendCap(): Promise<unknown> {
+		return this.request("spendCap");
+	}
+
+	listIntegrations(): Promise<unknown> {
+		return this.request("listIntegrations");
 	}
 
 	listWorkflows(): Promise<unknown> {

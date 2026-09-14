@@ -254,6 +254,43 @@ describe("guard loop", () => {
 		expect(await db.heartbeat.findUnique({ where: { id: "supervisor" } })).not.toBeNull();
 	});
 
+	it("AC2b: notify-only KH error still succeeds when top-up wrote a tx hash object", async () => {
+		const db = await openDb();
+		const ids = await seedArmed(db);
+		await db.policy.update({ where: { id: ids.policyId }, data: { status: "firing" } });
+		const run = await db.run.create({
+			data: {
+				guardId: ids.guardId,
+				khExecutionId: "exec-notify",
+				trigger: "breach",
+				status: "pending",
+				txHashes: "[]",
+				logsJson: "{}",
+				beforeSnapshot: JSON.stringify({ ratioOfLltvPct: 99 }),
+				afterSnapshot: "{}",
+			},
+		});
+		const payload = {
+			status: "error",
+			nodeStatuses: [
+				{ nodeId: "top-up", status: "success" },
+				{ nodeId: "notify-1", status: "error" },
+			],
+			errorContext: { error: "Telegram bot token is required" },
+			transactionHashes: [{ hash: FAKE_TX, nodeId: "top-up", chainId: 84532 }],
+		};
+		const kh = mockKh({
+			statuses: [payload],
+			execution: payload,
+			logs: payload,
+		});
+		await superviseRun(ctx(db, kh), run.id);
+		const done = await db.run.findUnique({ where: { id: run.id } });
+		expect(done?.status).toBe("succeeded");
+		expect(JSON.parse(done?.txHashes ?? "[]")).toEqual([FAKE_TX]);
+		expect((await db.policy.findUnique({ where: { id: ids.policyId } }))?.status).toBe("armed");
+	});
+
 	it("AC3: never-terminal status hits the 15-min cap → failed + alert", async () => {
 		const db = await openDb();
 		const ids = await seedArmed(db);

@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T20:20Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.4 PASS**. Next is **3.5**. Latest CI green: 34891501112 (`5e0a131` 3.4). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id. Morpho plugin does not list `"84532"`.
+**Live implementation status (2026-09-14T20:40Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.5 PASS**. Next is **4.1**. Latest CI green: 34891501112 (`5e0a131` 3.4) — re-check after the 3.5 push. Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id. Morpho plugin does not list `"84532"`. `executeWorkflow` uses the Idempotency-Key header only.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -404,7 +404,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 ## Phase 3 — Guard Loop Without AI (proves the thesis before any LLM exists)
 
-> **Pickup note (2026-09-14T20:20Z):** Gates **3.1–3.4 PASS**. Next is **3.5**. Default plan KH `ojxu9lcwdmb6bxl0mh5qm` enabled, Guard armed. Morpho plugin 422 on 84532 — writes use `web3/write-contract`. Watcher: `apps/worker/src/guard-loop.ts` (mocked KH). `index.ts` idle. `breachDetected` is `ratio <= trigger`; live ~70.5 already fires at trigger 110. Do not wipe gitignored `dev.db`. Evidence: `journal/3.2/`, `journal/3.3/`, `journal/3.4/`.
+> **Pickup note (2026-09-14T20:40Z):** Gates **3.1–3.5 PASS**. Next is **4.1**. Default plan KH `ojxu9lcwdmb6bxl0mh5qm` enabled, Guard armed. Live drill+save in `journal/run1/`. Morpho plugin 422 on 84532 — writes use `web3/write-contract` / `directContractCall`. Watcher: `apps/worker/src/guard-loop.ts`. `index.ts` idle. `breachDetected` is `ratio <= trigger`; live after-save ~68.6 still fires at trigger 110. WETH buffer 0. Do not wipe gitignored `dev.db`. Evidence: `journal/3.2/`, `journal/3.3/`, `journal/3.4/`, `journal/3.5/`, `journal/run1/`.
 
 ### Task 3.1: DB schema
 
@@ -477,9 +477,13 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 3.5 (MILESTONE):** AC1 ≥2 linked testnet tx hashes in journal (drill + save), each resolving on the explorer built from `verified.json.network`; AC2 `Run` row: `status="succeeded"`, non-empty `txHashes` + `logsJson`, `reconciledAt` set; AC3 before/after ratios recorded and after < before by ≥15 pct-points (evidence file shows both); AC4 sweeps green, suite green.
 
+**Status:** PASS 2026-09-14T20:35Z. Evidence: `build2/docs/journal/3.5/` + `build2/docs/journal/run1/`. Drill `0x5e57df2ef8ca9d58131e8a1151e987945f739afd86687570a8e1a87e6a77ab9b`, save `0x821dbaef2363b75734c5a3db3a45ebbb8cd3a45dc841d752a48b0521f55d1b8a`, approve `0x527f16eefb13d6c0696bd5658f19abd7f6c3e6a10474ac7f43c4162600a6585a`. Run `cmu1p9tie0001y3ax9706dnv7` `reconciledAt=2026-09-14T20:35:10.301Z`. Ratios 99.221493 → 68.614935. Sized to Morpho-safe 99% of LLTV (trigger+5=115 exceeds LLTV). After withdraw, WETH approve to Blue was required. KH Telegram notify missing bot token — write node still succeeded. Command: `pnpm --filter @moat/worker drill`.
+
 ---
 
 ## Phase 4 — Composer & Critic
+
+> **Pickup note (2026-09-14T20:40Z):** Next is **Task 4.1**. Env composer is **Gemini Flash** / critic **Flash-Lite**, not Anthropic Opus/Sonnet. Do not skip to 4.2 until 4.1 ACs pass. Live position still breaches trigger 110; do not start `index.ts` as a live loop.
 
 ### Task 4.1: Recipe enumerator + context packet
 

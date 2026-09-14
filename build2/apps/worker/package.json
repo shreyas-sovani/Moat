@@ -9,7 +9,8 @@
 		"dev": "tsx src/index.ts",
 		"start": "node dist/index.js",
 		"sync:positions": "tsx scripts/sync-live.ts",
-		"arm:plan": "tsx scripts/arm-live.ts"
+		"arm:plan": "tsx scripts/arm-live.ts",
+		"drill": "tsx scripts/drill-live.ts"
 	},
 	"dependencies": {
 		"@moat/agent": "workspace:*",

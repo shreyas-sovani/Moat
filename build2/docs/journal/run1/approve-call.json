@@ -1,0 +1,7 @@
+{
+	"contractAddress": "0x4200000000000000000000000000000000000006",
+	"chainId": "84532",
+	"functionName": "approve",
+	"abi": "[{\"type\":\"function\",\"name\":\"approve\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}]}]",
+	"functionArgs": "[\"0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb\",\"5817609616161617\"]"
+}

@@ -1,0 +1,54 @@
+{
+	"status": "error",
+	"nodeStatuses": [
+		{
+			"nodeId": "read-weth",
+			"status": "success"
+		},
+		{
+			"nodeId": "notify-1",
+			"status": "error"
+		},
+		{
+			"nodeId": "cond-1",
+			"status": "success"
+		},
+		{
+			"nodeId": "trigger-1",
+			"status": "success"
+		},
+		{
+			"nodeId": "top-up",
+			"status": "success"
+		}
+	],
+	"progress": {
+		"totalSteps": 6,
+		"completedSteps": 5,
+		"runningSteps": 0,
+		"currentNodeId": null,
+		"currentNodeName": null,
+		"percentage": 83
+	},
+	"errorContext": {
+		"failedNodeId": null,
+		"lastSuccessfulNodeId": "top-up",
+		"lastSuccessfulNodeName": "Supply Collateral",
+		"executionTrace": [
+			"trigger-1",
+			"read-weth",
+			"cond-1",
+			"top-up",
+			"notify-1"
+		],
+		"error": "Telegram bot token is required. Please configure it in the integration settings."
+	},
+	"transactionHashes": [
+		{
+			"hash": "0x821dbaef2363b75734c5a3db3a45ebbb8cd3a45dc841d752a48b0521f55d1b8a",
+			"nodeId": "top-up",
+			"chainId": 84532,
+			"nodeName": "Supply Collateral"
+		}
+	]
+}

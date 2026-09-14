@@ -1,0 +1,9 @@
+# AC4 re-verify 2026-09-14T20:40Z (after 3.5 implementation)
+
+From `build2/`: `pnpm lint && pnpm test && pnpm build`
+
+- biome check: 73 files, no fixes
+- vitest: **89 passed** (15 files)
+- turbo build: 8/8 successful
+
+Forbidden-token and provenance greps empty on source (`apps`/`packages` `*.ts`/`*.tsx`, excluding `dist`/`.next`/`.turbo`). Provenance allowlist: `packages/infra/src/config.ts`, `*.test.ts`, `fixtures`.

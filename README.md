@@ -13,7 +13,7 @@ Agent-guarded Morpho liquidation protection on **Base Sepolia** (testnet only). 
 
 Base Sepolia `chainId` `"84532"`. No mainnet. No real funds. All runtime onchain writes go through KeeperHub.
 
-Seeded Morpho WETH/USDC market and guardian position exist — **do not invent a market id**. Phase **0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.4** are gated PASS. Latest CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112). See `build2/config/verified.json` and `docs/CONTEXT.md`.
+Seeded Morpho WETH/USDC market and guardian position exist — **do not invent a market id**. Phase **0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.5** are gated PASS (3.5 live drill+save hashes in `build2/docs/journal/run1/`). Latest CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (3.4). Re-check CI after the 3.5 push. See `build2/config/verified.json` and `docs/CONTEXT.md`.
 
 ## Monorepo
 

@@ -172,6 +172,73 @@ describe("chain guard and keys", () => {
 		expect(listed).toEqual([{ id: "wf1" }]);
 		expect(calls).toEqual([{ url: "https://app.keeperhub.com/api/workflows", method: "GET" }]);
 	});
+
+	it("executeWorkflow sends Idempotency-Key header and does not put it in the JSON body", async () => {
+		const calls: Array<{ url: string; method: string; header: string | null; body: unknown }> = [];
+		const v = verified();
+		v.keeperhub.restEndpointsConfirmed.executeWorkflow = "POST /api/workflows/{workflowId}/execute";
+		const client = new KeeperHubClient({
+			verified: v,
+			apiKey: "kh_test",
+			fetch: async (url, init) => {
+				const headers = new Headers(init?.headers);
+				calls.push({
+					url,
+					method: String(init?.method ?? "GET"),
+					header: headers.get("Idempotency-Key"),
+					body: init?.body ? JSON.parse(String(init.body)) : null,
+				});
+				return jsonResponse(200, { executionId: "exec-1", status: "running" });
+			},
+		});
+		await client.executeWorkflow("wf-1", "run-1");
+		expect(calls).toHaveLength(1);
+		expect(calls[0]?.url).toBe("https://app.keeperhub.com/api/workflows/wf-1/execute");
+		expect(calls[0]?.method).toBe("POST");
+		expect(calls[0]?.header).toBe("moat:run:run-1");
+		expect(calls[0]?.body).toEqual({ input: {} });
+	});
+
+	it("getDirectExecutionStatus GETs /api/execute/{id}/status", async () => {
+		const calls: Array<{ url: string; method: string }> = [];
+		const v = verified();
+		v.keeperhub.restEndpointsConfirmed.directExecutionStatus =
+			"GET /api/execute/{executionId}/status";
+		const client = new KeeperHubClient({
+			verified: v,
+			apiKey: "kh_test",
+			fetch: async (url, init) => {
+				calls.push({ url, method: String(init?.method ?? "GET") });
+				return jsonResponse(200, { status: "completed", transactionHash: `0x${"ab".repeat(32)}` });
+			},
+		});
+		const body = await client.getDirectExecutionStatus("exec-1");
+		expect(body).toMatchObject({ status: "completed" });
+		expect(calls).toEqual([
+			{ url: "https://app.keeperhub.com/api/execute/exec-1/status", method: "GET" },
+		]);
+	});
+
+	it("getSpendCap and listIntegrations hit confirmed REST paths", async () => {
+		const calls: string[] = [];
+		const v = verified();
+		v.keeperhub.restEndpointsConfirmed.spendCap = "GET /api/analytics/spend-cap";
+		v.keeperhub.restEndpointsConfirmed.listIntegrations = "GET /api/integrations";
+		const client = new KeeperHubClient({
+			verified: v,
+			apiKey: "kh_test",
+			fetch: async (url, init) => {
+				calls.push(`${init?.method ?? "GET"} ${url}`);
+				return jsonResponse(200, { ok: true });
+			},
+		});
+		await client.getSpendCap();
+		await client.listIntegrations();
+		expect(calls).toEqual([
+			"GET https://app.keeperhub.com/api/analytics/spend-cap",
+			"GET https://app.keeperhub.com/api/integrations",
+		]);
+	});
 });
 
 describe("workflowRows", () => {

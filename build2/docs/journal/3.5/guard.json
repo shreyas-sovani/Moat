@@ -1,0 +1,59 @@
+{
+	"guard": {
+		"id": "cmu1oekbm0003y38gc9b9nlm3",
+		"policyId": "cmu1oc5en0004y3f5btf6dttt",
+		"planId": "cmu1oekbj0001y38g2mmpn8ue",
+		"khWorkflowId": "ojxu9lcwdmb6bxl0mh5qm",
+		"khIdempotencyKey": "moat:plan:ea95dcb2-2725-4e4d-a38d-b703c5df25fb",
+		"status": "armed",
+		"createdAt": "2026-09-14T20:08:56.674Z",
+		"policy": {
+			"id": "cmu1oc5en0004y3f5btf6dttt",
+			"positionId": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d:0x08dfdc3d060085d5f61e18f7c3f7e8f7736b3758",
+			"triggerRatioPct": 110,
+			"maxSpendUsd": 31,
+			"allowedActions": "top_up",
+			"slippageBps": 50,
+			"status": "needs_attention",
+			"circuitBreakerMaxRunsPerDay": 3,
+			"createdAt": "2026-09-14T20:07:04.031Z",
+			"armedAt": "2026-09-14T20:33:14.637Z"
+		},
+		"plan": {
+			"id": "cmu1oekbj0001y38g2mmpn8ue",
+			"policyId": "cmu1oc5en0004y3f5btf6dttt",
+			"workflowJson": "{\"name\":\"moat-default-top-up\",\"description\":\"hand-coded Morpho collateral top-up guard\",\"nodes\":[{\"id\":\"trigger-1\",\"type\":\"trigger\",\"data\":{\"label\":\"Manual\",\"type\":\"trigger\",\"status\":\"idle\",\"config\":{\"triggerType\":\"Manual\"}}},{\"id\":\"read-weth\",\"type\":\"action\",\"data\":{\"label\":\"Check WETH\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/check-token-balance\",\"network\":\"84532\",\"address\":\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\",\"tokenConfig\":\"{\\\"mode\\\":\\\"custom\\\",\\\"customToken\\\":{\\\"address\\\":\\\"0x4200000000000000000000000000000000000006\\\",\\\"symbol\\\":\\\"WETH\\\"}}\"}}},{\"id\":\"cond-1\",\"type\":\"action\",\"data\":{\"label\":\"Condition\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"Condition\",\"group\":{\"id\":\"cond-1-group\",\"logic\":\"AND\",\"rules\":[{\"id\":\"cond-1-rule\",\"operator\":\">=\",\"leftOperand\":\"{{@read-weth:Check WETH.balance.balanceRaw}}\",\"rightOperand\":\"5817609616161617\"}]},\"condition\":\"{{@read-weth:Check WETH.balance.balanceRaw}} >= 5817609616161617\"}}},{\"id\":\"top-up\",\"type\":\"action\",\"data\":{\"label\":\"Supply Collateral\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/write-contract\",\"network\":\"84532\",\"contractAddress\":\"0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb\",\"abi\":\"[{\\\"type\\\":\\\"function\\\",\\\"name\\\":\\\"supplyCollateral\\\",\\\"stateMutability\\\":\\\"nonpayable\\\",\\\"inputs\\\":[{\\\"name\\\":\\\"marketParams\\\",\\\"type\\\":\\\"tuple\\\",\\\"components\\\":[{\\\"name\\\":\\\"loanToken\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"collateralToken\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"oracle\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"irm\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"lltv\\\",\\\"type\\\":\\\"uint256\\\"}]},{\\\"name\\\":\\\"assets\\\",\\\"type\\\":\\\"uint256\\\"},{\\\"name\\\":\\\"onBehalf\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"data\\\",\\\"type\\\":\\\"bytes\\\"}],\\\"outputs\\\":[]}]\",\"abiFunction\":\"supplyCollateral\",\"functionArgs\":\"[{\\\"loanToken\\\":\\\"0x036CbD53842c5426634e7929541eC2318f3dCF7e\\\",\\\"collateralToken\\\":\\\"0x4200000000000000000000000000000000000006\\\",\\\"oracle\\\":\\\"0x274CC0f59661d3F49aE09231C9B821bc874d0490\\\",\\\"irm\\\":\\\"0x46415998764C29aB2a25CbeA6254146D50D22687\\\",\\\"lltv\\\":\\\"915000000000000000\\\"},\\\"5817609616161617\\\",\\\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\\\",\\\"0x\\\"]\"}}},{\"id\":\"skip\",\"type\":\"action\",\"data\":{\"label\":\"Insufficient Buffer\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/check-balance\",\"network\":\"84532\",\"address\":\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\"}}},{\"id\":\"notify-1\",\"type\":\"action\",\"data\":{\"label\":\"Notify\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"telegram/send-message\",\"chatId\":\"[redacted]\",\"message\":\"Moat default top-up guard ran on Base Sepolia\"}}}],\"edges\":[{\"id\":\"e-trigger-1-read-weth\",\"source\":\"trigger-1\",\"target\":\"read-weth\"},{\"id\":\"e-read-weth-cond-1\",\"source\":\"read-weth\",\"target\":\"cond-1\"},{\"id\":\"e-cond-1-top-up-true\",\"source\":\"cond-1\",\"target\":\"top-up\",\"sourceHandle\":\"true\"},{\"id\":\"e-cond-1-skip-false\",\"source\":\"cond-1\",\"target\":\"skip\",\"sourceHandle\":\"false\"},{\"id\":\"e-top-up-notify-1\",\"source\":\"top-up\",\"target\":\"notify-1\"},{\"id\":\"e-skip-notify-1\",\"source\":\"skip\",\"target\":\"notify-1\"}]}",
+			"rationale": "hand-coded default top-up (no LLM)",
+			"planOptions": "[{\"kind\":\"top_up\",\"assets\":\"5817609616161617\",\"projectedRatioPct\":68.687192}]",
+			"criticVerdict": "{\"skipped\":true,\"reason\":\"phase-3 default\"}",
+			"simulateResult": "{\"skipped\":true,\"reason\":\"3.4 arms the plan; 3.5 simulates the drill\"}",
+			"status": "approved",
+			"approvedAt": "2026-09-14T20:08:54.351Z",
+			"humanOverride": true
+		}
+	},
+	"policy": {
+		"id": "cmu1oc5en0004y3f5btf6dttt",
+		"positionId": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d:0x08dfdc3d060085d5f61e18f7c3f7e8f7736b3758",
+		"triggerRatioPct": 110,
+		"maxSpendUsd": 31,
+		"allowedActions": "top_up",
+		"slippageBps": 50,
+		"status": "needs_attention",
+		"circuitBreakerMaxRunsPerDay": 3,
+		"createdAt": "2026-09-14T20:07:04.031Z",
+		"armedAt": "2026-09-14T20:33:14.637Z"
+	},
+	"plan": {
+		"id": "cmu1oekbj0001y38g2mmpn8ue",
+		"policyId": "cmu1oc5en0004y3f5btf6dttt",
+		"workflowJson": "{\"name\":\"moat-default-top-up\",\"description\":\"hand-coded Morpho collateral top-up guard\",\"nodes\":[{\"id\":\"trigger-1\",\"type\":\"trigger\",\"data\":{\"label\":\"Manual\",\"type\":\"trigger\",\"status\":\"idle\",\"config\":{\"triggerType\":\"Manual\"}}},{\"id\":\"read-weth\",\"type\":\"action\",\"data\":{\"label\":\"Check WETH\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/check-token-balance\",\"network\":\"84532\",\"address\":\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\",\"tokenConfig\":\"{\\\"mode\\\":\\\"custom\\\",\\\"customToken\\\":{\\\"address\\\":\\\"0x4200000000000000000000000000000000000006\\\",\\\"symbol\\\":\\\"WETH\\\"}}\"}}},{\"id\":\"cond-1\",\"type\":\"action\",\"data\":{\"label\":\"Condition\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"Condition\",\"group\":{\"id\":\"cond-1-group\",\"logic\":\"AND\",\"rules\":[{\"id\":\"cond-1-rule\",\"operator\":\">=\",\"leftOperand\":\"{{@read-weth:Check WETH.balance.balanceRaw}}\",\"rightOperand\":\"5817609616161617\"}]},\"condition\":\"{{@read-weth:Check WETH.balance.balanceRaw}} >= 5817609616161617\"}}},{\"id\":\"top-up\",\"type\":\"action\",\"data\":{\"label\":\"Supply Collateral\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/write-contract\",\"network\":\"84532\",\"contractAddress\":\"0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb\",\"abi\":\"[{\\\"type\\\":\\\"function\\\",\\\"name\\\":\\\"supplyCollateral\\\",\\\"stateMutability\\\":\\\"nonpayable\\\",\\\"inputs\\\":[{\\\"name\\\":\\\"marketParams\\\",\\\"type\\\":\\\"tuple\\\",\\\"components\\\":[{\\\"name\\\":\\\"loanToken\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"collateralToken\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"oracle\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"irm\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"lltv\\\",\\\"type\\\":\\\"uint256\\\"}]},{\\\"name\\\":\\\"assets\\\",\\\"type\\\":\\\"uint256\\\"},{\\\"name\\\":\\\"onBehalf\\\",\\\"type\\\":\\\"address\\\"},{\\\"name\\\":\\\"data\\\",\\\"type\\\":\\\"bytes\\\"}],\\\"outputs\\\":[]}]\",\"abiFunction\":\"supplyCollateral\",\"functionArgs\":\"[{\\\"loanToken\\\":\\\"0x036CbD53842c5426634e7929541eC2318f3dCF7e\\\",\\\"collateralToken\\\":\\\"0x4200000000000000000000000000000000000006\\\",\\\"oracle\\\":\\\"0x274CC0f59661d3F49aE09231C9B821bc874d0490\\\",\\\"irm\\\":\\\"0x46415998764C29aB2a25CbeA6254146D50D22687\\\",\\\"lltv\\\":\\\"915000000000000000\\\"},\\\"5817609616161617\\\",\\\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\\\",\\\"0x\\\"]\"}}},{\"id\":\"skip\",\"type\":\"action\",\"data\":{\"label\":\"Insufficient Buffer\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"web3/check-balance\",\"network\":\"84532\",\"address\":\"0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758\"}}},{\"id\":\"notify-1\",\"type\":\"action\",\"data\":{\"label\":\"Notify\",\"type\":\"action\",\"status\":\"idle\",\"config\":{\"actionType\":\"telegram/send-message\",\"chatId\":\"[redacted]\",\"message\":\"Moat default top-up guard ran on Base Sepolia\"}}}],\"edges\":[{\"id\":\"e-trigger-1-read-weth\",\"source\":\"trigger-1\",\"target\":\"read-weth\"},{\"id\":\"e-read-weth-cond-1\",\"source\":\"read-weth\",\"target\":\"cond-1\"},{\"id\":\"e-cond-1-top-up-true\",\"source\":\"cond-1\",\"target\":\"top-up\",\"sourceHandle\":\"true\"},{\"id\":\"e-cond-1-skip-false\",\"source\":\"cond-1\",\"target\":\"skip\",\"sourceHandle\":\"false\"},{\"id\":\"e-top-up-notify-1\",\"source\":\"top-up\",\"target\":\"notify-1\"},{\"id\":\"e-skip-notify-1\",\"source\":\"skip\",\"target\":\"notify-1\"}]}",
+		"rationale": "hand-coded default top-up (no LLM)",
+		"planOptions": "[{\"kind\":\"top_up\",\"assets\":\"5817609616161617\",\"projectedRatioPct\":68.687192}]",
+		"criticVerdict": "{\"skipped\":true,\"reason\":\"phase-3 default\"}",
+		"simulateResult": "{\"skipped\":true,\"reason\":\"3.4 arms the plan; 3.5 simulates the drill\"}",
+		"status": "approved",
+		"approvedAt": "2026-09-14T20:08:54.351Z",
+		"humanOverride": true
+	}
+}
