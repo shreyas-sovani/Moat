@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T20:40:00Z (3.5 PASS live drill+save through KH; next is 4.1 recipes).  
+**Last updated:** 2026-09-14T20:43:00Z (3.5 PASS live drill+save through KH; CI [34894416894](https://github.com/shreyas-sovani/Moat/actions/runs/34894416894); next is 4.1 recipes).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -49,7 +49,7 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | Task | Status | Notes |
 |---|---|---|
 | 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **89** |
-| 0.2 CI | **PASS** | Latest green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4). Prior: [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2), [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (P1012 fix). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 — fixed. Re-check CI after the 3.5 push. |
+| 0.2 CI | **PASS** | Latest green: [34894416894](https://github.com/shreyas-sovani/Moat/actions/runs/34894416894) (`5316359` 3.5). Prior: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4), [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2), [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (P1012 fix). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 — fixed. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |

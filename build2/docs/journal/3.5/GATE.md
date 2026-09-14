@@ -4,7 +4,7 @@ Evaluated 2026-09-14T20:35Z against `docs/BACKLOG.md` Task 3.5 (MILESTONE).
 
 Live adversary `withdrawCollateral` through KeeperHub `directContractCall` (`simulate: true` first, distinct idempotency keys), then watcher `executeWorkflow(ojxu9lcwdmb6bxl0mh5qm)` `supplyCollateral`. Morpho plugin unused (no 84532). Requested stress target was trigger+5=115, which is above Morpho LLTV — sized to Morpho-safe **99% of LLTV**. After withdraw, WETH returned to the wallet; ERC-20 `approve` to Morpho Blue was required before the save (seed allowance was consumed). KH execution status stayed `error` because the Telegram notify node lacks a bot token on the org integration; `top-up` node `success` with an onchain hash. Supervisor treats a successful write node as the run succeeding (notify-only failure). Reconciliation v0: after 68.61 vs projected ~68.69.
 
-Command: `pnpm --filter @moat/worker drill`. Evidence: `docs/journal/run1/` + this folder.
+Command: `pnpm --filter @moat/worker drill`. Evidence: `docs/journal/run1/` + this folder. CI green: [34894416894](https://github.com/shreyas-sovani/Moat/actions/runs/34894416894) (`5316359`).
 
 | AC | Result | Evidence |
 |---|---|---|

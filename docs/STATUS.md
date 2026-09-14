@@ -1,4 +1,4 @@
-# Moat build status — 2026-09-14T20:40Z
+# Moat build status — 2026-09-14T20:43Z
 
 **Canonical pickup:** [`docs/CONTEXT.md`](CONTEXT.md) (read first). **Handoff:** [`HANDOFF.md`](HANDOFF.md).
 
@@ -9,7 +9,7 @@
 
 ## Done (gated PASS)
 
-Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1**, **3.2**, **3.3**, **3.4**, **3.5**. Live Morpho position, Telegram screenshot, KH smoke, Prisma migrations, viem position sync, mocked watcher/supervisor, default top-up plan armed on KH (`ojxu9lcwdmb6bxl0mh5qm`), live drill+approve+save with explorer hashes in `journal/run1/`. **Latest CI green:** [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4). Re-check CI after the 3.5 push. Prior: [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2). P1012-fix: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). Failed P1012 [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) is closed.
+Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1**, **3.2**, **3.3**, **3.4**, **3.5**. Live Morpho position, Telegram screenshot, KH smoke, Prisma migrations, viem position sync, mocked watcher/supervisor, default top-up plan armed on KH (`ojxu9lcwdmb6bxl0mh5qm`), live drill+approve+save with explorer hashes in `journal/run1/`. **Latest CI green:** [34894416894](https://github.com/shreyas-sovani/Moat/actions/runs/34894416894) (`5316359` 3.5). Prior: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4), [34889924586](https://github.com/shreyas-sovani/Moat/actions/runs/34889924586) (3.3), [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (3.2). P1012-fix: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). Failed P1012 [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) is closed.
 
 ## Not started
 

@@ -2,12 +2,12 @@
 
 **Read first:** [`docs/CONTEXT.md`](CONTEXT.md) (canonical). Then PRD → BACKLOG → STATUS → `build2/docs/journal/PROGRESS.md` + `BLOCKED.md`.
 
-**As of:** 2026-09-14T20:40Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
+**As of:** 2026-09-14T20:43Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
 
 ## Closed last session
 
 - **3.5 PASS** (milestone). Live adversary `withdrawCollateral` through KH `directContractCall` (`simulate: true` first), WETH `approve` to Morpho Blue, then `executeWorkflow(ojxu9lcwdmb6bxl0mh5qm)` `supplyCollateral`. Run `cmu1p9tie0001y3ax9706dnv7` `status=succeeded` + `reconciledAt`. Ratios **99.221493 → 68.614935**. Evidence `build2/docs/journal/run1/` + `journal/3.5/`. Command: `pnpm --filter @moat/worker drill`. Hashes: drill `0x5e57df2ef8ca9d58131e8a1151e987945f739afd86687570a8e1a87e6a77ab9b`, approve `0x527f16eefb13d6c0696bd5658f19abd7f6c3e6a10474ac7f43c4162600a6585a`, save `0x821dbaef2363b75734c5a3db3a45ebbb8cd3a45dc841d752a48b0521f55d1b8a`.
-- Prior: 0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.4. Armed plan KH `ojxu9lcwdmb6bxl0mh5qm`. Latest CI green: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131` 3.4). Re-check CI after the 3.5 push.
+- Prior: 0.1–0.6, 1.1–1.5, 2.1–2.3, 3.1–3.4. Armed plan KH `ojxu9lcwdmb6bxl0mh5qm`. Latest CI green: [34894416894](https://github.com/shreyas-sovani/Moat/actions/runs/34894416894) (`5316359` 3.5). Prior 3.4: [34891501112](https://github.com/shreyas-sovani/Moat/actions/runs/34891501112) (`5e0a131`).
 
 ## Do not do
 
