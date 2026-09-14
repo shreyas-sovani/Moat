@@ -1,4 +1,4 @@
-# Moat build status — 2026-09-14T19:50Z
+# Moat build status — 2026-09-14T19:55Z
 
 **Canonical pickup:** [`docs/CONTEXT.md`](CONTEXT.md) (read first). **Handoff:** [`HANDOFF.md`](HANDOFF.md).
 
@@ -9,16 +9,14 @@
 
 ## Done (gated PASS)
 
-Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1** and **3.2**. Live Morpho position, Telegram screenshot, KH smoke workflow created+deleted, Prisma migrations committed, viem position sync matches seed shares. **CI green:** [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395).
-
-Gate **0.2** PASS. Run [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012; that is closed.
+Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Tasks **3.1**, **3.2**, **3.3**. Live Morpho position, Telegram screenshot, KH smoke, Prisma migrations, viem position sync, mocked watcher/supervisor. **Latest CI green (pre-3.3 push):** [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110). P1012-fix: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395). Failed P1012 [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) is closed.
 
 ## Not started
 
 | Area | Notes |
 |---|---|
-| **3.3** watcher/supervisor | Next. Mocked KH `executeWorkflow` counts; uses 3.2 `syncPositions` |
-| 3.4–3.5 default plan / drill | Drill writes through KH (`withdrawCollateral`, `simulate: true` first) |
+| **3.4** default plan armed | Next. KH `enabled=true`; Guard row `armed`; idempotent |
+| **3.5** drill | `withdrawCollateral` through KH, `simulate: true` first |
 | 4.x composer/critic | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | |
@@ -31,8 +29,8 @@ See CONTEXT.md §5. Market `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433
 
 ## Next
 
-**Task 3.3** watcher + execution supervisor (mocked KH). Then 3.4 → 3.5. Always rewrite live docs to current status; after the assigned block is done, delete leftover handoff/pickup files. Nothing stale may remain.
+**Task 3.4** arm the hand-coded default plan on KeeperHub. Then 3.5. Rewrite live docs to current status after the block; delete leftover handoff/pickup files.
 
 ## Bite list (short)
 
-KH native cap ~0.001 ETH left (as of seed) · REST validate 405 · Python urllib 1010 · `.next/types` `any` · Gemini not Opus · skill samples use `"8453"` / `cron` / `type: "condition"` · SQLite `DATABASE_URL=file:./dev.db` (schema-relative) · Prisma CLI must use `pnpm --filter @moat/db prisma:migrate:*` · `Position.collateralShares` is Blue collateral **assets**, not shares · `pnpm --filter @moat/worker sync:positions` for a live read.
+KH native cap ~0.001 ETH left (as of seed) · REST validate 405 · Python urllib 1010 · `.next/types` `any` · Gemini not Opus · skill samples use `"8453"` / `cron` / `type: "condition"` · SQLite `DATABASE_URL=file:./dev.db` · Prisma CLI via `pnpm --filter @moat/db prisma:migrate:*` · `Position.collateralShares` is Blue collateral **assets** · `breachDetected` is `ratio <= trigger` (live 70.5 would fire at trigger 110) · 3.3 is mocked KH; `index.ts` idle · `pnpm --filter @moat/worker sync:positions` for a live read.

@@ -1,0 +1,37 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > AC1: two concurrent ticks on one breach create exactly one Run and one executeWorkflow 493ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > AC2: supervisor running→completed persists txHashes, logs, armed policy, alert 429ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > AC3: never-terminal status hits the 15-min cap → failed + alert 443ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > AC4: failed execution → policy needs_attention + alert 432ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > AC5: after success the policy is armed and the next breach fires again 438ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > does not fire when policy is not armed 444ms
+ ✓ apps/worker/src/guard-loop.test.ts > guard loop > marks the run failed when executeWorkflow throws 432ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  01:25:05
+   Duration  3.45s (transform 74ms, setup 0ms, collect 114ms, tests 3.11s, environment 0ms, prepare 60ms)
+

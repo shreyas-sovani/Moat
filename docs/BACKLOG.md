@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T19:50Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.2 PASS**. Next is **3.3**. Latest CI green: 34879998395. Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
+**Live implementation status (2026-09-14T19:55Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.3 PASS**. Next is **3.4**. Latest CI green before 3.3 push: 34889107110 (`9d844f2`). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -404,7 +404,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 ## Phase 3 — Guard Loop Without AI (proves the thesis before any LLM exists)
 
-> **Pickup note (2026-09-14T19:50Z):** Gates **3.1–3.2 PASS**. Next is **3.3**. Position sync: `apps/worker/src/sync-positions.ts`, live `pnpm --filter @moat/worker sync:positions`. Evidence: `build2/docs/journal/3.2/`. `Position.collateralShares` is Blue collateral assets. No KH writes in 3.2.
+> **Pickup note (2026-09-14T19:55Z):** Gates **3.1–3.3 PASS**. Next is **3.4**. Watcher: `apps/worker/src/guard-loop.ts` (mocked KH). Position sync: `pnpm --filter @moat/worker sync:positions`. Evidence: `journal/3.2/`, `journal/3.3/`. `index.ts` idle — no live tick loop. `breachDetected` is `ratio <= trigger`.
 
 ### Task 3.1: DB schema
 
@@ -448,6 +448,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 **Do NOT:** fire while `status != "armed"`; catch-and-continue around the state machine — a thrown transition error must mark the run failed, not vanish.
 
 **Gate 3.3:** AC1 RACE test: two concurrent watcher ticks on one breaching position → exactly 1 `Run` row, 1 executeWorkflow call (mocked client counts invocations); AC2 supervisor test: status sequence running→completed → run succeeded with txHashes+logs persisted; AC3 timeout test: never-terminal mock → 15-min cap → failed + alert called; AC4 failed-execution test → policy `needs_attention` + alert; AC5 recovery test: after success, next breach fires again (policy back to armed).
+
+**Status:** PASS 2026-09-14T19:55Z. Evidence: `build2/docs/journal/3.3/`. Mocked KH only. Policy claim status `firing`. Alerts persisted `channel=telegram` (no live send). `index.ts` idle.
 
 ---
 

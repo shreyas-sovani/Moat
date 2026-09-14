@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T19:50:00Z (3.2 PASS; live Position row matches V-M1 seed shares).  
+**Last updated:** 2026-09-14T19:55:00Z (3.3 PASS mocked watcher/supervisor; next is 3.4).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -48,8 +48,8 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 
 | Task | Status | Notes |
 |---|---|---|
-| 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **57** |
-| 0.2 CI | **PASS** | Latest green: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (migrate+lint+build+test). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 (`DATABASE_URL`) — fixed. |
+| 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **64** |
+| 0.2 CI | **PASS** | Latest green: [34889107110](https://github.com/shreyas-sovani/Moat/actions/runs/34889107110) (`9d844f2` 3.2). Prior green [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (P1012 fix). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 — fixed. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |
@@ -59,16 +59,17 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | **2.2 REST client** | **PASS** | 11 unit tests. `journal/2.2/` |
 | **2.3 KH smoke** | **PASS** | create `4nejcqnx21wsfxquxosk0` then delete; rerun same key no duplicate. `journal/kh-smoke/` |
 | **3.1 DB** | **PASS** | migration `20260914180000_init` committed; seed + test. `journal/3.1/` |
-| **3.2 position sync** | **PASS** | Mocked viem + live row = seed shares. `journal/3.2/`. `pnpm --filter @moat/worker sync:positions` |
-| **3.3 watcher/supervisor** | **NOT STARTED** | Next. Mocked KH execute counts |
-| 3.4–3.5 plan/drill | **NOT STARTED** | Drill writes through KH |
+| **3.2 position sync** | **PASS** | Mocked viem + live row = seed shares. `journal/3.2/` (`GATE.md`, `ac1-unit.txt`, `ac2-live.json`, `ac3-selectors.txt` 10 sigs). `pnpm --filter @moat/worker sync:positions`. Git `9d844f2`. |
+| **3.3 watcher/supervisor** | **PASS** | Mocked KH. AC1–AC5 + throw/draft extras. `journal/3.3/`. `tickWatcher` + `superviseRun`. `index.ts` idle |
+| **3.4 default plan** | **NOT STARTED** | Next. KH `enabled=true`, Guard `armed`, idempotent |
+| **3.5 drill** | **NOT STARTED** | `withdrawCollateral` through KH, `simulate: true` first |
 | 4.x composer/critic | **NOT STARTED** | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | **NOT STARTED** | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | **NOT STARTED** | |
 | 7.x README/video/submit | **NOT STARTED** | Public repo + root README exist; video and DoraHacks form not done |
 | bounty/ | **NOT STARTED** | |
 
-**Next logical block:** **Task 3.3** — watcher + execution supervisor (mocked KeeperHub). Then 3.4 → 3.5. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
+**Next logical block:** **Task 3.4** — hand-coded default plan armed on KeeperHub. Then 3.5 drill. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
 
 ---
 
@@ -125,6 +126,8 @@ Both `/Users/shreyas/Desktop/keeperhub/.env` and `build2/.env` are `KEY=value`. 
 | `VERIFIED_JSON_PATH` | `./config/verified.json` (resolved from **monorepo root** `build2/`) |
 | `ACTION_SCHEMAS_PATH` | `./config/action-schemas.json` |
 | `RUN_LIVE_AGENT_TESTS` | `0` |
+| `WATCHER_INTERVAL_MS` | `30000` — 3.3 tick (`.env.example`; `EnvSchema`) |
+| `RECONCILER_INTERVAL_MS` | `300000` |
 
 Parent `.env` originally had lowercase `keeperhub_api_key` and dumped Telegram JSON; cleaned. `EnvSchema` includes optional `GEMINI_API_KEY`.
 
@@ -176,7 +179,7 @@ Full table: `build2/docs/journal/vm1/TXS.md`. Hackathon-relevant pair:
 
 Also: wrap `0x91a659a8…c957`, oracle `0xf22b3c1d…9b48`, createMarket `0x38316d71…0bc8`, approve USDC `0x4105fd1f…e574`, approve WETH `0xd58c8223…2d12`, supplyCollateral `0xda22eba6…a51d`.
 
-Idempotency keys already used (do not reuse for new work): `moat:t1v2:{wrap,oracle,createMarket,approveUsdc,approveWeth,supply,supplyCollateral,borrow}`, `moat:smoke:2026-09-14`. Format is `moat:<scope>:<id>`. Smoke key is date-stamped; a rerun *today* returns the deleted id and must not create a second workflow.
+Idempotency keys already used (do not reuse for new work): `moat:t1v2:{wrap,oracle,createMarket,approveUsdc,approveWeth,supply,supplyCollateral,borrow}`, `moat:smoke:2026-09-14`. Format is `moat:<scope>:<id>`. Reusing `moat:smoke:2026-09-14` returns the deleted id and must not create a second workflow.
 
 Seed script (KH-routed, resumable): `build2/packages/infra/scripts/seed-position.ts` (`pnpm --filter @moat/infra seed:position`). State: `build2/docs/journal/vm1/seed-state.json`.
 
@@ -270,6 +273,8 @@ No `getDirectExecutionStatus` helper yet (seed script raw-fetches `directExecuti
 - PRD composer Opus / critic Sonnet → env is **Gemini Flash / Flash-Lite**.
 - Morpho GraphQL `chainId 84532` unsupported — no indexed markets; we created our own.
 - Collateral: Blue `position.collateral` is **assets**. Gate 3.2 stores that value in `Position.collateralShares` (PRD field name). `computePositionRisk` share math is same-unit; oracle-adjust into loan-token units before calling it (see 1.3 live test). Sync returns `MorphoPositionRaw` with 1:1 collateral totals.
+- `breachDetected` is `ratioOfLltvPct <= triggerRatioPct` (Gate 1.4). Live seed ratio ~70.5 with default trigger 110 **would count as a breach**. Do not invert the comparator to “fix” that.
+- Gate 3.3 introduces Policy status **`firing`** (claim) which PRD §4.2 did not list; the column is `String`. Snapshots JSON-encode bigint fields as decimal strings. Alerts: Prisma `channel="telegram"`; no live Telegram/KH notify in 3.3. `index.ts` does not start a live tick loop.
 - Forbidden-token grep after `next build` hits generated `any` in `.next/types` — sweep **source** after `rm -rf apps/web/.next`.
 
 ---
@@ -284,26 +289,26 @@ No `getDirectExecutionStatus` helper yet (seed script raw-fetches `directExecuti
 | `packages/kh` | graph builder I1–I6 (KH Condition shape), REST client (11 tests), smoke **PASS** |
 | `packages/db` | Prisma 10 models, migration `20260914180000_init`, `seedMinimal` + `pnpm --filter @moat/db seed` |
 | `packages/agent` | placeholder `export const agentPackage` |
-| `apps/worker` | **3.2** `syncPositions` + viem reader + `sync:positions` script. `index.ts` still idle until 3.3 |
+| `apps/worker` | **3.2** sync + **3.3** `guard-loop.ts` (`tickWatcher`, `superviseRun`). `index.ts` idle (no live KH loop). |
 | `apps/web` | Next 15 landing S1 only |
 
 Monorepo: pnpm workspaces, turbo `dependsOn: ["^build"]`. Vitest aliases `@moat/*`.
 
 ---
 
-## 9. How to close 3.3 (your job unless blocked)
+## 9. How to close 3.4 (your job unless blocked)
 
-Watcher tick (30s, `WATCHER_INTERVAL_MS`): every `Policy.status="armed"` → `syncPositions` → `computePositionRisk` / `breachDetected` → on breach create `Run(pending)` and atomically `armed→firing` (conditional UPDATE; skip if another tick already owns it). Fire `executeWorkflow(guard.khWorkflowId, idempotencyKey("run", runId))` via the Task 2.2 client (**mock** the client in tests — 3.3 is not a live KH write). Supervisor: poll status, backoff 2s→30s, cap 15 min. Terminal: succeeded (txHashes + logs + cost + before/after snapshots, policy back to `armed`) / failed (`needs_attention` + alert) / timeout (= failed). Alert every terminal state. Heartbeat per tick.
+`apps/worker/src/arm-default-plan.ts`: top-up graph via Task 2.1 builder from `verified.json` market + guardian wallet + a `Policy` row (trigger 110, `maxSpendUsd` = buffer balance) → local `validateGraphJson` (REST validate is 405) → `createWorkflow` with `moat:plan:<uuid>` → `enabled: true` → `Guard` row `armed` linked to policy + plan + workflow id. Fully idempotent: rerun detects the existing enabled guard and does not duplicate.
 
-Reuse 3.2 `syncPositions`. Oracle-adjust collateral into loan units before `computePositionRisk` (1.3 live test / `verified.json.morpho.collateralAccounting`). Do not wrap ETH. Do not fire unless `status==="armed"`.
+Condition nodes: `type: "action"` + `actionType: "Condition"`; `scheduleCron`; telegram `chatId` from env (not `"0"`). Chain `"84532"`. `simulate: true` is for 3.5 drill, not this create. Do not wrap ETH. Do not reuse `moat:smoke:2026-09-14`.
 
-Gate: AC1 two concurrent ticks → 1 `Run` + 1 mocked `executeWorkflow`; AC2 running→completed persists txHashes+logs; AC3 never-terminal → 15-min cap → failed+alert; AC4 failed execution → `needs_attention`+alert; AC5 after success, next breach fires again.
+Gate: AC1 script exit 0 and KH workflow `enabled=true` (list evidence); AC2 Guard `armed` with workflow id; AC3 rerun → exactly 1 guard row.
 
-Then 3.4 arm default plan (`enabled: true` on KH), 3.5 drill via `withdrawCollateral` through KH (`simulate: true` first).
+Then 3.5 drill via `withdrawCollateral` through KH (`simulate: true` first).
 
 ---
 
-## 10. After 3.3–3.5
+## 10. After 3.4–3.5
 
 4.x: Gemini Flash, not Anthropic.  
 5.x: shadcn at 5.1; verify UI in a browser.  
