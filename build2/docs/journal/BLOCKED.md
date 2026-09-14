@@ -40,4 +40,6 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 - Decision needed: install Docker + `act`, or create a GitHub remote and push (not done unless asked). Local `pnpm lint && pnpm build && pnpm test` already green.
 - YAML is committed so the first real push will exercise AC1.
 
+## CLOSED
+
 (none yet)
