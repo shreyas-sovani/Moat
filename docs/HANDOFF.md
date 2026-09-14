@@ -2,14 +2,12 @@
 
 **Read first:** [`docs/CONTEXT.md`](CONTEXT.md) (canonical). Then PRD → BACKLOG → STATUS → `build2/docs/journal/PROGRESS.md` + `BLOCKED.md`.
 
-**As of:** 2026-09-14T18:05Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
+**As of:** 2026-09-14T18:15Z. Network `"84532"` only. Git `main` on https://github.com/shreyas-sovani/Moat.
 
 ## Closed last session
 
-- **2.1 PASS** — graph I1–I6; KH Condition is `type: "action"` + `actionType: "Condition"`. Journal `build2/docs/journal/2.1/`.
-- **2.2 PASS** — REST client 11 unit tests (retry, idempotency, chain guard, `KhUnsupportedError`, `workflowRows`). Journal `2.2/`.
-- **2.3 PASS** — live smoke create/list/delete. Workflow `4nejcqnx21wsfxquxosk0`, key `moat:smoke:2026-09-14`. Rerun: same id, not in list (no duplicate). Journal `kh-smoke/`.
-- **3.1 PASS** — Prisma migration `20260914180000_init` committed; seed script + test. Journal `3.1/`.
+- **2.1–2.3 + 3.1 PASS** (see prior handoff). Smoke workflow `4nejcqnx21wsfxquxosk0`.
+- **CI P1012** — `89e7ee3` run 34878616724 failed because Prisma CLI in `packages/db` did not see `DATABASE_URL` from `build2/.env`. `scripts/run-prisma.ts` now loads that file and defaults `file:./dev.db`. CI migrate step also sets `DATABASE_URL`.
 
 ## Do not do
 
@@ -19,6 +17,7 @@
 - Do not copy skill-sample `"8453"`, `cron`, Condition `type: "condition"`, or `conditions[]`.
 - Do not start Phase 4–7 or `bounty/` before 3.4/3.5.
 - Do not commit `.env`. Do not reuse idempotency key `moat:smoke:2026-09-14` for a *new* workflow today.
+- Do not run raw `prisma migrate deploy` inside `packages/db` without `DATABASE_URL`.
 
 ## Your block (in order)
 

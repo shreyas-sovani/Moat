@@ -12,10 +12,10 @@
 		"build": "prisma generate && tsc -p tsconfig.json",
 		"test": "vitest run --config ../../vitest.config.ts src",
 		"lint": "biome check .",
-		"prisma:generate": "prisma generate",
-		"prisma:migrate": "prisma migrate dev",
-		"prisma:migrate:status": "prisma migrate status",
-		"prisma:migrate:deploy": "prisma migrate deploy",
+		"prisma:generate": "tsx scripts/run-prisma.ts generate",
+		"prisma:migrate": "tsx scripts/run-prisma.ts migrate dev",
+		"prisma:migrate:status": "tsx scripts/run-prisma.ts migrate status",
+		"prisma:migrate:deploy": "tsx scripts/run-prisma.ts migrate deploy",
 		"seed": "tsx scripts/seed.ts"
 	},
 	"dependencies": {

@@ -27,4 +27,4 @@ pnpm install
 pnpm lint && pnpm test && pnpm build
 ```
 
-CI on `main`: GitHub Actions workflow at repo-root `.github/workflows/ci.yml` (`working-directory: build2`).
+CI on `main`: GitHub Actions `.github/workflows/ci.yml` (`working-directory: build2`): install, migrate (`DATABASE_URL=file:./dev.db`), lint, build, test. Prisma CLI must be invoked via `pnpm --filter @moat/db prisma:migrate:*` so `build2/.env` is loaded.

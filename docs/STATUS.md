@@ -1,4 +1,4 @@
-# Moat build status — 2026-09-14T18:05Z
+# Moat build status — 2026-09-14T18:15Z
 
 **Canonical pickup:** [`docs/CONTEXT.md`](CONTEXT.md) (read first). **Handoff:** [`HANDOFF.md`](HANDOFF.md).
 
@@ -9,7 +9,9 @@
 
 ## Done (gated PASS)
 
-Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Task **3.1**. Live Morpho position, Telegram screenshot, CI green, KH smoke workflow created+deleted, Prisma migrations committed.
+Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Task **3.1**. Live Morpho position, Telegram screenshot, KH smoke workflow created+deleted, Prisma migrations committed.
+
+Gate **0.2** still PASS (first green run 34875987566). Push `89e7ee3` CI run [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) **failed** on `prisma migrate deploy` (P1012, `DATABASE_URL` not visible from `packages/db`). That is fixed; do not treat 34878616724 as green.
 
 ## Not started
 
@@ -20,7 +22,7 @@ Phase **0.1–0.6**, Phase **1.1–1.5**, Phase **2.1–2.3**, Task **3.1**. Liv
 | 4.x composer/critic | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | |
-| 7.x README/video/submit | Public repo exists |
+| 7.x video/submit | Root README exists; demo video and DoraHacks form not done |
 | bounty/ | Do not mix |
 
 ## Live position (do not recreate)
@@ -33,4 +35,4 @@ See CONTEXT.md §5. Market `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433
 
 ## Bite list (short)
 
-KH native cap ~0.001 ETH left today · REST validate 405 · Python urllib 1010 · `.next/types` `any` · Gemini not Opus · skill samples use `"8453"` / `cron` / `type: "condition"` · SQLite `DATABASE_URL=file:./dev.db` (schema-relative).
+KH native cap ~0.001 ETH left today · REST validate 405 · Python urllib 1010 · `.next/types` `any` · Gemini not Opus · skill samples use `"8453"` / `cron` / `type: "condition"` · SQLite `DATABASE_URL=file:./dev.db` (schema-relative) · Prisma CLI must use `pnpm --filter @moat/db prisma:migrate:*` so `build2/.env` is loaded.

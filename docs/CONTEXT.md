@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T18:05:00Z (gates 2.1–2.3 + 3.1 PASS).  
+**Last updated:** 2026-09-14T18:15:00Z (2.1–2.3 + 3.1 PASS; CI migrate P1012 fixed).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -48,8 +48,8 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 
 | Task | Status | Notes |
 |---|---|---|
-| 0.1 scaffold | **PASS** | 8 workspaces, biome, 40 tests |
-| 0.2 CI | **PASS** | `gh run` [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566) lint→build→test green, 52s |
+| 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **54** |
+| 0.2 CI | **PASS** | First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). Later [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) **failed** (Prisma P1012: `DATABASE_URL` missing). Fix: `run-prisma.ts` loads `build2/.env` + default `file:./dev.db`; CI step sets `DATABASE_URL`. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |
@@ -64,7 +64,7 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | 4.x composer/critic | **NOT STARTED** | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | **NOT STARTED** | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | **NOT STARTED** | |
-| 7.x README/video/submit | **NOT STARTED** | Public repo exists; product README was missing until this doc set |
+| 7.x README/video/submit | **NOT STARTED** | Public repo + root README exist; video and DoraHacks form not done |
 | bounty/ | **NOT STARTED** | |
 
 **Next logical block:** **Task 3.2** — viem position sync against the **existing** WETH/USDC market. Then 3.3 → 3.4 → 3.5. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
@@ -97,7 +97,9 @@ rm -rf apps/web/.next
 
 Biome: tabs, `noExplicitAny: error`. Provenance: no `0x`+40 hex in `apps`/`packages` except `packages/infra/src/config.ts`, `*.test.ts`, `fixtures`. Zero address lives at `ZERO_ADDRESS` in `config.ts`. Seed script hashes salt/topic via `cast` so they are not hardcoded.
 
-CI: repo-root `.github/workflows/ci.yml` with `working-directory: build2`, copies `.env.example` → `.env`, then `pnpm --filter @moat/db prisma:migrate:deploy`. Nested `build2/.github/workflows/ci.yml` is unused while git root is the parent repo.
+CI: repo-root `.github/workflows/ci.yml` with `working-directory: build2`. Steps: copy `.env.example` → `.env` → `pnpm i` → **migrate deploy** (`DATABASE_URL=file:./dev.db` on the step) → lint → build → test.
+
+Prisma CLI runs from `packages/db` and does **not** load `build2/.env` by itself. Always go through `pnpm --filter @moat/db prisma:migrate:*` (`scripts/run-prisma.ts` loads `build2/.env` and defaults `DATABASE_URL=file:./dev.db`). Raw `prisma migrate deploy` in that package with no env → P1012. Nested `build2/.github/workflows/ci.yml` is unused while git root is the parent repo.
 
 Commits: Conventional Commits. Test-first in `risk`/`policy`/`kh`/`agent`/`worker`.
 

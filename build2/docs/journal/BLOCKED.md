@@ -19,6 +19,10 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ## CLOSED
 
+### B-010 | CI migrate P1012 DATABASE_URL | CLOSED 2026-09-14T18:15Z
+
+`gh run` 34878616724 failed: Prisma CLI in `packages/db` did not see `DATABASE_URL` from `build2/.env`. `scripts/run-prisma.ts` loads that env and defaults `file:./dev.db`. CI migrate step sets `DATABASE_URL`.
+
 ### B-009 | Task 3.1 no Prisma migrations | CLOSED 2026-09-14T18:05Z
 
 Migration `20260914180000_init` committed. `prisma migrate status` up to date. Seed script + test.

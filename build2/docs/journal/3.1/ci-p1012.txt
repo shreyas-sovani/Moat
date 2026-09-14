@@ -1,0 +1,9 @@
+gh run 34878616724 (push 89e7ee3) failed at job check / step Migrate.
+
+Command: pnpm --filter @moat/db prisma:migrate:deploy
+Prisma: P1012 Environment variable not found: DATABASE_URL
+schema.prisma:7 url = env("DATABASE_URL")
+
+Cause: working-directory is build2 and CI copies .env.example → build2/.env, but Prisma CLI runs with cwd packages/db and only auto-loads packages/db/.env (not build2/.env).
+
+Fix: packages/db/scripts/run-prisma.ts calls loadMoatEnv() (build2/.env + parent .env + default file:./dev.db). CI also sets env DATABASE_URL=file:./dev.db on the Migrate step.

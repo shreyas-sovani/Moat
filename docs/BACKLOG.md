@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T18:05Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Task **3.1 PASS**. Next is **3.2** (do not invent a market id). Composer/critic env is Gemini Flash (not Anthropic).
+**Live implementation status (2026-09-14T18:15Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Task **3.1 PASS**. Next is **3.2**. CI run 34878616724 failed Prisma P1012 (fixed via `run-prisma.ts`). Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -412,7 +412,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 3.1:** AC1 `prisma migrate status` clean on fresh clone after `pnpm i`; AC2 a seed script inserts one row per model and a test reads them back; AC3 `grep -c "^model " schema.prisma` → `10`.
 
-**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/3.1/`. Migration `20260914180000_init`. `DATABASE_URL=file:./dev.db` is schema-relative (`packages/db/prisma/dev.db`).
+**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/3.1/`. Migration `20260914180000_init`. `DATABASE_URL=file:./dev.db` is schema-relative (`packages/db/prisma/dev.db`). CI migrate must use `pnpm --filter @moat/db prisma:migrate:deploy` (loads `build2/.env`); raw Prisma CLI in `packages/db` → P1012. Rework: `journal/3.1/ci-p1012.txt`.
 
 ---
 

@@ -21,4 +21,5 @@ TASK 2.1 | PASS 2026-09-14T18:05:00Z | graph I1–I6 dedicated tests vs real dum
 TASK 2.2 | PASS 2026-09-14T18:05:00Z | REST client 11 tests: retry, cold_start key, 400, chain guard, idempotency, KhUnsupportedError, workflowRows
 TASK 2.3 | PASS 2026-09-14T18:05:00Z | smoke create 4nejcqnx21wsfxquxosk0 then delete; rerun same key → same id, not listed (no duplicate)
 TASK 3.1 | PASS 2026-09-14T18:05:00Z | migration 20260914180000_init committed; seed inserts 10 models; grep -c model = 10
+REWORK 1 | AC1/CI | F1 | gh run 34878616724 P1012 DATABASE_URL — Prisma CLI cwd packages/db does not load build2/.env | scripts/run-prisma.ts loadMoatEnv + CI env DATABASE_URL=file:./dev.db
 TASK 3.2 | NOT STARTED | next — viem reads of existing market only
