@@ -24,6 +24,8 @@ jobs:
         run: |
           cp .env.example .env
           pnpm install --frozen-lockfile
+      - name: Migrate
+        run: pnpm --filter @moat/db prisma:migrate:deploy
       - name: Lint
         run: pnpm lint
       - name: Build

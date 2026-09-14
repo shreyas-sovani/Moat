@@ -84,7 +84,7 @@ export function validateGraphJson(
 	}
 
 	for (const node of graph.nodes) {
-		if (node.type !== "condition") continue;
+		if (!isConditionNode(node)) continue;
 		const outgoing = graph.edges.filter((e) => e.source === node.id);
 		const trues = outgoing.filter((e) => e.sourceHandle === "true");
 		const falses = outgoing.filter((e) => e.sourceHandle === "false");
@@ -98,6 +98,11 @@ export function validateGraphJson(
 		throw new KhGraphError(unique);
 	}
 	return graph;
+}
+
+function isConditionNode(node: WorkflowNode): boolean {
+	if (node.type === "condition") return true;
+	return node.data?.config?.actionType === "Condition";
 }
 
 function scanTemplates(value: unknown, violations: string[]): void {
@@ -183,12 +188,13 @@ export function wf(name: string, description: string) {
 		condition(id: string, cfg: { left: string; operator: string; right: string; label?: string }) {
 			nodes.push({
 				id,
-				type: "condition",
+				type: "action",
 				data: {
 					label: cfg.label ?? "Condition",
-					type: "condition",
+					type: "action",
 					status: "idle",
 					config: {
+						actionType: "Condition",
 						group: {
 							id: `${id}-group`,
 							logic: "AND",

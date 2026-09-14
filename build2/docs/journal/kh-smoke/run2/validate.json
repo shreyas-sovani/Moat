@@ -1,0 +1,137 @@
+{
+	"ok": true,
+	"local": "validateGraphJson",
+	"graph": {
+		"name": "moat-smoke",
+		"description": "disabled smoke workflow",
+		"nodes": [
+			{
+				"id": "trigger-1",
+				"type": "trigger",
+				"data": {
+					"label": "Manual",
+					"type": "trigger",
+					"status": "idle",
+					"config": {
+						"triggerType": "Manual"
+					}
+				}
+			},
+			{
+				"id": "read-1",
+				"type": "action",
+				"data": {
+					"label": "Check Balance",
+					"type": "action",
+					"status": "idle",
+					"config": {
+						"actionType": "web3/check-balance",
+						"network": "84532",
+						"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758"
+					}
+				}
+			},
+			{
+				"id": "cond-1",
+				"type": "action",
+				"data": {
+					"label": "Condition",
+					"type": "action",
+					"status": "idle",
+					"config": {
+						"actionType": "Condition",
+						"group": {
+							"id": "cond-1-group",
+							"logic": "AND",
+							"rules": [
+								{
+									"id": "cond-1-rule",
+									"operator": ">",
+									"leftOperand": "{{@read-1:Check Balance.balance}}",
+									"rightOperand": "-1"
+								}
+							]
+						},
+						"condition": "{{@read-1:Check Balance.balance}} > -1"
+					}
+				}
+			},
+			{
+				"id": "ok",
+				"type": "action",
+				"data": {
+					"label": "web3/check-balance",
+					"type": "action",
+					"status": "idle",
+					"config": {
+						"actionType": "web3/check-balance",
+						"network": "84532",
+						"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758"
+					}
+				}
+			},
+			{
+				"id": "skip",
+				"type": "action",
+				"data": {
+					"label": "web3/check-balance",
+					"type": "action",
+					"status": "idle",
+					"config": {
+						"actionType": "web3/check-balance",
+						"network": "84532",
+						"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758"
+					}
+				}
+			},
+			{
+				"id": "notify-1",
+				"type": "action",
+				"data": {
+					"label": "Notify",
+					"type": "action",
+					"status": "idle",
+					"config": {
+						"actionType": "telegram/send-message",
+						"chatId": "[redacted]",
+						"message": "moat smoke"
+					}
+				}
+			}
+		],
+		"edges": [
+			{
+				"id": "e-trigger-1-read-1",
+				"source": "trigger-1",
+				"target": "read-1"
+			},
+			{
+				"id": "e-read-1-cond-1",
+				"source": "read-1",
+				"target": "cond-1"
+			},
+			{
+				"id": "e-cond-1-ok-true",
+				"source": "cond-1",
+				"target": "ok",
+				"sourceHandle": "true"
+			},
+			{
+				"id": "e-cond-1-skip-false",
+				"source": "cond-1",
+				"target": "skip",
+				"sourceHandle": "false"
+			},
+			{
+				"id": "e-ok-notify-1",
+				"source": "ok",
+				"target": "notify-1"
+			},
+			{
+				"id": "e-skip-notify-1",
+				"source": "skip",
+				"target": "notify-1"
+			}
+		]
+	}
+}

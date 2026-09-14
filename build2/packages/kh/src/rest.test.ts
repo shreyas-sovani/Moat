@@ -1,9 +1,9 @@
 import type { Verified } from "@moat/infra";
 import { describe, expect, it } from "vitest";
 import { assertChainAllowed } from "./chain.js";
-import { KhApiError, KhChainError } from "./errors.js";
+import { KhApiError, KhChainError, KhUnsupportedError } from "./errors.js";
 import { idempotencyKey } from "./idempotency.js";
-import { KeeperHubClient } from "./rest.js";
+import { KeeperHubClient, workflowRows } from "./rest.js";
 
 const FAKE_ADDR = "0x1111111111111111111111111111111111111111";
 
@@ -35,6 +35,7 @@ function verified(): Verified {
 				executeWorkflow: "POST /api/workflows/{workflowId}/execute",
 				getExecutionStatus: "GET /api/workflows/executions/{executionId}/status",
 				directContractCall: "POST /api/execute/contract-call",
+				listWorkflows: "GET /api/workflows",
 			},
 			mcpOnly: ["validate_workflow"],
 			actionTypesConfirmed: ["web3/check-balance"],
@@ -125,5 +126,64 @@ describe("chain guard and keys", () => {
 
 	it('idempotencyKey("run","r-123") is moat:run:r-123', () => {
 		expect(idempotencyKey("run", "r-123")).toBe("moat:run:r-123");
+	});
+
+	it("validateWorkflow throws KhUnsupportedError", async () => {
+		const client = new KeeperHubClient({
+			verified: verified(),
+			apiKey: "kh_test",
+			fetch: async () => {
+				throw new Error("network should not be called");
+			},
+		});
+		await expect(
+			client.validateWorkflow({ name: "n", description: "d", nodes: [], edges: [] }),
+		).rejects.toBeInstanceOf(KhUnsupportedError);
+	});
+
+	it("directContractCall on 8453 throws KhChainError without fetching", async () => {
+		let fetched = 0;
+		const client = new KeeperHubClient({
+			verified: verified(),
+			apiKey: "kh_test",
+			allowlist: ["84532", "11155111"],
+			fetch: async () => {
+				fetched += 1;
+				return jsonResponse(200, { ok: true });
+			},
+		});
+		await expect(
+			client.directContractCall({ chainId: "8453", contractAddress: FAKE_ADDR }, "moat:x:1"),
+		).rejects.toBeInstanceOf(KhChainError);
+		expect(fetched).toBe(0);
+	});
+
+	it("listWorkflows GETs /api/workflows", async () => {
+		const calls: Array<{ url: string; method: string }> = [];
+		const client = new KeeperHubClient({
+			verified: verified(),
+			apiKey: "kh_test",
+			fetch: async (url, init) => {
+				calls.push({ url, method: String(init?.method ?? "GET") });
+				return jsonResponse(200, [{ id: "wf1" }]);
+			},
+		});
+		const listed = await client.listWorkflows();
+		expect(listed).toEqual([{ id: "wf1" }]);
+		expect(calls).toEqual([{ url: "https://app.keeperhub.com/api/workflows", method: "GET" }]);
+	});
+});
+
+describe("workflowRows", () => {
+	it("accepts a bare array", () => {
+		expect(workflowRows([{ id: "a" }, { id: "b", name: "n" }])).toEqual([{ id: "a" }, { id: "b" }]);
+	});
+
+	it("accepts { workflows: [...] }", () => {
+		expect(workflowRows({ workflows: [{ id: "z" }] })).toEqual([{ id: "z" }]);
+	});
+
+	it("throws on an unknown list shape", () => {
+		expect(() => workflowRows({ ok: true })).toThrow(/listWorkflows/);
 	});
 });

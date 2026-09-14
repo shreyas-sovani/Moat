@@ -1,0 +1,20 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/kh/src/rest.test.ts > KeeperHubClient retry > 503 then 200 succeeds in exactly 2 attempts 2ms
+ ✓ packages/kh/src/rest.test.ts > KeeperHubClient retry > cold_start retries with the same idempotency key 1ms
+ ✓ packages/kh/src/rest.test.ts > KeeperHubClient retry > 400 throws KhApiError on attempt 1 0ms
+ ✓ packages/kh/src/rest.test.ts > chain guard and keys > assertChainAllowed rejects 8453 and accepts 84532 0ms
+ ✓ packages/kh/src/rest.test.ts > chain guard and keys > idempotencyKey("run","r-123") is moat:run:r-123 0ms
+ ✓ packages/kh/src/rest.test.ts > chain guard and keys > validateWorkflow throws KhUnsupportedError 0ms
+ ✓ packages/kh/src/rest.test.ts > chain guard and keys > directContractCall on 8453 throws KhChainError without fetching 0ms
+ ✓ packages/kh/src/rest.test.ts > chain guard and keys > listWorkflows GETs /api/workflows 0ms
+ ✓ packages/kh/src/rest.test.ts > workflowRows > accepts a bare array 0ms
+ ✓ packages/kh/src/rest.test.ts > workflowRows > accepts { workflows: [...] } 0ms
+ ✓ packages/kh/src/rest.test.ts > workflowRows > throws on an unknown list shape 0ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  23:25:19
+   Duration  278ms (transform 46ms, setup 0ms, collect 67ms, tests 5ms, environment 0ms, prepare 41ms)
+

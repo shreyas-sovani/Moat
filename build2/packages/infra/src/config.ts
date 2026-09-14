@@ -79,7 +79,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
 		CRITIC_MODEL: source.CRITIC_MODEL ?? "gemini-2.5-flash-lite",
 		GEMINI_API_KEY: source.GEMINI_API_KEY ?? "",
 		ANTHROPIC_API_KEY: source.ANTHROPIC_API_KEY ?? "",
-		DATABASE_URL: source.DATABASE_URL ?? "file:./packages/db/prisma/dev.db",
+		DATABASE_URL: source.DATABASE_URL ?? "file:./dev.db",
 		RPC_URL_84532: source.RPC_URL_84532 ?? "https://sepolia.base.org",
 		TELEGRAM_BOT_TOKEN: source.TELEGRAM_BOT_TOKEN ?? "",
 		TELEGRAM_CHAT_ID: source.TELEGRAM_CHAT_ID ?? "",

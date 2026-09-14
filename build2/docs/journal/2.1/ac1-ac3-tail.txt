@@ -1,0 +1,17 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/kh/src/graph.test.ts > graph builder > I1-I6: valid graph against real dump 10ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > builds trigger→read→condition→true/false→notify 3ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I1: wrong network throws KhGraphError naming I1 12ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I2: condition missing false edge throws naming I2 2ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I3: unknown actionType throws naming I3 3ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I4: malformed template ref throws naming I4 3ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I5: simulate as string throws naming I5 2ms
+ ✓ packages/kh/src/graph.test.ts > graph builder > I6: orphan edge throws naming I6 3ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  23:25:17
+   Duration  281ms (transform 45ms, setup 0ms, collect 58ms, tests 39ms, environment 0ms, prepare 49ms)
+

@@ -1,0 +1,5 @@
+
+> @moat/db@0.0.1 seed /Users/shreyas/Desktop/keeperhub/build2/packages/db
+> tsx scripts/seed.ts
+
+{"ok":true,"ids":{"userId":"cmu1junob0000y3kwkektqzc7","walletId":"cmu1junoe0002y3kwqm7559tm","marketId":"seed-market","positionId":"cmu1junok0004y3kwxjhqtowh","policyId":"cmu1junok0006y3kwljxefigb","planId":"cmu1junol0008y3kwvpolzjlt","guardId":"cmu1junon000ay3kw7x4u9tdp","runId":"cmu1junoo000cy3kwwnehdu4b","alertId":"cmu1junop000ey3kw2sbgqa9j","heartbeatId":"cmu1junoq000fy3kw7xp9mht3"}}

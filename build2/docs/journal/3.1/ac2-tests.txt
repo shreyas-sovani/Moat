@@ -1,0 +1,16 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/db/src/client.test.ts > resolveDatabaseUrl > puts relative sqlite files next to schema.prisma 1ms
+ ✓ packages/db/src/client.test.ts > resolveDatabaseUrl > keeps absolute sqlite paths 0ms
+ ✓ packages/db/src/schema.test.ts > prisma schema > exposes ten models matching PRD §4.2 5ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ packages/db/src/seed.test.ts > seed > inserts one row per model and reads them back 627ms
+
+ Test Files  3 passed (3)
+      Tests  4 passed (4)
+   Start at  23:31:19
+   Duration  1.02s (transform 165ms, setup 0ms, collect 237ms, tests 641ms, environment 1ms, prepare 249ms)
+

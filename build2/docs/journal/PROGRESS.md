@@ -17,8 +17,8 @@ TASK 1.2 | PASS 2026-09-14 | assetsFromShares table + property; bigint-only
 TASK 1.3 | PASS 2026-09-14T17:34:53Z | live AC4 numbers in position-risk.test.ts (70.526009% of 91.5% LLTV)
 TASK 1.4 | PASS 2026-09-14 | breach/fire-point/stress; formula wins over 105→0 clause
 TASK 1.5 | PASS 2026-09-14 | policy schema + 27 risk/policy tests
-TASK 2.1 | NOT-GATED | graph.ts + 3 tests exist; journal/2.1 missing — next agent
-TASK 2.2 | NOT-GATED | rest.ts + 5 tests (need ≥8); journal/2.2 missing
-TASK 2.3 | NOT-GATED | packages/kh/scripts/smoke.ts never run live
-TASK 3.1 | NOT-GATED | 10 Prisma models + test; no migrations committed
-
+TASK 2.1 | PASS 2026-09-14T18:05:00Z | graph I1–I6 dedicated tests vs real dump; KH Condition is actionType Condition; AC4 via kh-smoke create
+TASK 2.2 | PASS 2026-09-14T18:05:00Z | REST client 11 tests: retry, cold_start key, 400, chain guard, idempotency, KhUnsupportedError, workflowRows
+TASK 2.3 | PASS 2026-09-14T18:05:00Z | smoke create 4nejcqnx21wsfxquxosk0 then delete; rerun same key → same id, not listed (no duplicate)
+TASK 3.1 | PASS 2026-09-14T18:05:00Z | migration 20260914180000_init committed; seed inserts 10 models; grep -c model = 10
+TASK 3.2 | NOT STARTED | next — viem reads of existing market only

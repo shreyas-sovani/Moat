@@ -1,0 +1,186 @@
+{
+	"id": "4nejcqnx21wsfxquxosk0",
+	"name": "moat-smoke",
+	"description": "disabled smoke workflow",
+	"userId": "s5gQCfbsWWzak4AERgFGlvG8V7jQUXT8",
+	"organizationId": "c0d9f89c-f698-4377-9443-e04fd8ab7dca",
+	"isAnonymous": false,
+	"featured": false,
+	"featuredOrder": 0,
+	"featuredProtocol": null,
+	"featuredProtocolOrder": 0,
+	"projectId": null,
+	"tagId": null,
+	"nodes": [
+		{
+			"id": "trigger-1",
+			"data": {
+				"type": "trigger",
+				"label": "Manual",
+				"config": {
+					"triggerType": "Manual"
+				},
+				"status": "idle"
+			},
+			"type": "trigger",
+			"position": {
+				"x": 0,
+				"y": 116
+			}
+		},
+		{
+			"id": "read-1",
+			"data": {
+				"type": "action",
+				"label": "Check Balance",
+				"config": {
+					"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+					"network": "84532",
+					"actionType": "web3/check-balance"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 252,
+				"y": 116
+			}
+		},
+		{
+			"id": "cond-1",
+			"data": {
+				"type": "action",
+				"label": "Condition",
+				"config": {
+					"group": {
+						"id": "cond-1-group",
+						"logic": "AND",
+						"rules": [
+							{
+								"id": "cond-1-rule",
+								"operator": ">",
+								"leftOperand": "{{@read-1:Check Balance.balance}}",
+								"rightOperand": "-1"
+							}
+						]
+					},
+					"condition": "{{@read-1:Check Balance.balance}} > -1",
+					"actionType": "Condition"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 504,
+				"y": 116
+			}
+		},
+		{
+			"id": "ok",
+			"data": {
+				"type": "action",
+				"label": "web3/check-balance",
+				"config": {
+					"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+					"network": "84532",
+					"actionType": "web3/check-balance"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 756,
+				"y": 0
+			}
+		},
+		{
+			"id": "skip",
+			"data": {
+				"type": "action",
+				"label": "web3/check-balance",
+				"config": {
+					"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+					"network": "84532",
+					"actionType": "web3/check-balance"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 756,
+				"y": 232
+			}
+		},
+		{
+			"id": "notify-1",
+			"data": {
+				"type": "action",
+				"label": "Notify",
+				"config": {
+					"chatId": "[redacted]",
+					"message": "moat smoke",
+					"actionType": "telegram/send-message"
+				},
+				"status": "idle"
+			},
+			"type": "action",
+			"position": {
+				"x": 1008,
+				"y": 0
+			}
+		}
+	],
+	"edges": [
+		{
+			"id": "e-trigger-1-read-1",
+			"source": "trigger-1",
+			"target": "read-1"
+		},
+		{
+			"id": "e-read-1-cond-1",
+			"source": "read-1",
+			"target": "cond-1"
+		},
+		{
+			"id": "e-cond-1-ok-true",
+			"source": "cond-1",
+			"target": "ok",
+			"sourceHandle": "true"
+		},
+		{
+			"id": "e-cond-1-skip-false",
+			"source": "cond-1",
+			"target": "skip",
+			"sourceHandle": "false"
+		},
+		{
+			"id": "e-ok-notify-1",
+			"source": "ok",
+			"target": "notify-1"
+		},
+		{
+			"id": "e-skip-notify-1",
+			"source": "skip",
+			"target": "notify-1"
+		}
+	],
+	"visibility": "private",
+	"enabled": false,
+	"sourceWorkflowId": null,
+	"createdAt": "2026-09-14T17:56:37.769Z",
+	"updatedAt": "2026-09-14T17:56:37.769Z",
+	"seededAt": null,
+	"isListed": false,
+	"listedSlug": null,
+	"listedAt": null,
+	"shareExecutionStatus": false,
+	"inputSchema": null,
+	"outputMapping": null,
+	"priceUsdcPerCall": null,
+	"workflowType": "read",
+	"category": null,
+	"chain": null,
+	"listingVersion": 1,
+	"deletedAt": null,
+	"deactivatedAt": null
+}

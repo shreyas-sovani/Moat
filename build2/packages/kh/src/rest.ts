@@ -6,6 +6,35 @@ import { idempotencyKey } from "./idempotency.js";
 
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
 
+function asRecord(value: unknown): Record<string, unknown> | undefined {
+	if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+		return value as Record<string, unknown>;
+	}
+	return undefined;
+}
+
+export function workflowRows(body: unknown): Array<{ id: string }> {
+	let rows: unknown;
+	if (Array.isArray(body)) {
+		rows = body;
+	} else {
+		const rec = asRecord(body);
+		if (rec && Array.isArray(rec.workflows)) rows = rec.workflows;
+		else if (rec && Array.isArray(rec.data)) rows = rec.data;
+	}
+	if (!Array.isArray(rows)) {
+		throw new KhApiError(200, body, "KeeperHub listWorkflows: unexpected JSON shape");
+	}
+	const out: Array<{ id: string }> = [];
+	for (const row of rows) {
+		const rec = asRecord(row);
+		if (rec && typeof rec.id === "string") {
+			out.push({ id: rec.id });
+		}
+	}
+	return out;
+}
+
 export interface KhClientOptions {
 	fetch?: FetchLike;
 	verified?: Verified;
@@ -149,7 +178,7 @@ export class KeeperHubClient {
 	}
 
 	validateWorkflow(_graph: GraphJson): Promise<unknown> {
-		throw new KhUnsupportedError("validate_workflow");
+		return Promise.reject(new KhUnsupportedError("validate_workflow"));
 	}
 
 	createWorkflow(graph: GraphJson, key: string, enabled = false): Promise<unknown> {

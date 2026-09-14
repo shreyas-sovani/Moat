@@ -1,0 +1,19 @@
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": SQLite database "gate-3.1.db" at "file:./gate-3.1.db"
+
+SQLite database gate-3.1.db created at file:./gate-3.1.db
+
+1 migration found in prisma/migrations
+
+Applying migration `20260914180000_init`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20260914180000_init/
+    └─ migration.sql
+      
+All migrations have been successfully applied.

@@ -9,4 +9,4 @@ export {
 	type WorkflowNode,
 	type WorkflowEdge,
 } from "./graph.js";
-export { KeeperHubClient } from "./rest.js";
+export { KeeperHubClient, workflowRows } from "./rest.js";

@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T17:50Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **code exists, gates NOT closed** (start at 2.1 journal). Composer/critic env is Gemini Flash (not Anthropic). Do not invent market ids.
+**Live implementation status (2026-09-14T18:05Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Task **3.1 PASS**. Next is **3.2** (do not invent a market id). Composer/critic env is Gemini Flash (not Anthropic).
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -346,7 +346,7 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 ## Phase 2 — KeeperHub Client
 
-> **Pickup note (2026-09-14):** implementation for 2.1 (graph.ts + 3 tests) and 2.2 (rest.ts + 5 tests) and a smoke script for 2.3 **already exist**. Gates are **not PASS** until journal evidence exists. 2.2 needs ≥8 tests. 2.3 has never been run live. Smoke currently calls no local validate workaround, uses notify chatId `"0"`, and assumes `listWorkflows` is a bare array. Details: `docs/CONTEXT.md` §9. Do not rewrite the builder from skill samples (`cron`, `"8453"`, Condition `conditions[]`) — live shapes are already in `graph.ts`.
+> **Pickup note (2026-09-14T18:05Z):** Gates **2.1–2.3 PASS**. Evidence: `build2/docs/journal/2.1/`, `2.2/`, `kh-smoke/`. Live KH Condition nodes are `type: "action"` + `actionType: "Condition"` with `config.group.rules`. REST validate remains 405. Smoke notify uses `TELEGRAM_CHAT_ID` (`telegram/send-message` requires `chatId`). Do not rewrite the builder from skill samples (`cron`, `"8453"`, `type: "condition"`, `conditions[]`).
 
 ### Task 2.1: Workflow graph builder + invariants
 
@@ -369,6 +369,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 2.1:** AC1 tests I1–I6 green using the real dump; AC2 a valid graph (trigger→read→condition→true-action/false-action→notify) builds and its JSON passes `validateGraphJson`; AC3 mutation tests: each single-invariant violation (flip one field) → `KhGraphError` naming that invariant; AC4 builder output passes KH-side validation when Task 2.3 runs (forward-compat evidence).
 
+**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/2.1/` + `kh-smoke/run1/create.json`. Live KH node `type` is only `trigger`|`action`; builder emits Condition as `actionType: "Condition"`.
+
 ---
 
 ### Task 2.2: REST client — retry, idempotency, chain guard
@@ -384,6 +386,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 **Gate 2.2:** AC1 test: 503→200 two-call sequence succeeds in exactly 2 attempts; AC2 test: cold_start body with `retryAfterSeconds:2` → second attempt observed with SAME idempotency key (capture header/body); AC3 test: 400 → `KhApiError` on attempt 1, no second attempt; AC4 test: `assertChainAllowed("8453")` throws, `"84532"` passes; AC5 key-format test `("run","r-123") → "moat:run:r-123"`; AC6 ≥8 green tests in package.
 
+**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/2.2/` — 11 REST tests.
+
 ---
 
 ### Task 2.3: Live smoke against KH
@@ -393,6 +397,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 **Requirements:** script `packages/kh/scripts/smoke.ts`: build sample graph (Task 2.1 valid shape, `enabled:false`) → server-side validate → create (idempotency `moat:smoke:<date>`) → verify present via list → delete. Rerunning the script is side-effect-free.
 
 **Gate 2.3:** AC1 exit 0 with workflow id printed; AC2 rerun → no duplicate created (same key → same id or clean create+delete cycle); AC3 evidence: validate output + create response in `journal/kh-smoke/`.
+
+**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/kh-smoke/`. Id `4nejcqnx21wsfxquxosk0`, key `moat:smoke:2026-09-14`. Local `validateGraphJson` (REST validate 405).
 
 ---
 
@@ -405,6 +411,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 **Requirements:** `packages/db/schema.prisma` implements every model in PRD §4.2 with those exact model + field names (types: bigints as `String`, JSON columns as `Json`, enums as `String` with documented literal sets). `client.ts` exports Prisma singleton. Migration committed.
 
 **Gate 3.1:** AC1 `prisma migrate status` clean on fresh clone after `pnpm i`; AC2 a seed script inserts one row per model and a test reads them back; AC3 `grep -c "^model " schema.prisma` → `10`.
+
+**Status:** PASS 2026-09-14T18:05Z. Evidence: `build2/docs/journal/3.1/`. Migration `20260914180000_init`. `DATABASE_URL=file:./dev.db` is schema-relative (`packages/db/prisma/dev.db`).
 
 ---
 

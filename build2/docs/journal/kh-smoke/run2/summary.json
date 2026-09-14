@@ -1,0 +1,8 @@
+{
+	"ok": true,
+	"workflowId": "4nejcqnx21wsfxquxosk0",
+	"idempotency": "moat:smoke:2026-09-14",
+	"attempt": "docs/journal/kh-smoke/run2",
+	"listed": false,
+	"idempotentReplay": true
+}

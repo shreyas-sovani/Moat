@@ -30,55 +30,78 @@ function sampleGraph() {
 		.build();
 }
 
+function condNode(graph: GraphJson) {
+	const node = graph.nodes.find((n) => n.id === "cond-1");
+	if (!node) throw new Error("expected cond-1");
+	return node;
+}
+
 describe("graph builder", () => {
 	it("I1-I6: valid graph against real dump", () => {
 		const schemas = loadActionSchemas();
 		expect(schemas.actions.length).toBeGreaterThan(10);
+		expect(schemas.actions.some((a) => a.type === "Condition")).toBe(true);
 		const graph = sampleGraph();
 		expect(validateGraphJson(graph).nodes.length).toBeGreaterThan(3);
 		expect(loadVerified().network.chainId).toBe("84532");
+		for (const node of graph.nodes) {
+			const network = node.data.config.network;
+			if (network !== undefined) {
+				expect(network).toBe("84532");
+			}
+		}
 	});
 
 	it("builds trigger→read→condition→true/false→notify", () => {
 		const graph = sampleGraph();
+		const cond = condNode(graph);
+		expect(cond.type).toBe("action");
+		expect(cond.data.config.actionType).toBe("Condition");
 		const condEdges = graph.edges.filter((e) => e.source === "cond-1");
 		expect(condEdges.some((e) => e.sourceHandle === "true")).toBe(true);
 		expect(condEdges.some((e) => e.sourceHandle === "false")).toBe(true);
 	});
 
-	it("mutation tests name the invariant", () => {
-		const graph = sampleGraph();
-		const i1 = structuredClone(graph) as GraphJson;
-		const node = i1.nodes.find((n) => n.data.config.network);
+	it("I1: wrong network throws KhGraphError naming I1", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		const node = graph.nodes.find((n) => n.data.config.network);
 		if (!node) throw new Error("expected network node");
 		node.data.config.network = "1";
-		expect(() => validateGraphJson(i1)).toThrow(KhGraphError);
-		expect(() => validateGraphJson(i1)).toThrow(/I1/);
+		expect(() => validateGraphJson(graph)).toThrow(KhGraphError);
+		expect(() => validateGraphJson(graph)).toThrow(/I1/);
+	});
 
-		const i2 = structuredClone(graph) as GraphJson;
-		i2.edges = i2.edges.filter((e) => e.sourceHandle !== "false");
-		expect(() => validateGraphJson(i2)).toThrow(/I2/);
+	it("I2: condition missing false edge throws naming I2", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		graph.edges = graph.edges.filter((e) => e.sourceHandle !== "false");
+		expect(() => validateGraphJson(graph)).toThrow(/I2/);
+	});
 
-		const i3 = structuredClone(graph) as GraphJson;
-		const action = i3.nodes.find((n) => n.id === "true-1");
+	it("I3: unknown actionType throws naming I3", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		const action = graph.nodes.find((n) => n.id === "true-1");
 		if (!action) throw new Error("expected action");
 		action.data.config.actionType = "not-a-real/action";
-		expect(() => validateGraphJson(i3)).toThrow(/I3/);
+		expect(() => validateGraphJson(graph)).toThrow(/I3/);
+	});
 
-		const i4 = structuredClone(graph) as GraphJson;
-		const cond = i4.nodes.find((n) => n.type === "condition");
-		if (!cond) throw new Error("expected condition");
-		cond.data.config.condition = "{{@bad}}";
-		expect(() => validateGraphJson(i4)).toThrow(/I4/);
+	it("I4: malformed template ref throws naming I4", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		condNode(graph).data.config.condition = "{{@bad}}";
+		expect(() => validateGraphJson(graph)).toThrow(/I4/);
+	});
 
-		const i5 = structuredClone(graph) as GraphJson;
-		const withSim = i5.nodes.find((n) => n.id === "true-1");
+	it("I5: simulate as string throws naming I5", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		const withSim = graph.nodes.find((n) => n.id === "true-1");
 		if (!withSim) throw new Error("expected action");
 		withSim.data.config.simulate = "true";
-		expect(() => validateGraphJson(i5)).toThrow(/I5/);
+		expect(() => validateGraphJson(graph)).toThrow(/I5/);
+	});
 
-		const i6 = structuredClone(graph) as GraphJson;
-		i6.edges.push({ id: "orphan", source: "missing", target: "true-1" });
-		expect(() => validateGraphJson(i6)).toThrow(/I6/);
+	it("I6: orphan edge throws naming I6", () => {
+		const graph = structuredClone(sampleGraph()) as GraphJson;
+		graph.edges.push({ id: "orphan", source: "missing", target: "true-1" });
+		expect(() => validateGraphJson(graph)).toThrow(/I6/);
 	});
 });

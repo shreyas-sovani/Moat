@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/kh/src/graph.test.ts (8 tests) 39ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  23:25:16
+   Duration  342ms (transform 48ms, setup 0ms, collect 60ms, tests 39ms, environment 0ms, prepare 46ms)
+
+--- count ---

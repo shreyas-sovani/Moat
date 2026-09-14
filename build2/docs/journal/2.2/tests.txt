@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+ ✓ packages/kh/src/rest.test.ts (11 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  23:25:18
+   Duration  271ms (transform 54ms, setup 0ms, collect 62ms, tests 5ms, environment 0ms, prepare 48ms)
+
+--- count ---

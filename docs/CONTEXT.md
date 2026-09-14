@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T17:50:00Z (T1 seed + CI). Hygiene protocol added 2026-09-14T17:50Z+.  
+**Last updated:** 2026-09-14T18:05:00Z (gates 2.1–2.3 + 3.1 PASS).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -55,18 +55,19 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | 0.5 V-M1 T1 | **PASS** | Live WETH/USDC market + position |
 | 0.6 V-F1/V-T1 | **PASS** | Telegram screenshot; adversary = guardian |
 | 1.1–1.5 risk/policy | **PASS** | 1.3 AC2 uses live AC4 numbers |
-| **2.1 graph** | **NOT GATED** | **Code+3 unit tests exist.** No `journal/2.1/`. Close this first. |
-| **2.2 REST client** | **NOT GATED** | **Code+5 unit tests exist.** Gate wants ≥8 tests + journal. |
-| **2.3 KH smoke** | **NOT GATED** | `packages/kh/scripts/smoke.ts` exists, **never run live.** |
-| 3.1 DB | **NOT GATED** | Prisma 10 models + unit test exist. **No migrations committed.** |
-| 3.2–3.5 worker/drill | **NOT STARTED** | Placeholders only |
+| **2.1 graph** | **PASS** | I1–I6 tests; Condition = KH `actionType: "Condition"`. `journal/2.1/` |
+| **2.2 REST client** | **PASS** | 11 unit tests. `journal/2.2/` |
+| **2.3 KH smoke** | **PASS** | create `4nejcqnx21wsfxquxosk0` then delete; rerun same key no duplicate. `journal/kh-smoke/` |
+| **3.1 DB** | **PASS** | migration `20260914180000_init` committed; seed + test. `journal/3.1/` |
+| **3.2 position sync** | **NOT STARTED** | Next. Viem reads of the **existing** market only |
+| 3.3–3.5 worker/drill | **NOT STARTED** | Placeholders only |
 | 4.x composer/critic | **NOT STARTED** | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | **NOT STARTED** | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | **NOT STARTED** | |
 | 7.x README/video/submit | **NOT STARTED** | Public repo exists; product README was missing until this doc set |
 | bounty/ | **NOT STARTED** | |
 
-**Next logical block:** Phase 2 gates **2.1 → 2.2 → 2.3** in that order. Then 3.1 (commit migrations) → 3.2 live position sync against the **existing** market. Do **not** create another Morpho market. Do **not** start composer/UI until 2.3 and 3.4/3.5 path is unblocked.
+**Next logical block:** **Task 3.2** — viem position sync against the **existing** WETH/USDC market. Then 3.3 → 3.4 → 3.5. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
 
 ---
 
@@ -96,7 +97,7 @@ rm -rf apps/web/.next
 
 Biome: tabs, `noExplicitAny: error`. Provenance: no `0x`+40 hex in `apps`/`packages` except `packages/infra/src/config.ts`, `*.test.ts`, `fixtures`. Zero address lives at `ZERO_ADDRESS` in `config.ts`. Seed script hashes salt/topic via `cast` so they are not hardcoded.
 
-CI: repo-root `.github/workflows/ci.yml` with `working-directory: build2`, copies `.env.example` → `.env`. Nested `build2/.github/workflows/ci.yml` is unused while git root is the parent repo.
+CI: repo-root `.github/workflows/ci.yml` with `working-directory: build2`, copies `.env.example` → `.env`, then `pnpm --filter @moat/db prisma:migrate:deploy`. Nested `build2/.github/workflows/ci.yml` is unused while git root is the parent repo.
 
 Commits: Conventional Commits. Test-first in `risk`/`policy`/`kh`/`agent`/`worker`.
 
@@ -113,7 +114,7 @@ Both `/Users/shreyas/Desktop/keeperhub/.env` and `build2/.env` are `KEY=value`. 
 | `CRITIC_MODEL` | **`gemini-2.5-flash-lite`** |
 | `GEMINI_API_KEY` | set |
 | `ANTHROPIC_API_KEY` | unused |
-| `DATABASE_URL` | `file:./packages/db/prisma/dev.db` |
+| `DATABASE_URL` | `file:./dev.db` — Prisma CLI + `resolveDatabaseUrl` resolve this next to `packages/db/prisma/schema.prisma` (`packages/db/prisma/dev.db`, gitignored). Do **not** use `file:./packages/db/prisma/dev.db` with Prisma CLI (that nests `prisma/prisma/`). |
 | `RPC_URL_84532` | `https://sepolia.base.org` |
 | `TELEGRAM_BOT_TOKEN` | set (bot `@moat69bot`) |
 | `TELEGRAM_CHAT_ID` | private chat; getUpdates historically `5151519003` — **only in .env** |
@@ -170,7 +171,7 @@ Full table: `build2/docs/journal/vm1/TXS.md`. Hackathon-relevant pair:
 
 Also: wrap `0x91a659a8…c957`, oracle `0xf22b3c1d…9b48`, createMarket `0x38316d71…0bc8`, approve USDC `0x4105fd1f…e574`, approve WETH `0xd58c8223…2d12`, supplyCollateral `0xda22eba6…a51d`.
 
-Idempotency keys already used (do not reuse for new work): `moat:t1v2:{wrap,oracle,createMarket,approveUsdc,approveWeth,supply,supplyCollateral,borrow}`. Format is `moat:<scope>:<id>`.
+Idempotency keys already used (do not reuse for new work): `moat:t1v2:{wrap,oracle,createMarket,approveUsdc,approveWeth,supply,supplyCollateral,borrow}`, `moat:smoke:2026-09-14`. Format is `moat:<scope>:<id>`. Smoke key is date-stamped; a rerun *today* returns the deleted id and must not create a second workflow.
 
 Seed script (KH-routed, resumable): `build2/packages/infra/scripts/seed-position.ts` (`pnpm --filter @moat/infra seed:position`). State: `build2/docs/journal/vm1/seed-state.json`.
 
@@ -207,7 +208,7 @@ Includes workflows CRUD (`POST /api/workflows/create` not `/api/workflows`), exe
 
 ### MCP-only
 
-`validate_workflow`. Live `POST /api/workflows/validate` → **405**. MCP validate needs a **stored `workflowId`**. Workaround: local `validateGraphJson` then `createWorkflow`. `KeeperHubClient.validateWorkflow` throws `KhUnsupportedError`.
+`validate_workflow`. Live `POST /api/workflows/validate` → **405**. MCP validate needs a **stored `workflowId`**. Workaround: local `validateGraphJson` then `createWorkflow`. `KeeperHubClient.validateWorkflow` rejects with `KhUnsupportedError`.
 
 ### Direct contract-call body (docs.keeperhub.com/api/direct-execution)
 
@@ -234,17 +235,18 @@ Builder in `packages/kh/src/graph.ts` uses:
 
 - Schedule field **`scheduleCron`** + `scheduleTimezone` (not `cron`)
 - Condition `config.group.rules[]` with `leftOperand` / `operator` / `rightOperand` (not skill-sample `conditions` array)
+- Condition **node type** is `"action"` with `actionType: "Condition"` (KH schema allows only `trigger`|`action`; `type: "condition"` is rejected/wrong). `validateGraphJson` I2 still accepts legacy `type: "condition"`.
 - Edges `sourceHandle: "true"|"false"`
 
-Smoke `notify(..., "0", ...)` uses chatId `"0"` — **wrong for live Telegram**. Use `verified.keeperhub.telegram.integrationId` = `m2ovhyo51qj0ixr3pl3dq` and/or `TELEGRAM_CHAT_ID` from env after checking the live `telegram/send-message` schema. Bot `@moat69bot`. Screenshot: `build2/docs/journal/vt1/screenshot.png`.
+`telegram/send-message` required fields are **`chatId` + `message`** (optional `parseMode`). Org integration `m2ovhyo51qj0ixr3pl3dq` is bound at KH plugin level; do not put `integrationId` on the node. Smoke uses `TELEGRAM_CHAT_ID` from env (redacted in journal). ChatId `"0"` is invalid for live Telegram. Bot `@moat69bot`. Screenshot: `build2/docs/journal/vt1/screenshot.png`.
 
 ### Client already in repo (`packages/kh`)
 
-`KeeperHubClient`: create/update/delete/list workflows, execute, getExecution/status/logs, `directContractCall`. Injected `fetch` in tests. Retry: 5xx + `upstream_cold_start` ≤3, same Idempotency-Key; 4xx no retry. `assertChainAllowed` before mutations. `idempotencyKey("run","r-123")` → `moat:run:r-123`.
+`KeeperHubClient`: create/update/delete/list workflows, execute, getExecution/status/logs, `directContractCall`. Injected `fetch` in tests. Retry: 5xx + `upstream_cold_start` ≤3, same Idempotency-Key; 4xx no retry. `assertChainAllowed` before mutations. `idempotencyKey("run","r-123")` → `moat:run:r-123`. Gate 2.2: **11** unit tests. `validateWorkflow` → rejected `KhUnsupportedError` (REST 405); use `validateGraphJson`.
 
-**Missing vs Gate 2.2:** only **5** unit tests (need ≥8). No `getDirectExecutionStatus` helper (seed script raw-fetches `directExecutionStatus`). No `execute_protocol_action` REST (never probed — do not add path without a live probe). T1 used **contract-call**, not protocol actions.
+`listWorkflows` is a **bare array** of workflow objects with `id` (confirmed 2026-09-14 smoke). Helper `workflowRows` also accepts `{ workflows: [...] }` / `{ data: [...] }`. `createWorkflow` returns the full workflow including `id`. `deleteWorkflow` returns `{ success: true }`. After delete, the same idempotency key returns the same `id` **without** re-inserting it into the list.
 
-`listWorkflows` response shape is **not proven**. Smoke assumes `Array<{id}>`. Live list dump in `journal/vk1/list_workflows.json` is an array — likely OK, but confirm.
+No `getDirectExecutionStatus` helper yet (seed script raw-fetches `directExecutionStatus`). No `execute_protocol_action` REST (never probed — do not add a path without a live probe). T1 used **contract-call**, not protocol actions.
 
 ### Skill / CLAUDE.md traps
 
@@ -274,8 +276,8 @@ Smoke `notify(..., "0", ...)` uses chatId `"0"` — **wrong for live Telegram**.
 | `packages/infra` | Zod `VerifiedSchema` (chainId only `84532`\|`11155111`), loaders, `check-config`, `sync-schemas`, `seed-position` |
 | `packages/risk` | morpho math, position-risk, breach, view ABI fragment |
 | `packages/policy` | Zod policy schema |
-| `packages/kh` | graph builder I1–I6, REST client, smoke script **unrun** |
-| `packages/db` | Prisma 10 models, **no migrations/** |
+| `packages/kh` | graph builder I1–I6 (KH Condition shape), REST client (11 tests), smoke **PASS** |
+| `packages/db` | Prisma 10 models, migration `20260914180000_init`, `seedMinimal` + `pnpm --filter @moat/db seed` |
 | `packages/agent` | placeholder `export const agentPackage` |
 | `apps/worker` | placeholder idle log |
 | `apps/web` | Next 15 landing S1 only |
@@ -284,44 +286,21 @@ Monorepo: pnpm workspaces, turbo `dependsOn: ["^build"]`. Vitest aliases `@moat/
 
 ---
 
-## 9. How to close Phase 2 (your job unless blocked)
+## 9. How to close 3.2 (your job unless blocked)
 
-### 2.1 Graph — mostly done
+Viem **reads** of the **existing** market in `verified.json` (do not create another). ABI fragment in `packages/risk/src/abi/morpho.ts` — every selector via `cast sig`, paste to `journal/3.2/`. Upsert `Market` + `Position` (bigints as strings). Zero KH writes in this service.
 
-ACs: I1–I6 tests vs real dump; valid trigger→read→condition→true/false→notify; mutation tests name I1–I6. Code: `graph.ts` + `graph.test.ts` (3 tests). **Write `build2/docs/journal/2.1/` evidence** (vitest output). AC4 is forward-compat with 2.3.
+Gate: mocked viem unit test; live `Position` row vs Task 0.5 journal numbers; selector evidence ≥6 signatures.
 
-If you add tests, keep TDD. Do not weaken invariants.
-
-### 2.2 REST — add tests to ≥8, journal
-
-Existing: 503→200, cold_start same key, 400 no retry, chain guard, key format. Add at least: `KhUnsupportedError` on validate, mutating call without allowlisted chain, maybe 3rd retry / listWorkflows mock. Journal `2.2/`.
-
-### 2.3 Live smoke — must actually run
-
-`pnpm --filter @moat/kh smoke` with `.env` loaded (`set -a; source .env; set +a`).
-
-Fix before/during run (do not ignore):
-
-1. Call `validateGraphJson` locally; **do not** call REST validate.
-2. `enabled: false`.
-3. Idempotency `moat:smoke:<YYYY-MM-DD>` — rerun must not duplicate (create+delete cycle is OK).
-4. Confirm `listWorkflows` JSON shape.
-5. Notify: real telegram integration, not chatId `"0"`.
-6. Save raw create/list/delete JSON to `build2/docs/journal/kh-smoke/` (no API keys).
-7. Chain id `"84532"` only.
-
-If create fails, journal the body and BLOCKED.md — do not guess a new endpoint.
+Then 3.3 watcher/supervisor (mocked executeWorkflow counts), 3.4 arm default plan (`enabled: true` on KH), 3.5 drill via `withdrawCollateral` through KH (`simulate: true` first). Do not wrap more ETH.
 
 ---
 
-## 10. After Phase 2
+## 10. After 3.2–3.5
 
-3.1: `prisma migrate` committed so fresh clone + `pnpm i` is clean.  
-3.2: viem **reads** of the **existing** market; ABI selectors via `cast sig` into journal.  
-3.3–3.5: watcher/supervisor/default plan/drill. Drill adversary write **through KH**, `simulate: true` first. Native wrap is nearly capped; drill should be Morpho `withdrawCollateral` (ERC-20/shares, not extra ETH value) unless spend-cap is re-checked.  
 4.x: Gemini Flash, not Anthropic.  
 5.x: shadcn at 5.1; verify UI in a browser.  
-7.x: README (now exists), video, DoraHacks form listing MCP, audit trail, simulate, DeFi plugins.
+7.x: README (exists), video, DoraHacks form listing MCP, audit trail, simulate, DeFi plugins.
 
 ---
 
