@@ -1,0 +1,27 @@
+{
+	"name": "@moat/worker",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"test": "vitest run --config ../../vitest.config.ts src",
+		"lint": "biome check .",
+		"dev": "tsx src/index.ts",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"@moat/agent": "workspace:*",
+		"@moat/db": "workspace:*",
+		"@moat/infra": "workspace:*",
+		"@moat/kh": "workspace:*",
+		"@moat/policy": "workspace:*",
+		"@moat/risk": "workspace:*",
+		"viem": "2.37.6"
+	},
+	"devDependencies": {
+		"@types/node": "22.15.29",
+		"tsx": "4.20.3",
+		"typescript": "5.8.3",
+		"vitest": "3.2.4"
+	}
+}

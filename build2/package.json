@@ -1,0 +1,25 @@
+{
+	"name": "moat",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@9.15.9",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"build": "turbo run build",
+		"test": "vitest run",
+		"lint": "biome check .",
+		"dev": "turbo run dev --parallel",
+		"sync:schemas": "pnpm --filter @moat/infra sync:schemas",
+		"ui:check": "pnpm --filter @moat/web ui:check",
+		"check:config": "pnpm --filter @moat/infra check:config"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"turbo": "2.5.4",
+		"typescript": "5.8.3",
+		"vitest": "3.2.4",
+		"tsx": "4.20.3"
+	}
+}

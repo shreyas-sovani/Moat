@@ -1,0 +1,27 @@
+{
+	"name": "@moat/kh",
+	"version": "0.0.1",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		}
+	},
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"test": "vitest run --config ../../vitest.config.ts src",
+		"lint": "biome check .",
+		"smoke": "tsx scripts/smoke.ts"
+	},
+	"dependencies": {
+		"@moat/infra": "workspace:*",
+		"zod": "3.25.76"
+	},
+	"devDependencies": {
+		"@types/node": "22.15.29",
+		"typescript": "5.8.3",
+		"tsx": "4.20.3",
+		"vitest": "3.2.4"
+	}
+}

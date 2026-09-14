@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  khOrgId        String
+  telegramChatId String?
+  createdAt      DateTime @default(now())
+  wallets        Wallet[]
+}
+
+model Wallet {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  address   String
+  role      String
+  createdAt DateTime @default(now())
+}
+
+model Market {
+  id               String     @id
+  loanToken        String
+  collateralToken  String
+  lltv             String
+  oracle           String
+  irm              String
+  chainId          String
+  positions        Position[]
+}
+
+model Position {
+  id               String   @id @default(cuid())
+  marketId         String
+  market           Market   @relation(fields: [marketId], references: [id])
+  walletAddress    String
+  borrowShares     String
+  collateralShares String
+  snapshotAt       DateTime
+  policies         Policy[]
+}
+
+model Policy {
+  id                         String    @id @default(cuid())
+  positionId                 String
+  position                   Position  @relation(fields: [positionId], references: [id])
+  triggerRatioPct            Float
+  maxSpendUsd                Float
+  allowedActions             String
+  slippageBps                Int
+  status                     String
+  circuitBreakerMaxRunsPerDay Int
+  createdAt                  DateTime  @default(now())
+  armedAt                    DateTime?
+  plans                      Plan[]
+  guards                     Guard[]
+}
+
+model Plan {
+  id            String    @id @default(cuid())
+  policyId      String
+  policy        Policy    @relation(fields: [policyId], references: [id])
+  workflowJson  String
+  rationale     String
+  planOptions   String
+  criticVerdict String
+  simulateResult String
+  status        String
+  approvedAt    DateTime?
+  humanOverride Boolean   @default(false)
+  guards        Guard[]
+}
+
+model Guard {
+  id               String   @id @default(cuid())
+  policyId         String
+  policy           Policy   @relation(fields: [policyId], references: [id])
+  planId           String
+  plan             Plan     @relation(fields: [planId], references: [id])
+  khWorkflowId     String
+  khIdempotencyKey String
+  status           String
+  createdAt        DateTime @default(now())
+  runs             Run[]
+}
+
+model Run {
+  id             String    @id @default(cuid())
+  guardId        String
+  guard          Guard     @relation(fields: [guardId], references: [id])
+  khExecutionId  String
+  trigger        String
+  status         String
+  startedAt      DateTime  @default(now())
+  txHashes       String
+  costUsd        Float     @default(0)
+  logsJson       String
+  beforeSnapshot String
+  afterSnapshot  String
+  reconciledAt   DateTime?
+  alerts         Alert[]
+}
+
+model Alert {
+  id      String   @id @default(cuid())
+  runId   String?
+  run     Run?     @relation(fields: [runId], references: [id])
+  level   String
+  channel String
+  payload String
+  sentAt  DateTime @default(now())
+}
+
+model Heartbeat {
+  id        String   @id @default(cuid())
+  component String
+  lastTickAt DateTime
+  detail    String
+}

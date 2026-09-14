@@ -1,0 +1,18 @@
+apps/web/.next/types/app/page.ts:24:  metadata?: any
+apps/web/.next/types/app/page.ts:26:  viewport?: any
+apps/web/.next/types/app/page.ts:51:  checkFields<Diff<{ __tag__: 'generateStaticParams', __return_type__: any[] | Promise<any[]> }, { __tag__: 'generateStaticParams', __return_type__: ReturnType<MaybeField<TEntry, 'generateStaticParams'>> }>>()
+apps/web/.next/types/app/page.ts:56:  searchParams?: Promise<any>
+apps/web/.next/types/app/page.ts:66:type RevalidateRange<T> = T extends { revalidate: any } ? NonNegative<T['revalidate']> : never
+apps/web/.next/types/app/layout.ts:24:  metadata?: any
+apps/web/.next/types/app/layout.ts:26:  viewport?: any
+apps/web/.next/types/app/layout.ts:51:  checkFields<Diff<{ __tag__: 'generateStaticParams', __return_type__: any[] | Promise<any[]> }, { __tag__: 'generateStaticParams', __return_type__: ReturnType<MaybeField<TEntry, 'generateStaticParams'>> }>>()
+apps/web/.next/types/app/layout.ts:56:  searchParams?: Promise<any>
+apps/web/.next/types/app/layout.ts:66:type RevalidateRange<T> = T extends { revalidate: any } ? NonNegative<T['revalidate']> : never
+apps/web/.next/types/validator.ts:14:  ) => Promise<any> | any
+apps/web/.next/types/validator.ts:18:  ) => Promise<any> | any
+apps/web/.next/types/validator.ts:19:  metadata?: any
+apps/web/.next/types/validator.ts:20:  viewport?: any
+apps/web/.next/types/validator.ts:29:  ) => Promise<any> | any
+apps/web/.next/types/validator.ts:33:  ) => Promise<any> | any
+apps/web/.next/types/validator.ts:34:  metadata?: any
+apps/web/.next/types/validator.ts:35:  viewport?: any

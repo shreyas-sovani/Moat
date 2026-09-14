@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+	--ink: #0c0f14;
+	--paper: #e8e0d4;
+	--rust: #c45c26;
+	--safe: #2a9d8f;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	background: var(--ink);
+	color: var(--paper);
+	font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+main {
+	max-width: 42rem;
+	margin: 0 auto;
+	padding: 4rem 1.5rem;
+}
+
+h1 {
+	font-size: 3rem;
+	letter-spacing: -0.04em;
+	margin: 0.5rem 0;
+}
+
+.kicker {
+	color: var(--safe);
+	font-size: 0.75rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.lede {
+	font-size: 1.25rem;
+	line-height: 1.4;
+}
+
+a {
+	color: var(--rust);
+}

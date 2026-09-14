@@ -1,0 +1,8 @@
+apps/web/tsconfig.json
+apps/worker/tsconfig.json
+packages/infra/tsconfig.json
+packages/agent/tsconfig.json
+packages/db/tsconfig.json
+packages/kh/tsconfig.json
+packages/risk/tsconfig.json
+packages/policy/tsconfig.json

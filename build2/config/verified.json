@@ -1,0 +1,129 @@
+{
+	"network": {
+		"chainId": "84532",
+		"name": "base-sepolia",
+		"rpcUrl": "https://sepolia.base.org",
+		"explorerUrl": "https://sepolia.basescan.org",
+		"explorerTxPath": "/tx/{hash}",
+		"explorerAddressPath": "/address/{address}",
+		"verifiedBy": "V-N1"
+	},
+	"tokens": {
+		"USDC": {
+			"address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+			"decimals": 6,
+			"symbol": "USDC",
+			"source": "onchain symbol()+decimals() via sepolia.base.org; Circle Base Sepolia USDC listed at developers.circle.com"
+		},
+		"WETH": {
+			"address": "0x4200000000000000000000000000000000000006",
+			"decimals": 18,
+			"symbol": "WETH",
+			"source": "onchain symbol() via sepolia.base.org; canonical OP-stack WETH predeploy"
+		}
+	},
+	"morpho": {
+		"blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+		"irm": "0x46415998764C29aB2a25CbeA6254146D50D22687",
+		"oracleFactory": "0x2DC205F24BCb6B311E5cdf0745B0741648Aebd3d",
+		"markets": [],
+		"collateralAccounting": "Morpho Blue position.collateral is already asset units, not shares. Callers of computePositionRisk must pass collateral as assets with totalSupplyShares=totalSupplyAssets (1:1) OR pass the raw collateral amount as collateralShares with matching totals."
+	},
+	"oracles": {
+		"ETH_USD": {
+			"address": "0x4aDC67696bA383F43DD60A9e78F2C97Fbbfc7cb1",
+			"decimals": 8,
+			"description": "ETH / USD",
+			"source": "onchain description()+decimals()+latestRoundData() via sepolia.base.org"
+		},
+		"BTC_USD": {
+			"address": "0x0FB99723Aee6f420beAD13e6bBB79b7E6F034298",
+			"decimals": 8,
+			"description": "BTC / USD",
+			"source": "onchain description()+decimals()+latestRoundData() via sepolia.base.org"
+		}
+	},
+	"keeperhub": {
+		"restBase": "https://app.keeperhub.com",
+		"mcpUrl": "https://app.keeperhub.com/mcp",
+		"restEndpointsConfirmed": {
+			"listWorkflows": "GET /api/workflows",
+			"getWorkflow": "GET /api/workflows/{workflowId}",
+			"createWorkflow": "POST /api/workflows/create",
+			"updateWorkflow": "PATCH /api/workflows/{workflowId}",
+			"deleteWorkflow": "DELETE /api/workflows/{workflowId}",
+			"executeWorkflow": "POST /api/workflows/{workflowId}/execute",
+			"listExecutions": "GET /api/workflows/{workflowId}/executions",
+			"getExecutionStatus": "GET /api/workflows/executions/{executionId}/status",
+			"getExecutionLogs": "GET /api/workflows/executions/{executionId}/logs",
+			"waitExecution": "GET /api/workflows/executions/{executionId}/wait",
+			"directTransfer": "POST /api/execute/transfer",
+			"directContractCall": "POST /api/execute/contract-call",
+			"directExecutionStatus": "GET /api/execute/{executionId}/status",
+			"listChains": "GET /api/chains",
+			"listActionSchemas": "GET /api/mcp/schemas",
+			"listIntegrations": "GET /api/integrations",
+			"listKeys": "GET /api/keys"
+		},
+		"mcpOnly": ["validate_workflow"],
+		"actionTypesConfirmed": [
+			"web3/check-balance",
+			"web3/check-token-balance",
+			"web3/read-contract",
+			"web3/write-contract",
+			"web3/transfer-funds",
+			"morpho/get-position",
+			"morpho/supply-collateral",
+			"morpho/withdraw-collateral",
+			"morpho/repay",
+			"morpho/borrow",
+			"morpho/supply",
+			"telegram/send-message",
+			"Condition"
+		],
+		"wallet": {
+			"integrationId": "nn8bdw0xa4x1rgrg2aztw",
+			"address": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+			"type": "web3",
+			"role": "guardian"
+		}
+	},
+	"provenance": {
+		"V-K1": {
+			"command": "GET https://app.keeperhub.com/api/mcp/schemas + MCP tools/list + get_wallet_integration + list_workflows + GET /api/chains",
+			"resultDigest": "488 actions; Base Sepolia 84532 enabled; wallet 0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+			"timestamp": "2026-09-14T09:16:00Z"
+		},
+		"V-K2": {
+			"command": "Fetched https://docs.keeperhub.com/api, /api/workflows, /api/executions, /api/direct-execution; live-probed GET /api/workflows 200, GET /api/chains 200, GET /api/integrations 200, GET /api/mcp/schemas 200, GET /api/keys 200, HEAD /api/execute/transfer 405, POST /api/workflows/validate 405",
+			"resultDigest": "create path is POST /api/workflows/create; validate_workflow is MCP-only and requires a stored workflowId",
+			"timestamp": "2026-09-14T09:16:00Z"
+		},
+		"V-N1": {
+			"command": "cast block-number --rpc-url https://sepolia.base.org",
+			"resultDigest": "block 46804507+",
+			"timestamp": "2026-09-14T09:15:00Z"
+		},
+		"V-M1": {
+			"command": "cast code MorphoBlue + IRM + oracle factory; Morpho GraphQL markets(where:{chainId_in:[84532]})",
+			"resultDigest": "T0-partial: Morpho Blue HAS_CODE on 84532 at CREATE2 address; GraphQL returns unsupported chainId 84532 so no indexed markets. T1 pending: create permissionless WETH/USDC market after faucet funding. Branch=T1-pending.",
+			"timestamp": "2026-09-14T09:16:00Z",
+			"branch": "T1-pending"
+		},
+		"V-M2": {
+			"command": "cast call Chainlink AggregatorV3 description/decimals/latestRoundData on Base Sepolia",
+			"resultDigest": "ETH/USD and BTC/USD feeds live; testnet heartbeat irregular by design",
+			"timestamp": "2026-09-14T09:16:00Z"
+		},
+		"V-F1": {
+			"command": "cast balance + USDC.balanceOf + WETH.balanceOf guardian wallet",
+			"resultDigest": "all zero — faucet funding required",
+			"timestamp": "2026-09-14T09:16:00Z"
+		},
+		"V-T1": {
+			"command": "GET /api/integrations",
+			"resultDigest": "only web3 wallet integration present; no Telegram/Discord connection. test_notification blocked until a notification integration is created in the KH org.",
+			"timestamp": "2026-09-14T09:16:00Z"
+		}
+	}
+}
