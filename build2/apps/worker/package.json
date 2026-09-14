@@ -7,7 +7,8 @@
 		"test": "vitest run --config ../../vitest.config.ts src",
 		"lint": "biome check .",
 		"dev": "tsx src/index.ts",
-		"start": "node dist/index.js"
+		"start": "node dist/index.js",
+		"sync:positions": "tsx scripts/sync-live.ts"
 	},
 	"dependencies": {
 		"@moat/agent": "workspace:*",

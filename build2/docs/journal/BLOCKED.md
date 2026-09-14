@@ -15,7 +15,7 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 ### B-007 | KeeperHub 0.02 ETH daily native cap
 
-- Wrap consumed 0.019 ETH. Remaining ~0.001 ETH native as of seed. Re-check `GET /api/analytics/spend-cap` before any payable KH write. Drill (3.5) should be Morpho `withdrawCollateral`, not wrap.
+- Wrap consumed 0.019 ETH. Remaining ~0.001 ETH native as of seed. Re-check `GET /api/analytics/spend-cap` before any payable KH write. Drill (3.5) should be Morpho `withdrawCollateral`, not wrap. Task 3.2 was reads-only (viem); cap unchanged.
 
 ## CLOSED
 

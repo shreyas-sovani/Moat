@@ -1,0 +1,21 @@
+
+ RUN  v3.2.4 /Users/shreyas/Desktop/keeperhub/build2
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/sync-positions.test.ts > syncPositions > upserts Market + Position as string bigints and returns MorphoPositionRaw 700ms
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+ ✓ apps/worker/src/sync-positions.test.ts > syncPositions > second sync updates the same Position row 449ms
+ ✓ apps/worker/src/sync-positions.test.ts > syncPositions > throws when onchain market params disagree with verified.json 456ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  01:16:07
+   Duration  1.99s (transform 64ms, setup 0ms, collect 101ms, tests 1.61s, environment 0ms, prepare 71ms)
+

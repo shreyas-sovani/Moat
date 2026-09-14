@@ -1,0 +1,70 @@
+{
+	"ok": true,
+	"asOf": "2026-09-14T19:45:52.003Z",
+	"rpc": "https://sepolia.base.org",
+	"chainId": "84532",
+	"marketId": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d",
+	"walletAddress": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+	"databaseUrlKind": "sqlite-file",
+	"expected": {
+		"source": "build2/docs/journal/vm1 + CONTEXT.md §5 seed at 2026-09-14T17:34:53Z",
+		"borrowShares": "31000000000000",
+		"collateralShares": "19000000000000000",
+		"supplyShares": "50000000000000",
+		"totalSupplyAssets": "50000000",
+		"totalBorrowAssets": "31000000"
+	},
+	"positionRow": {
+		"id": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d:0x08dfdc3d060085d5f61e18f7c3f7e8f7736b3758",
+		"marketId": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d",
+		"walletAddress": "0x08dfDC3D060085D5F61e18F7c3f7E8f7736B3758",
+		"borrowShares": "31000000000000",
+		"collateralShares": "19000000000000000",
+		"snapshotAt": "2026-09-14T19:45:52.003Z"
+	},
+	"marketRow": {
+		"id": "0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433f4290024e70e0d",
+		"loanToken": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+		"collateralToken": "0x4200000000000000000000000000000000000006",
+		"lltv": "915000000000000000",
+		"oracle": "0x274CC0f59661d3F49aE09231C9B821bc874d0490",
+		"irm": "0x46415998764C29aB2a25CbeA6254146D50D22687",
+		"chainId": "84532"
+	},
+	"blue": {
+		"supplyShares": "50000000000000",
+		"borrowShares": "31000000000000",
+		"collateral": "19000000000000000",
+		"totalSupplyAssets": "50000000",
+		"totalSupplyShares": "50000000000000",
+		"totalBorrowAssets": "31000000",
+		"totalBorrowShares": "31000000000000",
+		"lastUpdate": "1789407264",
+		"fee": "0"
+	},
+	"raw": {
+		"borrowShares": "31000000000000",
+		"collateralShares": "19000000000000000",
+		"totalBorrowShares": "31000000000000",
+		"totalBorrowAssets": "31000000",
+		"totalSupplyShares": "19000000000000000",
+		"totalSupplyAssets": "19000000000000000"
+	},
+	"comparison": {
+		"borrowShares": {
+			"expected": "31000000000000",
+			"got": "31000000000000",
+			"match": true
+		},
+		"collateralShares": {
+			"expected": "19000000000000000",
+			"got": "19000000000000000",
+			"match": true
+		},
+		"supplyShares": {
+			"expected": "50000000000000",
+			"got": "50000000000000",
+			"match": true
+		}
+	}
+}

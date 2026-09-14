@@ -10,7 +10,7 @@
 
 **Upstream documents (read order):** `CLAUDE.md` (hard rules) → `docs/PRD.md` (the contract) → this backlog. On conflict: PRD wins over this backlog; live verification output (Phase 0) wins over both.
 
-**Live implementation status (2026-09-14T18:20Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Task **3.1 PASS**. Next is **3.2**. Latest CI green: 34879998395. Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
+**Live implementation status (2026-09-14T19:50Z):** **`docs/CONTEXT.md` is canonical for pickup.** Phase 0 **0.1–0.6 PASS**. Phase 1 **1.1–1.5 PASS**. Phase 2 **2.1–2.3 PASS**. Tasks **3.1–3.2 PASS**. Next is **3.3**. Latest CI green: 34879998395. Composer/critic env is Gemini Flash (not Anthropic). Do not invent a market id.
 
 **Document philosophy — WHAT, not HOW.** Each task states: the Outcome (what exists after), Requirements (interfaces, invariants, behaviors — the contract your code must satisfy), Do-NOT (failure modes that void the task), and a Gate (numbered Acceptance Criteria with verification commands). You own the implementation. Code blocks here are interface contracts and exact expected values — treat every one as mandatory, not illustrative. Where the contract underspecifies, choose the simplest implementation that satisfies all ACs — do not gold-plate.
 
@@ -404,6 +404,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 
 ## Phase 3 — Guard Loop Without AI (proves the thesis before any LLM exists)
 
+> **Pickup note (2026-09-14T19:50Z):** Gates **3.1–3.2 PASS**. Next is **3.3**. Position sync: `apps/worker/src/sync-positions.ts`, live `pnpm --filter @moat/worker sync:positions`. Evidence: `build2/docs/journal/3.2/`. `Position.collateralShares` is Blue collateral assets. No KH writes in 3.2.
+
 ### Task 3.1: DB schema
 
 **Outcome:** Persistent state for the whole product, exactly the PRD's model.
@@ -427,6 +429,8 @@ interface PositionRisk { borrowAssets: bigint; collateralAssets: bigint; ratioOf
 4. Reads only — zero writes (this service never needs `packages/kh` mutations).
 
 **Gate 3.2:** AC1 unit test with mocked viem client: fixture → correct DB rows (string bigints) + correct `MorphoPositionRaw`; AC2 live run: `Position` row matches Task 0.5's manual numbers (evidence: row dump vs journal); AC3 selector evidence file present with ≥6 signatures.
+
+**Status:** PASS 2026-09-14T19:50Z. Evidence: `build2/docs/journal/3.2/`. Live `Position` `borrowShares=31000000000000` `collateralShares=19000000000000000` match V-M1. Morpho Blue totals come from `market(bytes32)` (no separate getters). `Position.collateralShares` stores Blue collateral **assets**. Command: `pnpm --filter @moat/worker sync:positions`. 10 `cast sig` lines in `ac3-selectors.txt`.
 
 ---
 

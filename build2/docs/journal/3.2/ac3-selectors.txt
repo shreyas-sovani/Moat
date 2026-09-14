@@ -1,0 +1,14 @@
+# Morpho Blue / oracle view selectors (cast sig)
+# Generated 2026-09-15. Morpho Blue has no separate totalSupplyAssets(bytes32) getters;
+# those four totals are the first four return values of market(bytes32).
+
+position(bytes32,address)	0x93c52062
+market(bytes32)	0x5c60e39a
+idToMarketParams(bytes32)	0x2c3c9157
+isIrmEnabled(address)	0xf2b863ce
+isLltvEnabled(uint256)	0xb485f3b8
+owner()	0x8da5cb5b
+price()	0xa035b1fe
+isMorphoChainlinkOracleV2()	0xce4d5568
+latestRoundData()	0xfeaf968c
+balanceOf(address)	0x70a08231

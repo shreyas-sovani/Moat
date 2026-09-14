@@ -1,3 +1,4 @@
+/** Morpho Blue views used by position sync. Totals live on `market(bytes32)`, not separate getters. */
 export const MORPHO_VIEW_ABI = [
 	{
 		type: "function",

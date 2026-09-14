@@ -22,4 +22,5 @@ TASK 2.2 | PASS 2026-09-14T18:05:00Z | REST client 11 tests: retry, cold_start k
 TASK 2.3 | PASS 2026-09-14T18:05:00Z | smoke create 4nejcqnx21wsfxquxosk0 then delete; rerun same key → same id, not listed (no duplicate)
 TASK 3.1 | PASS 2026-09-14T18:05:00Z | migration 20260914180000_init committed; seed inserts 10 models; grep -c model = 10
 REWORK 1 | AC1/CI | F1 | gh run 34878616724 P1012 DATABASE_URL — Prisma CLI cwd packages/db does not load build2/.env | scripts/run-prisma.ts loadMoatEnv + CI env DATABASE_URL=file:./dev.db
-TASK 3.2 | NOT STARTED | next — viem reads of existing market only
+TASK 3.2 | PASS 2026-09-14T19:50:00Z | viem sync of existing WETH/USDC market; Position borrowShares=31000000000000 collateral=19000000000000000 match V-M1; 10 cast sigs; 57 tests
+TASK 3.3 | NOT STARTED | next — watcher + supervisor, mocked executeWorkflow

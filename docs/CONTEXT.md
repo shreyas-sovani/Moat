@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T18:20:00Z (2.1–2.3 + 3.1 PASS; CI green again).  
+**Last updated:** 2026-09-14T19:50:00Z (3.2 PASS; live Position row matches V-M1 seed shares).  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -48,7 +48,7 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 
 | Task | Status | Notes |
 |---|---|---|
-| 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **54** |
+| 0.1 scaffold | **PASS** | 8 workspaces, biome; **40 tests at gate**, suite now **57** |
 | 0.2 CI | **PASS** | Latest green: [34879998395](https://github.com/shreyas-sovani/Moat/actions/runs/34879998395) (migrate+lint+build+test). First green: [34875987566](https://github.com/shreyas-sovani/Moat/actions/runs/34875987566). [34878616724](https://github.com/shreyas-sovani/Moat/actions/runs/34878616724) failed P1012 (`DATABASE_URL`) — fixed. |
 | 0.3 V-K1 | **PASS** | 488 actions |
 | 0.4 V-K2 | **PASS** | REST mapped; `validate_workflow` MCP-only |
@@ -59,15 +59,16 @@ Hackathon: KeeperHub Agent Economy (DoraHacks), submissions close **2026-09-18**
 | **2.2 REST client** | **PASS** | 11 unit tests. `journal/2.2/` |
 | **2.3 KH smoke** | **PASS** | create `4nejcqnx21wsfxquxosk0` then delete; rerun same key no duplicate. `journal/kh-smoke/` |
 | **3.1 DB** | **PASS** | migration `20260914180000_init` committed; seed + test. `journal/3.1/` |
-| **3.2 position sync** | **NOT STARTED** | Next. Viem reads of the **existing** market only |
-| 3.3–3.5 worker/drill | **NOT STARTED** | Placeholders only |
+| **3.2 position sync** | **PASS** | Mocked viem + live row = seed shares. `journal/3.2/`. `pnpm --filter @moat/worker sync:positions` |
+| **3.3 watcher/supervisor** | **NOT STARTED** | Next. Mocked KH execute counts |
+| 3.4–3.5 plan/drill | **NOT STARTED** | Drill writes through KH |
 | 4.x composer/critic | **NOT STARTED** | Env is **Gemini Flash**, not Anthropic Opus |
 | 5.x UI S2–S8 | **NOT STARTED** | Landing S1 only. No shadcn yet (Task 5.1) |
 | 6.x fallback/breaker | **NOT STARTED** | |
 | 7.x README/video/submit | **NOT STARTED** | Public repo + root README exist; video and DoraHacks form not done |
 | bounty/ | **NOT STARTED** | |
 
-**Next logical block:** **Task 3.2** — viem position sync against the **existing** WETH/USDC market. Then 3.3 → 3.4 → 3.5. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
+**Next logical block:** **Task 3.3** — watcher + execution supervisor (mocked KeeperHub). Then 3.4 → 3.5. Do **not** create another Morpho market. Do **not** start composer/UI until 3.4/3.5 path is unblocked.
 
 ---
 
@@ -150,7 +151,7 @@ KH web3 integration: `nn8bdw0xa4x1rgrg2aztw`
 | **Oracle** | `0x274CC0f59661d3F49aE09231C9B821bc874d0490` (`isMorphoChainlinkOracleV2=true`) |
 | **LLTV** | `915000000000000000` (**91.5%**. `isLltvEnabled(91e16)=false`) |
 
-### Position at seed (2026-09-14T17:34:53Z)
+### Position at seed (2026-09-14T17:34:53Z) — still identical at last viem sync (2026-09-14T19:45:52Z)
 
 `cast call $BLUE "position(bytes32,address)(uint256,uint128,uint128)" $MARKET $GUARDIAN`
 
@@ -159,6 +160,8 @@ KH web3 integration: `nn8bdw0xa4x1rgrg2aztw`
 - collateral = `19000000000000000` (0.019 WETH **assets**, not shares)
 
 `market(bytes32)`: totalSupplyAssets=`50000000` (50 USDC), totalBorrowAssets=`31000000` (31 USDC), fee=0.
+
+Gate 3.2 live upsert stored those share/asset strings on `Position` (`borrowShares`, `collateralShares`=collateral assets) and `Market`. Row id is `{marketId.lower}:{wallet.lower}`. Re-run: `pnpm --filter @moat/worker sync:positions`.
 
 Wallet after seed: ETH `0.061`, USDC `31` (the borrowed amount), WETH `0` (all in Morpho collateral). Operator may send more tokens after 24h.
 
@@ -266,7 +269,7 @@ No `getDirectExecutionStatus` helper yet (seed script raw-fetches `directExecuti
 - PRD LLTV 91% **cannot be created** on this Blue. Market is 91.5%. Documented in V-M1.
 - PRD composer Opus / critic Sonnet → env is **Gemini Flash / Flash-Lite**.
 - Morpho GraphQL `chainId 84532` unsupported — no indexed markets; we created our own.
-- Collateral: Blue `position.collateral` is **assets**. `computePositionRisk` share math is same-unit; oracle-adjust into loan-token units before calling it (see 1.3 live test).
+- Collateral: Blue `position.collateral` is **assets**. Gate 3.2 stores that value in `Position.collateralShares` (PRD field name). `computePositionRisk` share math is same-unit; oracle-adjust into loan-token units before calling it (see 1.3 live test). Sync returns `MorphoPositionRaw` with 1:1 collateral totals.
 - Forbidden-token grep after `next build` hits generated `any` in `.next/types` — sweep **source** after `rm -rf apps/web/.next`.
 
 ---
@@ -276,29 +279,31 @@ No `getDirectExecutionStatus` helper yet (seed script raw-fetches `directExecuti
 | Package | State |
 |---|---|
 | `packages/infra` | Zod `VerifiedSchema` (chainId only `84532`\|`11155111`), loaders, `check-config`, `sync-schemas`, `seed-position` |
-| `packages/risk` | morpho math, position-risk, breach, view ABI fragment |
+| `packages/risk` | morpho math, position-risk, breach, view ABI (`position` / `market` / `idToMarketParams`) |
 | `packages/policy` | Zod policy schema |
 | `packages/kh` | graph builder I1–I6 (KH Condition shape), REST client (11 tests), smoke **PASS** |
 | `packages/db` | Prisma 10 models, migration `20260914180000_init`, `seedMinimal` + `pnpm --filter @moat/db seed` |
 | `packages/agent` | placeholder `export const agentPackage` |
-| `apps/worker` | placeholder idle log |
+| `apps/worker` | **3.2** `syncPositions` + viem reader + `sync:positions` script. `index.ts` still idle until 3.3 |
 | `apps/web` | Next 15 landing S1 only |
 
 Monorepo: pnpm workspaces, turbo `dependsOn: ["^build"]`. Vitest aliases `@moat/*`.
 
 ---
 
-## 9. How to close 3.2 (your job unless blocked)
+## 9. How to close 3.3 (your job unless blocked)
 
-Viem **reads** of the **existing** market in `verified.json` (do not create another). ABI fragment in `packages/risk/src/abi/morpho.ts` — every selector via `cast sig`, paste to `journal/3.2/`. Upsert `Market` + `Position` (bigints as strings). Zero KH writes in this service.
+Watcher tick (30s, `WATCHER_INTERVAL_MS`): every `Policy.status="armed"` → `syncPositions` → `computePositionRisk` / `breachDetected` → on breach create `Run(pending)` and atomically `armed→firing` (conditional UPDATE; skip if another tick already owns it). Fire `executeWorkflow(guard.khWorkflowId, idempotencyKey("run", runId))` via the Task 2.2 client (**mock** the client in tests — 3.3 is not a live KH write). Supervisor: poll status, backoff 2s→30s, cap 15 min. Terminal: succeeded (txHashes + logs + cost + before/after snapshots, policy back to `armed`) / failed (`needs_attention` + alert) / timeout (= failed). Alert every terminal state. Heartbeat per tick.
 
-Gate: mocked viem unit test; live `Position` row vs Task 0.5 journal numbers; selector evidence ≥6 signatures.
+Reuse 3.2 `syncPositions`. Oracle-adjust collateral into loan units before `computePositionRisk` (1.3 live test / `verified.json.morpho.collateralAccounting`). Do not wrap ETH. Do not fire unless `status==="armed"`.
 
-Then 3.3 watcher/supervisor (mocked executeWorkflow counts), 3.4 arm default plan (`enabled: true` on KH), 3.5 drill via `withdrawCollateral` through KH (`simulate: true` first). Do not wrap more ETH.
+Gate: AC1 two concurrent ticks → 1 `Run` + 1 mocked `executeWorkflow`; AC2 running→completed persists txHashes+logs; AC3 never-terminal → 15-min cap → failed+alert; AC4 failed execution → `needs_attention`+alert; AC5 after success, next breach fires again.
+
+Then 3.4 arm default plan (`enabled: true` on KH), 3.5 drill via `withdrawCollateral` through KH (`simulate: true` first).
 
 ---
 
-## 10. After 3.2–3.5
+## 10. After 3.3–3.5
 
 4.x: Gemini Flash, not Anthropic.  
 5.x: shadcn at 5.1; verify UI in a browser.  
