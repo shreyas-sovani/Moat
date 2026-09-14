@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
 	type ActionSchemasFile,
@@ -23,17 +23,22 @@ function findRepoRoot(startDir: string): string {
 	return process.cwd();
 }
 
+function resolveRepoPath(fromEnv: string | undefined, fallbackRelative: string): string {
+	if (fromEnv && fromEnv.length > 0) {
+		return isAbsolute(fromEnv) ? fromEnv : resolve(REPO_ROOT, fromEnv);
+	}
+	return join(REPO_ROOT, fallbackRelative);
+}
+
 const here = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = findRepoRoot(here);
 
 export function verifiedJsonPath(): string {
-	return resolve(process.env.VERIFIED_JSON_PATH ?? join(REPO_ROOT, "config", "verified.json"));
+	return resolveRepoPath(process.env.VERIFIED_JSON_PATH, join("config", "verified.json"));
 }
 
 export function actionSchemasPath(): string {
-	return resolve(
-		process.env.ACTION_SCHEMAS_PATH ?? join(REPO_ROOT, "config", "action-schemas.json"),
-	);
+	return resolveRepoPath(process.env.ACTION_SCHEMAS_PATH, join("config", "action-schemas.json"));
 }
 
 export function loadVerified(path = verifiedJsonPath()): Verified {
