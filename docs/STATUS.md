@@ -7,7 +7,8 @@
 ## What is done
 
 - Phase 0 live verification written to `build2/config/verified.json` (RPC, Morpho Blue, IRM, oracle factory, USDC, WETH, Chainlink ETH/USD + BTC/USD, KH wallet + REST map, 488 action schemas).
-- Task **0.1 scaffold PASS**: pnpm+turbo monorepo, 8 workspaces, `pnpm install && pnpm build && pnpm test && pnpm lint` green (40 tests). Landing page compiles (`/` static).
+- Task **0.1 scaffold PASS**: pnpm+turbo monorepo, 8 workspaces, 40 tests, lint green after `next build`. Landing `/` serves S1 copy.
+- Task 0.2 CI YAML committed (`chore: add ci`); **AC1 blocked** until Docker/`act` or a GitHub remote exists.
 - Packages already implemented ahead of their phase gates (evidence still being closed): `@moat/infra` config, `@moat/risk` math, `@moat/policy` schema, `@moat/kh` graph+REST client, Prisma schema (10 models), Next landing S1 copy.
 
 ## What is not done
@@ -33,4 +34,4 @@
 
 ## Next logical division
 
-Task 0.2 — commit `chore: add ci`, prove lint→build→test workflow (local `act` if present, else note remote `gh run` unavailable until first push).
+Close Task 0.3 / 0.4 evidence gates from the live dumps already on disk. Tasks 0.5–0.6 stay blocked on faucets + KH Telegram.

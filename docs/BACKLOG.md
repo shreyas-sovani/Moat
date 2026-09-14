@@ -119,9 +119,11 @@ grep -rnE "0x[0-9a-fA-F]{40}" apps packages --include="*.ts" --include="*.tsx" \
 **Do NOT:** cache shortcuts that skip install; matrix builds; deploy steps.
 
 **Gate 0.2:**
-- AC1: `act push` (or a real `gh run` if remote exists) → job exits 0. [evidence: run log tail]
-- AC2: workflow YAML contains exactly the three commands in order lint→build→test. [evidence: `grep -n "run:" .github/workflows/ci.yml`]
-- AC3: commit `chore: add ci` exists.
+- [ ] AC1: `act push` (or a real `gh run` if remote exists) → job exits 0. **BLOCKED 2026-09-14:** `act` missing, Docker unavailable, no git remote. [evidence: `build2/docs/journal/0.2/ac1-act.txt`]
+- [x] AC2: workflow YAML contains exactly the three commands in order lint→build→test. [evidence: `build2/docs/journal/0.2/ac2-grep.txt`]
+- [x] AC3: commit `chore: add ci` exists.
+
+**Status:** FAIL/BLOCKED on AC1. Workflow is in `.github/workflows/ci.yml` (`working-directory: build2`). Nested copy `build2/.github/workflows/ci.yml` is for if `build2/` is published as its own repo root.
 
 ---
 

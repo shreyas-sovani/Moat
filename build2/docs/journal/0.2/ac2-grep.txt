@@ -1,0 +1,5 @@
+11:      run:
+24:        run: |
+28:        run: pnpm lint
+30:        run: pnpm build
+32:        run: pnpm test

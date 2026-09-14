@@ -33,6 +33,11 @@ Escalate here after 2 failed rework cycles, or immediately when a verification s
 
 - `kh chain list` is not installed. Chain catalog was proven via `GET /api/chains` (200). Recorded in `journal/vk1/kh-chain-list.md`.
 
-## CLOSED
+### B-006 | Task 0.2 AC1 | no act / Docker / remote
+
+- Tried: `which act` → not found. `docker info` → unavailable. `git remote -v` → empty. `gh run` needs a GitHub remote.
+- Blocker: cannot produce an Actions run log from this machine.
+- Decision needed: install Docker + `act`, or create a GitHub remote and push (not done unless asked). Local `pnpm lint && pnpm build && pnpm test` already green.
+- YAML is committed so the first real push will exercise AC1.
 
 (none yet)
