@@ -31,7 +31,7 @@ See CONTEXT.md §5. Market `0x8cf9d4da91299e76e501b0e5d28aaa2009e4b42f20992b3433
 
 ## Next
 
-**Phase 2.1 journal close-out → 2.2 tests≥8 → 2.3 live smoke.** Then 3.1 migrations. Always update CONTEXT.md.
+**Phase 2.1 journal close-out → 2.2 tests≥8 → 2.3 live smoke.** Then 3.1 migrations. Always rewrite live docs to current status; after the assigned block is done, delete leftover handoff/pickup files. Nothing stale may remain.
 
 ## Bite list (short)
 

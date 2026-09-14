@@ -27,4 +27,4 @@
 3. **Task 2.3** — fix smoke (local `validateGraphJson`, real telegram integration, list shape), run `pnpm --filter @moat/kh smoke` twice, journal `kh-smoke/`.
 4. If 2.3 PASS: **Task 3.1** Prisma migrations committed.
 
-After every gate: update CONTEXT.md. Stale docs are a defect.
+After every gate: rewrite CONTEXT/STATUS/HANDOFF/PROGRESS/BLOCKED to **current** status. After the whole assigned block is PASS: delete prior-agent handoff/pickup files and any other doc that would mislead the next agent. Keep journals + `verified.json`. Stale docs are a defect.

@@ -2,7 +2,7 @@
 
 **If you are a new agent, read this file first, then follow the read order below. Do not reconstruct history from chat. Do not invent addresses, market ids, REST paths, or action types.**
 
-**Last updated:** 2026-09-14T17:50:00Z (after T1 seed + first green CI on `main`).  
+**Last updated:** 2026-09-14T17:50:00Z (T1 seed + CI). Hygiene protocol added 2026-09-14T17:50Z+.  
 **Maintainer rule:** every session that changes product state, onchain state, env, KH behavior, or gate status MUST update this file, `docs/STATUS.md`, `docs/HANDOFF.md`, `build2/docs/journal/PROGRESS.md`, and `build2/docs/journal/BLOCKED.md` before finishing. Stale docs are a defect.
 
 ---
@@ -333,9 +333,19 @@ Before you claim a task complete:
 2. `journal/<task-id>/` evidence files.
 3. `STATUS.md` dashboard.
 4. **This file** (`CONTEXT.md`) — especially live balances, caps, new endpoints, new gotchas.
-5. `HANDOFF.md` next-block list.
+5. `HANDOFF.md` next-block list (rewrite to the *new* next block; do not append a second handoff).
 6. `BLOCKED.md` open/closed.
 7. `verified.json` if any constant changed, then `pnpm --filter @moat/infra check:config`.
 8. Commit. Push `main` if the operator already authorized (they did for this repo).
 
 If you learned a KH/Morpho fact the hard way (encoding, caps, 405s), it belongs **here**, not only in chat.
+
+### End-of-block hygiene (after the assigned block is fully done)
+
+When the work you were given is gated PASS end-to-end:
+
+1. Rewrite every *live* doc so it describes **now** only: done / next / blocked. Present tense. No leftover "next is 2.1" if 2.3 just passed.
+2. **Delete** prior-agent pickup/handoff artifacts and any other file that would mislead the next agent: extra `HANDOFF*` copies, `SESSION*` / `PICKUP*` / agent-prompt notes, dated status duplicates, journal extracts that contradict live CONTEXT.
+3. Do **not** delete gate journals (`build2/docs/journal/<task>/`), `verified.json`, PRD, backlog, or skill files. Keep one `docs/HANDOFF.md` and rewrite it; do not leave two handoffs.
+4. Grep the repo for stale gate claims (e.g. "2.1 NOT GATED" after 2.1 PASS). Fix or delete until nothing contradicts CONTEXT.
+5. Two files that disagree on gate status is a defect. Stale docs are a defect.

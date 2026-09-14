@@ -2,7 +2,7 @@
 
 This file is read by Claude Code automatically. It provides project-specific context and rules.
 
-**Moat live state (read first):** `docs/CONTEXT.md`. Dashboard: `docs/STATUS.md`. Pickup: `docs/HANDOFF.md`. Network of record is Base Sepolia `"84532"` — **not** `"8453"`. Composer env is Gemini Flash, not Anthropic. Do not invent Morpho market ids.
+**Moat live state (read first):** `docs/CONTEXT.md`. Dashboard: `docs/STATUS.md`. Pickup: `docs/HANDOFF.md`. After a finished block: rewrite those to current status and delete leftover handoff/pickup files — nothing stale. Network of record is Base Sepolia `"84532"` — **not** `"8453"`. Composer env is Gemini Flash, not Anthropic. Do not invent Morpho market ids.
 
 ## Project Context
 
